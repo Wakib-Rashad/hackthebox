@@ -1,0 +1,35 @@
+# nmap -sS -sV -Pn -n 10.10.10.74 -T4 -vv -p-
+
+Starting Nmap 7.60 ( https://nmap.org ) at 2018-05-01 21:50 CEST
+NSE: Loaded 43 scripts for scanning.
+Initiating SYN Stealth Scan at 21:50
+Scanning 10.10.10.74 [65535 ports]
+Stats: 0:00:07 elapsed; 0 hosts completed (1 up), 1 undergoing SYN Stealth Scan
+SYN Stealth Scan Timing: About 0.09% done
+SYN Stealth Scan Timing: About 0.54% done
+Discovered open port 9255/tcp on 10.10.10.74
+Discovered open port 9256/tcp on 10.10.10.74
+Completed SYN Stealth Scan at 22:43, 3205.97s elapsed (65535 total ports)
+Initiating Service scan at 22:43
+Scanning 2 services on 10.10.10.74
+Completed Service scan at 22:43, 6.43s elapsed (2 services on 1 host)
+NSE: Script scanning 10.10.10.74.
+NSE: Starting runlevel 1 (of 2) scan.
+Initiating NSE at 22:43
+Completed NSE at 22:43, 0.66s elapsed
+NSE: Starting runlevel 2 (of 2) scan.
+Initiating NSE at 22:43
+Completed NSE at 22:43, 0.00s elapsed
+Nmap scan report for 10.10.10.74
+Host is up, received user-set (0.42s latency).
+Scanned at 2018-05-01 21:50:18 CEST for 3213s
+Not shown: 65533 filtered ports
+Reason: 65533 no-responses
+PORT     STATE SERVICE REASON          VERSION
+9255/tcp open  http    syn-ack ttl 128 AChat chat system httpd
+9256/tcp open  achat   syn-ack ttl 128 AChat chat system
+
+Read data files from: /usr/bin/../share/nmap
+Service detection performed. Please report any incorrect results at https://nmap.org/submit/ .
+Nmap done: 1 IP address (1 host up) scanned in 3213.77 seconds
+           Raw packets sent: 132367 (5.824MB) | Rcvd: 127442 (5.107MB)
