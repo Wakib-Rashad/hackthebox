@@ -1,0 +1,2444 @@
+=================================================================================================
+LINUX PRIVILEGE ESCALATION CHECKER
+=================================================================================================
+
+[*] GETTING BASIC SYSTEM INFO...
+
+[+] Kernel
+    Linux version 3.2.0-23-generic (buildd@crested) (gcc version 4.6.3 (Ubuntu/Linaro 4.6.3-1ubuntu4) ) #36-Ubuntu SMP Tue Apr 10 20:39:51 UTC 2012
+
+[+] Hostname
+    Valentine
+
+[+] Operating System
+    Ubuntu 12.04 LTS \n \l
+
+[*] GETTING NETWORKING INFO...
+
+[+] Interfaces
+    eth0      Link encap:Ethernet  HWaddr 00:50:56:b9:0f:f5
+    inet addr:10.10.10.79  Bcast:10.10.10.255  Mask:255.255.255.0
+    inet6 addr: dead:beef::250:56ff:feb9:ff5/64 Scope:Global
+    inet6 addr: fe80::250:56ff:feb9:ff5/64 Scope:Link
+    inet6 addr: dead:beef::c3a:6e12:4cc3:f452/64 Scope:Global
+    UP BROADCAST RUNNING MULTICAST  MTU:1500  Metric:1
+    RX packets:311 errors:0 dropped:0 overruns:0 frame:0
+    TX packets:314 errors:0 dropped:0 overruns:0 carrier:0
+    collisions:0 txqueuelen:1000
+    RX bytes:58424 (58.4 KB)  TX bytes:47541 (47.5 KB)
+    lo        Link encap:Local Loopback
+    inet addr:127.0.0.1  Mask:255.0.0.0
+    inet6 addr: ::1/128 Scope:Host
+    UP LOOPBACK RUNNING  MTU:16436  Metric:1
+    RX packets:15 errors:0 dropped:0 overruns:0 frame:0
+    TX packets:15 errors:0 dropped:0 overruns:0 carrier:0
+    collisions:0 txqueuelen:0
+    RX bytes:3845 (3.8 KB)  TX bytes:3845 (3.8 KB)
+
+[+] Netstat
+    Active Internet connections (servers and established)
+    Proto Recv-Q Send-Q Local Address           Foreign Address         State       PID/Program name
+    tcp        0      0 0.0.0.0:22              0.0.0.0:*               LISTEN      -
+    tcp        0      0 127.0.0.1:631           0.0.0.0:*               LISTEN      -
+    tcp        0      0 10.10.10.79:22          10.10.15.153:34056      ESTABLISHED -
+    tcp        0   1608 10.10.10.79:22          10.10.14.226:43444      ESTABLISHED -
+    tcp6       0      0 :::80                   :::*                    LISTEN      -
+    tcp6       0      0 :::22                   :::*                    LISTEN      -
+    tcp6       0      0 ::1:631                 :::*                    LISTEN      -
+    tcp6       0      0 :::443                  :::*                    LISTEN      -
+    udp        0      0 0.0.0.0:46734           0.0.0.0:*                           -
+    udp        0      0 0.0.0.0:5353            0.0.0.0:*                           -
+    udp6       0      0 :::48221                :::*                                -
+    udp6       0      0 :::5353                 :::*                                -
+
+[+] Route
+    Kernel IP routing table
+    Destination     Gateway         Genmask         Flags Metric Ref    Use Iface
+    default         10.10.10.2      0.0.0.0         UG    100    0        0 eth0
+    10.10.10.0      *               255.255.255.0   U     0      0        0 eth0
+    link-local      *               255.255.0.0     U     1000   0        0 eth0
+
+[*] GETTING FILESYSTEM INFO...
+
+[+] Mount results
+    /dev/sda1 on / type ext4 (rw,errors=remount-ro)
+    proc on /proc type proc (rw,noexec,nosuid,nodev)
+    sysfs on /sys type sysfs (rw,noexec,nosuid,nodev)
+    none on /sys/fs/fuse/connections type fusectl (rw)
+    none on /sys/kernel/debug type debugfs (rw)
+    none on /sys/kernel/security type securityfs (rw)
+    udev on /dev type devtmpfs (rw,mode=0755)
+    devpts on /dev/pts type devpts (rw,noexec,nosuid,gid=5,mode=0620)
+    tmpfs on /run type tmpfs (rw,noexec,nosuid,size=10%,mode=0755)
+    none on /run/lock type tmpfs (rw,noexec,nosuid,nodev,size=5242880)
+    none on /run/shm type tmpfs (rw,nosuid,nodev)
+
+[+] fstab entries
+    # /etc/fstab: static file system information.
+    #
+    # Use 'blkid' to print the universally unique identifier for a
+    # device; this may be used with UUID= as a more robust way to name devices
+    # that works even if disks are added and removed. See fstab(5).
+    #
+    # <file system> <mount point>   <type>  <options>       <dump>  <pass>
+    proc            /proc           proc    nodev,noexec,nosuid 0       0
+    # / was on /dev/sda1 during installation
+    UUID=95d83c75-2be1-4714-bd77-fed615f4b5d9 /               ext4    errors=remount-ro 0       1
+    # swap was on /dev/sda5 during installation
+    UUID=3281446a-d6dc-4ffa-b85a-1e852a310dd7 none            swap    sw              0       0
+    /dev/fd0        /media/floppy0  auto    rw,user,noauto,exec,utf8 0       0
+
+[+] Scheduled cron jobs
+    -rw-r--r-- 1 root root  722 Apr  2  2012 /etc/crontab
+    /etc/cron.d:
+    total 28
+    drwxr-xr-x   2 root root  4096 Dec 11  2017 .
+    drwxr-xr-x 132 root root 12288 Jun 25 15:47 ..
+    -rw-r--r--   1 root root   288 Jun 20  2010 anacron
+    -rw-r--r--   1 root root   544 Feb 13  2017 php5
+    -rw-r--r--   1 root root   102 Apr  2  2012 .placeholder
+    /etc/cron.daily:
+    total 84
+    drwxr-xr-x   2 root root  4096 Dec 11  2017 .
+    drwxr-xr-x 132 root root 12288 Jun 25 15:47 ..
+    -rwxr-xr-x   1 root root   311 Jun 20  2010 0anacron
+    -rwxr-xr-x   1 root root   633 Jul 15  2016 apache2
+    -rwxr-xr-x   1 root root   219 Apr 10  2012 apport
+    -rwxr-xr-x   1 root root 15399 Apr 20  2012 apt
+    -rwxr-xr-x   1 root root   502 Mar 31  2012 bsdmainutils
+    -rwxr-xr-x   1 root root   256 Apr 12  2012 dpkg
+    -rwxr-xr-x   1 root root   372 Oct  4  2011 logrotate
+    -rwxr-xr-x   1 root root  1365 Mar 31  2012 man-db
+    -rwxr-xr-x   1 root root   606 Aug 17  2011 mlocate
+    -rwxr-xr-x   1 root root   249 Apr  8  2012 passwd
+    -rw-r--r--   1 root root   102 Apr  2  2012 .placeholder
+    -rwxr-xr-x   1 root root  2417 Jul  1  2011 popularity-contest
+    -rwxr-xr-x   1 root root  2947 Apr  2  2012 standard
+    -rwxr-xr-x   1 root root   214 Apr 19  2012 update-notifier-common
+    /etc/cron.hourly:
+    total 20
+    drwxr-xr-x   2 root root  4096 Apr 25  2012 .
+    drwxr-xr-x 132 root root 12288 Jun 25 15:47 ..
+    -rw-r--r--   1 root root   102 Apr  2  2012 .placeholder
+    /etc/cron.monthly:
+    total 24
+    drwxr-xr-x   2 root root  4096 Apr 25  2012 .
+    drwxr-xr-x 132 root root 12288 Jun 25 15:47 ..
+    -rwxr-xr-x   1 root root   313 Jun 20  2010 0anacron
+    -rw-r--r--   1 root root   102 Apr  2  2012 .placeholder
+    /etc/cron.weekly:
+    total 32
+    drwxr-xr-x   2 root root  4096 Apr 25  2012 .
+    drwxr-xr-x 132 root root 12288 Jun 25 15:47 ..
+    -rwxr-xr-x   1 root root   312 Jun 20  2010 0anacron
+    -rwxr-xr-x   1 root root   730 Dec 30  2011 apt-xapian-index
+    -rwxr-xr-x   1 root root   907 Mar 31  2012 man-db
+    -rw-r--r--   1 root root   102 Apr  2  2012 .placeholder
+
+[+] Writable cron dirs
+
+
+[*] ENUMERATING USER AND ENVIRONMENTAL INFO...
+
+[+] Logged in User Activity
+    15:49:45 up 2 min,  1 user,  load average: 0.35, 0.32, 0.14
+    USER     TTY      FROM              LOGIN@   IDLE   JCPU   PCPU WHAT
+    hype     pts/1    10.10.14.226     15:47   16.00s  0.56s  0.00s /bin/sh -c w 2>
+
+[+] Super Users Found:
+    root
+
+[+] Environment
+    LESSOPEN=| /usr/bin/lesspipe %s
+    MAIL=/var/mail/hype
+    SSH_CLIENT=10.10.14.226 43444 22
+    USER=hype
+    SHLVL=1
+    HOME=/home/hype
+    OLDPWD=/tmp
+    XDG_SESSION_COOKIE=c9052f1b76300a5447f46cc700000004-1529966870.932123-1423603975
+    SSH_TTY=/dev/pts/1
+    LOGNAME=hype
+    _=/usr/bin/python
+    TERM=xterm-256color
+    PATH=/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin:/usr/games
+    LANG=en_US.UTF-8
+    SHELL=/bin/bash
+    LESSCLOSE=/usr/bin/lesspipe %s %s
+    PWD=/var/tmp
+    SSH_CONNECTION=10.10.14.226 43444 10.10.10.79 22
+
+[+] Root and current user history (depends on privs)
+    -rw------- 1 hype hype 131 Feb 16 14:21 /home/hype/.bash_history
+
+[+] Sudoers (privileged)
+
+[+] All users
+    root:x:0:0:root:/root:/bin/bash
+    daemon:x:1:1:daemon:/usr/sbin:/bin/sh
+    bin:x:2:2:bin:/bin:/bin/sh
+    sys:x:3:3:sys:/dev:/bin/sh
+    sync:x:4:65534:sync:/bin:/bin/sync
+    games:x:5:60:games:/usr/games:/bin/sh
+    man:x:6:12:man:/var/cache/man:/bin/sh
+    lp:x:7:7:lp:/var/spool/lpd:/bin/sh
+    mail:x:8:8:mail:/var/mail:/bin/sh
+    news:x:9:9:news:/var/spool/news:/bin/sh
+    uucp:x:10:10:uucp:/var/spool/uucp:/bin/sh
+    proxy:x:13:13:proxy:/bin:/bin/sh
+    www-data:x:33:33:www-data:/var/www:/bin/sh
+    backup:x:34:34:backup:/var/backups:/bin/sh
+    list:x:38:38:Mailing List Manager:/var/list:/bin/sh
+    irc:x:39:39:ircd:/var/run/ircd:/bin/sh
+    gnats:x:41:41:Gnats Bug-Reporting System (admin):/var/lib/gnats:/bin/sh
+    nobody:x:65534:65534:nobody:/nonexistent:/bin/sh
+    libuuid:x:100:101::/var/lib/libuuid:/bin/sh
+    syslog:x:101:103::/home/syslog:/bin/false
+    messagebus:x:102:105::/var/run/dbus:/bin/false
+    colord:x:103:108:colord colour management daemon,,,:/var/lib/colord:/bin/false
+    lightdm:x:104:111:Light Display Manager:/var/lib/lightdm:/bin/false
+    whoopsie:x:105:114::/nonexistent:/bin/false
+    avahi-autoipd:x:106:117:Avahi autoip daemon,,,:/var/lib/avahi-autoipd:/bin/false
+    avahi:x:107:118:Avahi mDNS daemon,,,:/var/run/avahi-daemon:/bin/false
+    usbmux:x:108:46:usbmux daemon,,,:/home/usbmux:/bin/false
+    kernoops:x:109:65534:Kernel Oops Tracking Daemon,,,:/:/bin/false
+    pulse:x:110:119:PulseAudio daemon,,,:/var/run/pulse:/bin/false
+    rtkit:x:111:122:RealtimeKit,,,:/proc:/bin/false
+    speech-dispatcher:x:112:29:Speech Dispatcher,,,:/var/run/speech-dispatcher:/bin/sh
+    hplip:x:113:7:HPLIP system user,,,:/var/run/hplip:/bin/false
+    saned:x:114:123::/home/saned:/bin/false
+    hype:x:1000:1000:Hemorrhage,,,:/home/hype:/bin/bash
+    sshd:x:115:65534::/var/run/sshd:/usr/sbin/nologin
+
+[+] Current User
+    hype
+
+[+] Current User ID
+    uid=1000(hype) gid=1000(hype) groups=1000(hype),24(cdrom),30(dip),46(plugdev),124(sambashare)
+
+[*] ENUMERATING FILE AND DIRECTORY PERMISSIONS/CONTENTS...
+
+[+] World Writeable Directories for User/Group 'Root'
+    drwxrwxrwt 2 root root 40 Jun 25 15:47 /run/shm
+    drwxrwxrwt 5 root root 100 Jun 25 15:48 /run/lock
+    drwx-wx-wt 2 root root 4096 Dec 12  2017 /var/lib/php5
+    drwxrwxrwt 2 root root 4096 Jun 25 15:49 /var/tmp
+    drwxrwsrwt 2 root whoopsie 4096 Feb  8 07:35 /var/crash
+    drwxrwxrwt 5 root root 4096 Jun 25 15:48 /tmp
+    drwxrwxrwt 2 root root 4096 Jun 25 15:47 /tmp/.ICE-unix
+    drwxrwxrwt 2 root root 4096 Jun 25 15:47 /tmp/.X11-unix
+
+[+] World Writeable Directories for Users other than Root
+
+[+] World Writable Files
+
+[+] Checking if root's home folder is accessible
+
+[+] SUID/SGID Files and Directories
+    drwxrwsr-x 2 root mail 4096 Apr 25  2012 /var/mail
+    drwxrwsr-x 2 libuuid libuuid 4096 Apr 25  2012 /var/lib/libuuid
+    drwxrwsrwt 2 root whoopsie 4096 Feb  8 07:35 /var/crash
+    drwxrwsr-x 2 root staff 4096 Apr 19  2012 /var/local
+    drwxr-sr-x 82 man root 4096 Feb 16 14:40 /var/cache/man
+    drwxr-sr-x 3 man root 4096 Feb 16 14:40 /var/cache/man/uk
+    drwxr-sr-x 2 man root 4096 Apr 25  2012 /var/cache/man/uk/cat1
+    drwxr-sr-x 3 man root 4096 Feb 16 14:40 /var/cache/man/ku
+    drwxr-sr-x 2 man root 4096 Apr 25  2012 /var/cache/man/ku/cat1
+    drwxr-sr-x 4 man root 4096 Feb 16 14:40 /var/cache/man/fr.UTF-8
+    drwxr-sr-x 2 man root 4096 Apr 25  2012 /var/cache/man/fr.UTF-8/cat8
+    drwxr-sr-x 2 man root 4096 Apr 25  2012 /var/cache/man/fr.UTF-8/cat7
+    drwxr-sr-x 5 man root 4096 Feb 16 14:40 /var/cache/man/pt_BR
+    drwxr-sr-x 2 man root 4096 Apr 25  2012 /var/cache/man/pt_BR/cat1
+    drwxr-sr-x 2 man root 4096 Apr 25  2012 /var/cache/man/pt_BR/cat5
+    drwxr-sr-x 2 man root 4096 Apr 25  2012 /var/cache/man/pt_BR/cat8
+    drwxr-sr-x 3 man root 4096 Feb 16 14:40 /var/cache/man/en_GB
+    drwxr-sr-x 2 man root 4096 Apr 25  2012 /var/cache/man/en_GB/cat1
+    drwxr-sr-x 5 man root 4096 Feb 16 14:40 /var/cache/man/pt
+    drwxr-sr-x 2 man root 4096 Apr 25  2012 /var/cache/man/pt/cat1
+    drwxr-sr-x 2 man root 4096 Apr 25  2012 /var/cache/man/pt/cat5
+    drwxr-sr-x 2 man root 4096 Apr 25  2012 /var/cache/man/pt/cat8
+    drwxr-sr-x 3 man root 4096 Feb 16 14:40 /var/cache/man/eu
+    drwxr-sr-x 2 man root 4096 Apr 25  2012 /var/cache/man/eu/cat1
+    drwxr-sr-x 3 man root 4096 Feb 16 14:40 /var/cache/man/pa
+    drwxr-sr-x 2 man root 4096 Apr 25  2012 /var/cache/man/pa/cat1
+    drwxr-sr-x 3 man root 4096 Feb 16 14:40 /var/cache/man/sr
+    drwxr-sr-x 2 man root 4096 Apr 25  2012 /var/cache/man/sr/cat1
+    drwxr-sr-x 5 man root 4096 Feb 16 14:40 /var/cache/man/zh_CN
+    drwxr-sr-x 2 man root 4096 Apr 25  2012 /var/cache/man/zh_CN/cat1
+    drwxr-sr-x 2 man root 4096 Apr 25  2012 /var/cache/man/zh_CN/cat5
+    drwxr-sr-x 2 man root 4096 Apr 25  2012 /var/cache/man/zh_CN/cat8
+    drwxr-sr-x 2 man root 4096 Apr 25  2012 /var/cache/man/cat1
+    drwxr-sr-x 3 man root 4096 Feb 16 14:40 /var/cache/man/nn
+    drwxr-sr-x 2 man root 4096 Apr 25  2012 /var/cache/man/nn/cat1
+    drwxr-sr-x 6 man root 4096 Feb 16 14:40 /var/cache/man/de
+    drwxr-sr-x 2 man root 4096 Apr 25  2012 /var/cache/man/de/cat1
+    drwxr-sr-x 2 man root 4096 Apr 25  2012 /var/cache/man/de/cat5
+    drwxr-sr-x 2 man root 4096 Apr 25  2012 /var/cache/man/de/cat8
+    drwxr-sr-x 2 man root 4096 Apr 25  2012 /var/cache/man/de/cat7
+    drwxr-sr-x 3 man root 4096 Feb 16 14:40 /var/cache/man/bs
+    drwxr-sr-x 2 man root 4096 Apr 25  2012 /var/cache/man/bs/cat1
+    drwxr-sr-x 3 man root 4096 Feb 16 14:40 /var/cache/man/io
+    drwxr-sr-x 2 man root 4096 Apr 25  2012 /var/cache/man/io/cat1
+    drwxr-sr-x 3 man root 4096 Feb 16 14:40 /var/cache/man/uz
+    drwxr-sr-x 2 man root 4096 Apr 25  2012 /var/cache/man/uz/cat1
+    drwxr-sr-x 3 man root 4096 Feb 16 14:40 /var/cache/man/hr
+    drwxr-sr-x 2 man root 4096 Apr 25  2012 /var/cache/man/hr/cat1
+    drwxr-sr-x 3 man root 4096 Feb 16 14:40 /var/cache/man/ml
+    drwxr-sr-x 2 man root 4096 Apr 25  2012 /var/cache/man/ml/cat1
+    drwxr-sr-x 5 man root 4096 Feb 16 14:40 /var/cache/man/ru
+    drwxr-sr-x 2 man root 4096 Apr 25  2012 /var/cache/man/ru/cat1
+    drwxr-sr-x 2 man root 4096 Apr 25  2012 /var/cache/man/ru/cat5
+    drwxr-sr-x 2 man root 4096 Apr 25  2012 /var/cache/man/ru/cat8
+    drwxr-sr-x 3 man root 4096 Feb 16 14:40 /var/cache/man/en_AU
+    drwxr-sr-x 2 man root 4096 Apr 25  2012 /var/cache/man/en_AU/cat1
+    drwxr-sr-x 3 man root 4096 Feb 16 14:40 /var/cache/man/hi
+    drwxr-sr-x 2 man root 4096 Apr 25  2012 /var/cache/man/hi/cat1
+    drwxr-sr-x 3 man root 4096 Feb 16 14:40 /var/cache/man/el
+    drwxr-sr-x 2 man root 4096 Apr 25  2012 /var/cache/man/el/cat1
+    drwxr-sr-x 5 man root 4096 Feb 16 14:40 /var/cache/man/id
+    drwxr-sr-x 2 man root 4096 Apr 25  2012 /var/cache/man/id/cat1
+    drwxr-sr-x 2 man root 4096 Apr 25  2012 /var/cache/man/id/cat5
+    drwxr-sr-x 2 man root 4096 Apr 25  2012 /var/cache/man/id/cat8
+    drwxr-sr-x 4 man root 4096 Feb 16 14:40 /var/cache/man/fr.ISO8859-1
+    drwxr-sr-x 2 man root 4096 Apr 25  2012 /var/cache/man/fr.ISO8859-1/cat8
+    drwxr-sr-x 2 man root 4096 Apr 25  2012 /var/cache/man/fr.ISO8859-1/cat7
+    drwxr-sr-x 2 man root 4096 Apr 25  2012 /var/cache/man/cat5
+    drwxr-sr-x 3 man root 4096 Feb 16 14:40 /var/cache/man/da
+    drwxr-sr-x 2 man root 4096 Apr 25  2012 /var/cache/man/da/cat1
+    drwxr-sr-x 2 man root 4096 Apr 25  2012 /var/cache/man/cat8
+    drwxr-sr-x 3 man root 4096 Feb 16 14:40 /var/cache/man/ta
+    drwxr-sr-x 2 man root 4096 Apr 25  2012 /var/cache/man/ta/cat1
+    drwxr-sr-x 3 man root 4096 Feb 16 14:40 /var/cache/man/nb
+    drwxr-sr-x 2 man root 4096 Apr 25  2012 /var/cache/man/nb/cat1
+    drwxr-sr-x 3 man root 4096 Feb 16 14:40 /var/cache/man/ps
+    drwxr-sr-x 2 man root 4096 Apr 25  2012 /var/cache/man/ps/cat1
+    drwxr-sr-x 3 man root 4096 Feb 16 14:40 /var/cache/man/ar
+    drwxr-sr-x 2 man root 4096 Apr 25  2012 /var/cache/man/ar/cat1
+    drwxr-sr-x 4 man root 4096 Feb 16 14:40 /var/cache/man/sl
+    drwxr-sr-x 2 man root 4096 Apr 25  2012 /var/cache/man/sl/cat1
+    drwxr-sr-x 2 man root 4096 Apr 25  2012 /var/cache/man/sl/cat8
+    drwxr-sr-x 5 man root 4096 Feb 16 14:40 /var/cache/man/ko
+    drwxr-sr-x 2 man root 4096 Apr 25  2012 /var/cache/man/ko/cat1
+    drwxr-sr-x 2 man root 4096 Apr 25  2012 /var/cache/man/ko/cat5
+    drwxr-sr-x 2 man root 4096 Apr 25  2012 /var/cache/man/ko/cat8
+    drwxr-sr-x 3 man root 4096 Feb 16 14:40 /var/cache/man/ca@valencia
+    drwxr-sr-x 2 man root 4096 Apr 25  2012 /var/cache/man/ca@valencia/cat1
+    drwxr-sr-x 5 man root 4096 Feb 16 14:40 /var/cache/man/ja
+    drwxr-sr-x 2 man root 4096 Apr 25  2012 /var/cache/man/ja/cat1
+    drwxr-sr-x 2 man root 4096 Apr 25  2012 /var/cache/man/ja/cat5
+    drwxr-sr-x 2 man root 4096 Apr 25  2012 /var/cache/man/ja/cat8
+    drwxr-sr-x 3 man root 4096 Feb 16 14:40 /var/cache/man/ms
+    drwxr-sr-x 2 man root 4096 Apr 25  2012 /var/cache/man/ms/cat1
+    drwxr-sr-x 3 man root 4096 Feb 16 14:40 /var/cache/man/he
+    drwxr-sr-x 2 man root 4096 Apr 25  2012 /var/cache/man/he/cat1
+    drwxr-sr-x 3 man root 4096 Feb 16 14:40 /var/cache/man/sq
+    drwxr-sr-x 2 man root 4096 Apr 25  2012 /var/cache/man/sq/cat1
+    drwxr-sr-x 6 man root 4096 Feb 16 14:40 /var/cache/man/cs
+    drwxr-sr-x 2 man root 4096 Apr 25  2012 /var/cache/man/cs/cat1
+    drwxr-sr-x 2 man root 4096 Apr 25  2012 /var/cache/man/cs/cat5
+    drwxr-sr-x 2 man root 4096 Apr 25  2012 /var/cache/man/cs/cat8
+    drwxr-sr-x 2 man root 4096 Apr 25  2012 /var/cache/man/cs/cat7
+    drwxr-sr-x 5 man root 4096 Feb 16 14:40 /var/cache/man/sv
+    drwxr-sr-x 2 man root 4096 Apr 25  2012 /var/cache/man/sv/cat1
+    drwxr-sr-x 2 man root 4096 Apr 25  2012 /var/cache/man/sv/cat5
+    drwxr-sr-x 2 man root 4096 Apr 25  2012 /var/cache/man/sv/cat8
+    drwxr-sr-x 2 man root 4096 Apr 25  2012 /var/cache/man/cat4
+    drwxr-sr-x 3 man root 4096 Feb 16 14:40 /var/cache/man/lt
+    drwxr-sr-x 2 man root 4096 Apr 25  2012 /var/cache/man/lt/cat1
+    drwxr-sr-x 2 man root 4096 Apr 25  2012 /var/cache/man/cat3
+    drwxr-sr-x 3 man root 4096 Feb 16 14:40 /var/cache/man/bo
+    drwxr-sr-x 2 man root 4096 Apr 25  2012 /var/cache/man/bo/cat1
+    drwxr-sr-x 3 man root 4096 Feb 16 14:40 /var/cache/man/zh_HK
+    drwxr-sr-x 2 man root 4096 Apr 25  2012 /var/cache/man/zh_HK/cat1
+    drwxr-sr-x 3 man root 4096 Feb 16 14:40 /var/cache/man/kk
+    drwxr-sr-x 2 man root 4096 Apr 25  2012 /var/cache/man/kk/cat1
+    drwxr-sr-x 5 man root 4096 Feb 16 14:40 /var/cache/man/zh_TW
+    drwxr-sr-x 2 man root 4096 Apr 25  2012 /var/cache/man/zh_TW/cat1
+    drwxr-sr-x 2 man root 4096 Apr 25  2012 /var/cache/man/zh_TW/cat5
+    drwxr-sr-x 2 man root 4096 Apr 25  2012 /var/cache/man/zh_TW/cat8
+    drwxr-sr-x 3 man root 4096 Feb 16 14:40 /var/cache/man/fy
+    drwxr-sr-x 2 man root 4096 Apr 25  2012 /var/cache/man/fy/cat1
+    drwxr-sr-x 3 man root 4096 Feb 16 14:40 /var/cache/man/ca
+    drwxr-sr-x 2 man root 4096 Apr 25  2012 /var/cache/man/ca/cat1
+    drwxr-sr-x 3 man root 4096 Feb 16 14:40 /var/cache/man/fo
+    drwxr-sr-x 2 man root 4096 Apr 25  2012 /var/cache/man/fo/cat1
+    drwxr-sr-x 2 man root 4096 Apr 25  2012 /var/cache/man/cat6
+    drwxr-sr-x 3 man root 4096 Feb 16 14:40 /var/cache/man/oc
+    drwxr-sr-x 2 man root 4096 Apr 25  2012 /var/cache/man/oc/cat1
+    drwxr-sr-x 3 man root 4096 Feb 16 14:40 /var/cache/man/ug
+    drwxr-sr-x 2 man root 4096 Apr 25  2012 /var/cache/man/ug/cat1
+    drwxr-sr-x 3 man root 4096 Feb 16 14:40 /var/cache/man/ro
+    drwxr-sr-x 2 man root 4096 Apr 25  2012 /var/cache/man/ro/cat1
+    drwxr-sr-x 5 man root 4096 Feb 16 14:40 /var/cache/man/tr
+    drwxr-sr-x 2 man root 4096 Apr 25  2012 /var/cache/man/tr/cat1
+    drwxr-sr-x 2 man root 4096 Apr 25  2012 /var/cache/man/tr/cat5
+    drwxr-sr-x 2 man root 4096 Apr 25  2012 /var/cache/man/tr/cat8
+    drwxr-sr-x 3 man root 4096 Feb 16 14:40 /var/cache/man/fa
+    drwxr-sr-x 2 man root 4096 Apr 25  2012 /var/cache/man/fa/cat1
+    drwxr-sr-x 3 man root 4096 Feb 16 14:40 /var/cache/man/vi
+    drwxr-sr-x 2 man root 4096 Apr 25  2012 /var/cache/man/vi/cat1
+    drwxr-sr-x 3 man root 4096 Feb 16 14:40 /var/cache/man/fi
+    drwxr-sr-x 2 man root 4096 Apr 25  2012 /var/cache/man/fi/cat1
+    drwxr-sr-x 3 man root 4096 Feb 16 14:40 /var/cache/man/lv
+    drwxr-sr-x 2 man root 4096 Apr 25  2012 /var/cache/man/lv/cat1
+    drwxr-sr-x 3 man root 4096 Feb 16 14:40 /var/cache/man/gl
+    drwxr-sr-x 2 man root 4096 Apr 25  2012 /var/cache/man/gl/cat1
+    drwxr-sr-x 5 man root 4096 Feb 16 14:40 /var/cache/man/es
+    drwxr-sr-x 2 man root 4096 Apr 25  2012 /var/cache/man/es/cat1
+    drwxr-sr-x 2 man root 4096 Apr 25  2012 /var/cache/man/es/cat5
+    drwxr-sr-x 2 man root 4096 Apr 25  2012 /var/cache/man/es/cat8
+    drwxr-sr-x 5 man root 4096 Feb 16 14:40 /var/cache/man/nl
+    drwxr-sr-x 2 man root 4096 Apr 25  2012 /var/cache/man/nl/cat1
+    drwxr-sr-x 2 man root 4096 Apr 25  2012 /var/cache/man/nl/cat5
+    drwxr-sr-x 2 man root 4096 Apr 25  2012 /var/cache/man/nl/cat8
+    drwxr-sr-x 3 man root 4096 Feb 16 14:40 /var/cache/man/shn
+    drwxr-sr-x 2 man root 4096 Apr 25  2012 /var/cache/man/shn/cat1
+    drwxr-sr-x 3 man root 4096 Feb 16 14:40 /var/cache/man/et
+    drwxr-sr-x 2 man root 4096 Apr 25  2012 /var/cache/man/et/cat1
+    drwxr-sr-x 6 man root 4096 Feb 16 14:40 /var/cache/man/fr
+    drwxr-sr-x 2 man root 4096 Apr 25  2012 /var/cache/man/fr/cat1
+    drwxr-sr-x 2 man root 4096 Apr 25  2012 /var/cache/man/fr/cat5
+    drwxr-sr-x 2 man root 4096 Apr 25  2012 /var/cache/man/fr/cat8
+    drwxr-sr-x 2 man root 4096 Apr 25  2012 /var/cache/man/fr/cat7
+    drwxr-sr-x 3 man root 4096 Feb 16 14:40 /var/cache/man/be
+    drwxr-sr-x 2 man root 4096 Apr 25  2012 /var/cache/man/be/cat1
+    drwxr-sr-x 3 man root 4096 Feb 16 14:40 /var/cache/man/bg
+    drwxr-sr-x 2 man root 4096 Apr 25  2012 /var/cache/man/bg/cat1
+    drwxr-sr-x 3 man root 4096 Feb 16 14:40 /var/cache/man/km
+    drwxr-sr-x 2 man root 4096 Apr 25  2012 /var/cache/man/km/cat1
+    drwxr-sr-x 3 man root 4096 Feb 16 14:40 /var/cache/man/bn
+    drwxr-sr-x 2 man root 4096 Apr 25  2012 /var/cache/man/bn/cat1
+    drwxr-sr-x 3 man root 4096 Feb 16 14:40 /var/cache/man/ast
+    drwxr-sr-x 2 man root 4096 Apr 25  2012 /var/cache/man/ast/cat1
+    drwxr-sr-x 5 man root 4096 Feb 16 14:40 /var/cache/man/pl
+    drwxr-sr-x 2 man root 4096 Apr 25  2012 /var/cache/man/pl/cat1
+    drwxr-sr-x 2 man root 4096 Apr 25  2012 /var/cache/man/pl/cat5
+    drwxr-sr-x 2 man root 4096 Apr 25  2012 /var/cache/man/pl/cat8
+    drwxr-sr-x 3 man root 4096 Feb 16 14:40 /var/cache/man/sk
+    drwxr-sr-x 2 man root 4096 Apr 25  2012 /var/cache/man/sk/cat1
+    drwxr-sr-x 3 man root 4096 Feb 16 14:40 /var/cache/man/cy
+    drwxr-sr-x 2 man root 4096 Apr 25  2012 /var/cache/man/cy/cat1
+    drwxr-sr-x 2 man root 4096 Apr 25  2012 /var/cache/man/cat2
+    drwxr-sr-x 3 man root 4096 Feb 16 14:40 /var/cache/man/eo
+    drwxr-sr-x 2 man root 4096 Apr 25  2012 /var/cache/man/eo/cat1
+    drwxr-sr-x 5 man root 4096 Feb 16 14:40 /var/cache/man/hu
+    drwxr-sr-x 2 man root 4096 Apr 25  2012 /var/cache/man/hu/cat1
+    drwxr-sr-x 2 man root 4096 Apr 25  2012 /var/cache/man/hu/cat5
+    drwxr-sr-x 2 man root 4096 Apr 25  2012 /var/cache/man/hu/cat8
+    drwxr-sr-x 3 man root 4096 Feb 16 14:40 /var/cache/man/te
+    drwxr-sr-x 2 man root 4096 Apr 25  2012 /var/cache/man/te/cat1
+    drwxr-sr-x 3 man root 4096 Feb 16 14:40 /var/cache/man/th
+    drwxr-sr-x 2 man root 4096 Apr 25  2012 /var/cache/man/th/cat1
+    drwxr-sr-x 5 man root 4096 Feb 16 14:40 /var/cache/man/it
+    drwxr-sr-x 2 man root 4096 Apr 25  2012 /var/cache/man/it/cat1
+    drwxr-sr-x 2 man root 4096 Apr 25  2012 /var/cache/man/it/cat5
+    drwxr-sr-x 2 man root 4096 Apr 25  2012 /var/cache/man/it/cat8
+    drwxr-sr-x 2 man root 4096 Apr 25  2012 /var/cache/man/cat7
+    drwxrwsr-t 2 root sudo 4096 Dec 11  2017 /var/cache/jockey
+    -rwsr-xr-x 1 root root 36832 Apr  8  2012 /bin/su
+    -rwsr-xr-x 1 root root 31304 Mar  2  2012 /bin/fusermount
+    -rwsr-xr-x 1 root root 69096 Mar 29  2012 /bin/umount
+    -rwsr-xr-x 1 root root 35712 Nov  8  2011 /bin/ping
+    -rwsr-xr-x 1 root root 40256 Nov  8  2011 /bin/ping6
+    -rwsr-xr-x 1 root root 94792 Mar 29  2012 /bin/mount
+    -rwsr-xr-- 1 root messagebus 292944 Feb 22  2012 /usr/lib/dbus-1.0/dbus-daemon-launch-helper
+    -rwsr-xr-x 1 root root 10592 Apr 19  2012 /usr/lib/pt_chown
+    -r-sr-xr-x 1 root root 14320 Dec 11  2017 /usr/lib/vmware-tools/bin64/vmware-user-suid-wrapper
+    -r-sr-xr-x 1 root root 9532 Dec 11  2017 /usr/lib/vmware-tools/bin32/vmware-user-suid-wrapper
+    -rwsr-xr-x 1 root root 14696 Jan  6  2012 /usr/lib/policykit-1/polkit-agent-helper-1
+    -rwsr-xr-x 1 root root 10408 Dec 13  2011 /usr/lib/eject/dmcrypt-get-device
+    -rwsr-xr-x 1 root root 240984 Aug 11  2016 /usr/lib/openssh/ssh-keysign
+    -rwxr-sr-x 1 root utmp 10096 Apr 30  2011 /usr/lib/utempter/utempter
+    -rwxr-sr-x 1 root utmp 14864 Apr 16  2012 /usr/lib/libvte-2.90-9/gnome-pty-helper
+    -rwxr-sr-x 1 root mail 14664 Mar 30  2012 /usr/lib/evolution/camel-lock-helper-1.2
+    -rwsr-xr-x 1 root root 23184 Jan  6  2012 /usr/bin/pkexec
+    -rwsr-xr-x 1 root root 71248 Jan 31  2012 /usr/bin/sudoedit
+    -rwsr-sr-x 1 root root 10184 Mar 22  2012 /usr/bin/X
+    -rwxr-sr-x 1 root mail 14544 Oct 18  2011 /usr/bin/mail-lock
+    -rwsr-xr-x 1 root root 32352 Apr  8  2012 /usr/bin/newgrp
+    -rwxr-sr-x 1 root mail 14800 Oct 17  2011 /usr/bin/dotlockfile
+    -rwsr-xr-x 1 root lpadmin 14688 Apr  9  2012 /usr/bin/lppasswd
+    -rwxr-sr-x 1 root mlocate 39472 Aug 17  2011 /usr/bin/mlocate
+    -rwsr-xr-x 1 root root 62400 Jul 28  2011 /usr/bin/mtr
+    -rwxr-sr-x 1 root mail 14544 Oct 18  2011 /usr/bin/mail-touchlock
+    -rwxr-sr-x 1 root ssh 129104 Aug 11  2016 /usr/bin/ssh-agent
+    -rwsr-xr-x 1 root root 37096 Apr  8  2012 /usr/bin/chsh
+    -rwsr-xr-x 1 root root 18808 Nov  8  2011 /usr/bin/arping
+    -rwsr-xr-x 1 root root 42824 Apr  8  2012 /usr/bin/passwd
+    -rwsr-xr-x 1 root root 71248 Jan 31  2012 /usr/bin/sudo
+    -rwsr-sr-x 1 daemon daemon 47928 Oct 25  2011 /usr/bin/at
+    -rwxr-sr-x 1 root crontab 35896 Apr  2  2012 /usr/bin/crontab
+    -rwxr-sr-x 1 root tty 14648 Mar 31  2012 /usr/bin/bsd-write
+    -rwsr-xr-x 1 root root 41832 Apr  8  2012 /usr/bin/chfn
+    -rwxr-sr-x 1 root shadow 23168 Apr  8  2012 /usr/bin/expiry
+    -rwxr-sr-x 1 root mail 14544 Oct 18  2011 /usr/bin/mail-unlock
+    -rwsr-xr-x 1 root root 18912 Nov  8  2011 /usr/bin/traceroute6.iputils
+    -rwxr-sr-x 1 root tty 18976 Mar 29  2012 /usr/bin/wall
+    -rwsr-xr-x 1 root root 63848 Apr  8  2012 /usr/bin/gpasswd
+    -rwxr-sr-x 1 root shadow 50760 Apr  8  2012 /usr/bin/chage
+    -rwsr-sr-x 1 libuuid libuuid 18856 Mar 29  2012 /usr/sbin/uuidd
+    -rwsr-xr-- 1 root dip 325744 Feb  4  2011 /usr/sbin/pppd
+    drwxrwsr-x 4 root staff 4096 Apr 25  2012 /usr/local/lib/python2.7
+    drwxrwsr-x 2 root staff 4096 Apr 25  2012 /usr/local/lib/python2.7/site-packages
+    drwxrwsr-x 2 root staff 4096 Apr 25  2012 /usr/local/lib/python2.7/dist-packages
+    drwxrwsr-x 7 root staff 4096 Apr 25  2012 /usr/local/share/sgml
+    drwxrwsr-x 2 root staff 4096 Apr 25  2012 /usr/local/share/sgml/misc
+    drwxrwsr-x 2 root staff 4096 Apr 25  2012 /usr/local/share/sgml/declaration
+    drwxrwsr-x 2 root staff 4096 Apr 25  2012 /usr/local/share/sgml/entities
+    drwxrwsr-x 2 root staff 4096 Apr 25  2012 /usr/local/share/sgml/stylesheet
+    drwxrwsr-x 2 root staff 4096 Apr 25  2012 /usr/local/share/sgml/dtd
+    drwxrwsr-x 2 root staff 4096 Apr 25  2012 /usr/local/share/fonts
+    drwxrwsr-x 2 root staff 4096 Apr 25  2012 /usr/local/share/ca-certificates
+    drwxrwsr-x 6 root staff 4096 Apr 25  2012 /usr/local/share/xml
+    drwxrwsr-x 2 root staff 4096 Apr 25  2012 /usr/local/share/xml/misc
+    drwxrwsr-x 2 root staff 4096 Apr 25  2012 /usr/local/share/xml/declaration
+    drwxrwsr-x 2 root staff 4096 Apr 25  2012 /usr/local/share/xml/schema
+    drwxrwsr-x 2 root staff 4096 Apr 25  2012 /usr/local/share/xml/entities
+    drwxrwsr-t 2 root lpadmin 4096 Apr  9  2012 /usr/share/ppd/custom
+    -rwxr-sr-x 1 root games 132624 Apr 17  2012 /usr/games/gnomine
+    -rwxr-sr-x 1 root games 149016 Apr 17  2012 /usr/games/mahjongg
+    -rwxr-sr-x 1 root shadow 35432 Feb  8  2012 /sbin/unix_chkpwd
+    drwxr-s--- 2 root dip 4096 Apr 25  2012 /etc/chatscripts
+    drwxr-s--- 2 root dip 4096 Apr 25  2012 /etc/ppp/peers
+
+[+] Logs containing keyword 'password'
+    /var/log/bootstrap.log:Shadow passwords are now on.
+
+[+] Config files containing keyword 'password'
+    /etc/ltrace.conf:; pwd.h
+    /etc/samba/smb.conf:# You may wish to use password encryption.  See the section on
+    /etc/samba/smb.conf:# 'encrypt passwords' in the smb.conf(5) manpage before enabling.
+    /etc/samba/smb.conf:   encrypt passwords = true
+    /etc/samba/smb.conf:# If you are using encrypted passwords, Samba will need to know what
+    /etc/samba/smb.conf:# password database type you are using.
+    /etc/samba/smb.conf:# password with the SMB password when the encrypted SMB password in the
+    /etc/samba/smb.conf:   unix password sync = yes
+    /etc/samba/smb.conf:# For Unix password sync to work on a Debian GNU/Linux system, the following
+    /etc/samba/smb.conf:   passwd chat = *Enter\snew\s*\spassword:* %n\n *Retype\snew\s*\spassword:* %n\n *password\supdated\ssuccessfully* .
+    /etc/samba/smb.conf:# This boolean controls whether PAM will be used for password changes
+    /etc/samba/smb.conf:   pam password change = yes
+    /etc/samba/smb.conf:# password; please adapt to your needs
+    /etc/samba/smb.conf:; add user script = /usr/sbin/adduser --quiet --disabled-password --gecos "" %u
+    /etc/debconf.conf:# World-readable, and accepts everything but passwords.
+    /etc/debconf.conf:Reject-Type: password
+    /etc/debconf.conf:# Not world readable (the default), and accepts only passwords.
+    /etc/debconf.conf:Name: passwords
+    /etc/debconf.conf:Accept-Type: password
+    /etc/debconf.conf:Filename: /var/cache/debconf/passwords.dat
+    /etc/debconf.conf:# databases, one to hold passwords and one for everything else.
+    /etc/debconf.conf:Stack: config, passwords
+    /etc/debconf.conf:# A remote LDAP database. It is also read-only. The password is really
+    /etc/hdparm.conf:# --security-set-pass Set security password
+    /etc/hdparm.conf:# security_pass = password
+    /etc/hdparm.conf:# --user-master Select password to use
+    /etc/ssl/openssl.cnf:# input_password = secret
+    /etc/ssl/openssl.cnf:# output_password = secret
+    /etc/ssl/openssl.cnf:challengePassword		= A challenge password
+
+[+] Shadow File (Privileged)
+
+[*] ENUMERATING PROCESSES AND APPLICATIONS...
+
+[+] Installed Packages
+    Status=Not/Inst/Conf-files/Unpacked/halF-conf/Half-inst/trig-aWait/Trig-pend
+    Err?=(none)/Reinst-required (Status,Err:
+    Name Version
+    accountsservice 0.6.15-2ubuntu9  and manipulate user account information
+    acl 2.2.51-5ubuntu1  control list utilities
+    acpi-support 0.140  for handling many ACPI events
+    acpid 1:2.0.10-1ubuntu3  Configuration and Power Interface event daemon
+    activity-log-manager-common 0.9.4-0ubuntu3  configuration for Zeitgeist (assets)
+    activity-log-manager-control-center 0.9.4-0ubuntu3  configuration for Zeitgeist (control center integration)
+    adduser 3.113ubuntu2  and remove users and groups
+    adium-theme-ubuntu 0.3.2-0ubuntu1  message style for Ubuntu
+    aisleriot 1:3.2.3.2-0ubuntu1  card games
+    alsa-base 1.0.25+dfsg-0ubuntu1  driver configuration files
+    alsa-utils 1.0.25-1ubuntu5  for configuring and using ALSA
+    anacron 2.3-14ubuntu1  program that doesn't go by time
+    apache2 2.2.22-1ubuntu1.11  HTTP Server metapackage
+    apache2-mpm-prefork 2.2.22-1ubuntu1.11  HTTP Server - traditional non-threaded model
+    apache2-utils 2.2.22-1ubuntu1.11  programs for webservers
+    apache2.2-bin 2.2.22-1ubuntu1.11  HTTP Server common binary files
+    apache2.2-common 2.2.22-1ubuntu1.11  HTTP Server common files
+    apg 2.2.3.dfsg.1-2  Password Generator - Standalone version
+    app-install-data 0.12.04.4  applications (data files)
+    app-install-data-partner 12.12.04.1  Installer (data files for partner applications/repositories)
+    apparmor 2.7.102-0ubuntu3  parser utility for AppArmor
+    appmenu-gtk 0.3.92-0ubuntu1  GTK menus over DBus
+    appmenu-gtk3 0.3.92-0ubuntu1  GTK menus over DBus
+    appmenu-qt 0.2.6-0ubuntu1  support for Qt
+    apport 2.0.1-0ubuntu5  generate crash reports for debugging
+    apport-gtk 2.0.1-0ubuntu5  frontend for the apport crash report system
+    apport-symptoms 0.16  scripts for apport
+    apt 0.8.16~exp12ubuntu10  package manager
+    apt-transport-https 0.8.16~exp12ubuntu10  download transport for APT
+    apt-utils 0.8.16~exp12ubuntu10  managment related utility programs
+    apt-xapian-index 0.44ubuntu5  and search tools for a Xapian index of Debian packages
+    aptdaemon 0.43+bzr805-0ubuntu1  based package management service
+    aptdaemon-data 0.43+bzr805-0ubuntu1  files for clients
+    apturl 0.5.1ubuntu3  packages using the apt protocol - GTK+ frontend
+    apturl-common 0.5.1ubuntu3  packages using the apt protocol - common data
+    aspell 0.60.7~20110707-1  Aspell spell-checker
+    aspell-en 6.0-0-6ubuntu2  dictionary for GNU Aspell
+    at 3.1.13-1ubuntu1  job execution and batch processing
+    at-spi2-core 2.4.0-1  Technology Service Provider Interface (dbus core)
+    avahi-autoipd 0.6.30-5ubuntu2  IPv4LL network address configuration daemon
+    avahi-daemon 0.6.30-5ubuntu2  mDNS/DNS-SD daemon
+    avahi-utils 0.6.30-5ubuntu2  browsing, publishing and discovery utilities
+    bamfdaemon 0.2.114-0ubuntu1  matching library - daemon
+    baobab 3.4.1-0ubuntu1  disk usage analyzer
+    base-files 6.5ubuntu6  base system miscellaneous files
+    base-passwd 3.5.24  base system master password and group files
+    bash 4.2-2ubuntu2  Bourne Again SHell
+    bash-completion 1:1.3-1ubuntu8  completion for the bash shell
+    bc 1.06.95-2  GNU bc arbitrary precision calculator language
+    bind9-host 1:9.8.1.dfsg.P1-4  of 'host' bundled with BIND 9.X
+    binutils 2.22-6ubuntu1  assembler, linker and binary utilities
+    bluez 4.98-2ubuntu7  tools and daemons
+    bluez-alsa 4.98-2ubuntu7  ALSA support
+    bluez-cups 4.98-2ubuntu7  printer driver for CUPS
+    bluez-gstreamer 4.98-2ubuntu7  GStreamer support
+    branding-ubuntu 0.7  artwork with Ubuntu branding
+    brasero 3.4.1-0ubuntu1  burning application for GNOME
+    brasero-cdrkit 3.4.1-0ubuntu1  extensions for the Brasero burning application
+    brasero-common 3.4.1-0ubuntu1  files for the Brasero CD burning application and library
+    brltty 4.3-1ubuntu5  software for a blind person using a braille display
+    bsdmainutils 8.2.3ubuntu1  of more utilities from FreeBSD
+    bsdutils 1:2.20.1-1ubuntu3  utilities from 4.4BSD-Lite
+    busybox-initramfs 1:1.18.5-1ubuntu4  shell setup for initramfs
+    busybox-static 1:1.18.5-1ubuntu4  rescue shell with tons of builtin utilities
+    bzip2 1.0.6-1  block-sorting file compressor - utilities
+    ca-certificates 20111211  CA certificates
+    checkbox 0.13.7  testing application
+    checkbox-qt 0.13.7  interface for checkbox
+    cmap-adobe-japan2 0+20090930-2  for Adobe-Japan2
+    colord 0.1.16-2  service to manage device colour profiles -- system daemon
+    command-not-found 0.2.46ubuntu6  installation of packages in interactive bash sessions
+    command-not-found-data 0.2.46ubuntu6  of data files for command-not-found.
+    compiz 1:0.9.7.6-0ubuntu1  window and compositing manager
+    compiz-core 1:0.9.7.6-0ubuntu1  window and compositing manager
+    compiz-gnome 1:0.9.7.6-0ubuntu1  window and compositing manager - GNOME window decorator
+    compiz-plugins-default 1:0.9.7.6-0ubuntu1  window and compositing manager - default plugins
+    compiz-plugins-main-default 1:0.9.7.0~bzr19-0ubuntu10  plugins - main default collection
+    compizconfig-backend-gconf 0.9.5.92-0ubuntu5  Fusion configuration system - gconf backend
+    console-setup 1.70ubuntu5  font and keymap setup program
+    consolekit 0.4.5-2  for defining and tracking users, sessions and seats
+    coreutils 8.13-3ubuntu3  core utilities
+    cpio 2.11-7ubuntu3  cpio -- a program to manage archives of files
+    cpp 4:4.6.3-1ubuntu5  C preprocessor (cpp)
+    cpp-4.6 4.6.3-1ubuntu5  C preprocessor
+    crda 1.1.2-1ubuntu1  Central Regulatory Domain Agent
+    cron 3.0pl1-120ubuntu3  scheduling daemon
+    cryptsetup-bin 2:1.4.1-2ubuntu4  encryption support - command line tools
+    cups 1.5.2-9ubuntu1  UNIX Printing System(tm) - server
+    cups-bsd 1.5.2-9ubuntu1  UNIX Printing System(tm) - BSD commands
+    cups-client 1.5.2-9ubuntu1  UNIX Printing System(tm) - client programs (SysV)
+    cups-common 1.5.2-9ubuntu1  UNIX Printing System(tm) - common files
+    cups-filters 1.0.17-0bzr0.1  CUPS Filters
+    cups-ppdc 1.5.2-9ubuntu1  UNIX Printing System(tm) - PPD manipulation utilities
+    curl 7.22.0-3ubuntu4.17  a file from an HTTP, HTTPS or FTP server
+    dash 0.5.7-2ubuntu2  shell
+    dbus 1.4.18-1ubuntu1  interprocess messaging system (daemon and utilities)
+    dbus-x11 1.4.18-1ubuntu1  interprocess messaging system (X11 deps)
+    dc 1.06.95-2  GNU dc arbitrary precision reverse-polish calculator
+    dconf-gsettings-backend 0.12.0-0ubuntu1  configuration storage system - GSettings back-end
+    dconf-service 0.12.0-0ubuntu1  configuration storage system - D-Bus service
+    debconf 1.5.42ubuntu1  configuration management system
+    debconf-i18n 1.5.42ubuntu1  internationalization support for debconf
+    debianutils 4.2.1ubuntu2  utilities specific to Debian
+    deja-dup 22.0-0ubuntu2  up your files
+    desktop-file-utils 0.20-0ubuntu2  for .desktop files
+    dictionaries-common 1.12.1ubuntu2  utilities for spelling dictionary tools
+    diffutils 1:3.2-1ubuntu1  comparison utilities
+    dkms 2.2.0.3-1ubuntu3.6  Kernel Module Support Framework
+    dmidecode 2.11-4  table decoder
+    dmsetup 2:1.02.48-4ubuntu7  Linux Kernel Device Mapper userspace library
+    dmz-cursor-theme 0.4.3  neutral, scalable cursor theme
+    dnsmasq-base 2.59-4  caching DNS proxy and DHCP/TFTP server
+    dnsutils 1:9.8.1.dfsg.P1-4  provided with BIND
+    doc-base 0.10.3  to manage online documentation
+    dosfstools 3.0.12-1ubuntu1  for making and checking MS-DOS FAT filesystems
+    dpkg 1.16.1.2ubuntu7  package management system
+    duplicity 0.6.18-0ubuntu3  bandwidth-efficient backup
+    dvd+rw-tools 7.1-10  tools
+    e2fslibs 1.42-1ubuntu2  file system libraries
+    e2fsprogs 1.42-1ubuntu2  file system utilities
+    ed 1.5-3  UNIX line editor
+    eject 2.1.5+deb1+cvs20081104-9  CDs and operates CD-Changers under Linux
+    empathy 3.4.1-0ubuntu1  multi-protocol chat and call client
+    empathy-common 3.4.1-0ubuntu1  multi-protocol chat and call client (common files)
+    enchant 1.6.0-7  for various spell checker engines (binary programs)
+    eog 3.4.1-0ubuntu1  of GNOME graphics viewer program
+    espeak 1.46.02-0ubuntu1  software speech synthesizer
+    espeak-data 1.46.02-0ubuntu1  software speech synthesizer: speech data files
+    ethtool 1:3.1-1  or change Ethernet device settings
+    evince 3.4.0-0ubuntu1  (PostScript, PDF) viewer
+    evince-common 3.4.0-0ubuntu1  (PostScript, PDF) viewer - common files
+    evolution-data-server 3.2.3-0ubuntu6  database backend server
+    evolution-data-server-common 3.2.3-0ubuntu6  independent files for Evolution Data Server
+    example-content 46  example content
+    fakeroot 1.18.2-1  for simulating superuser privileges
+    file 5.09-2  file type using "magic" numbers
+    file-roller 3.4.1-0ubuntu1  manager for GNOME
+    findutils 4.4.2-4ubuntu1  for finding files--find, xargs
+    firefox 11.0+build1-0ubuntu4  and easy web browser from Mozilla
+    firefox-globalmenu 11.0+build1-0ubuntu4  appmenu integration for Firefox
+    firefox-gnome-support 11.0+build1-0ubuntu4  and easy web browser from Mozilla - GNOME support
+    firefox-locale-en 52.0.2+build1-0ubuntu0.12.04.1  language pack for Firefox
+    folks-common 0.6.8-2  to aggregates people into metacontacts (common files)
+    fontconfig 2.8.0-3ubuntu9  font configuration library - support binaries
+    fontconfig-config 2.8.0-3ubuntu9  font configuration library - configuration
+    fonts-kacst 2.01+mry-3  free TrueType Arabic fonts
+    fonts-kacst-one 5.0+svn11846-2  font designed for Arabic language
+    fonts-khmeros-core 5.0-5ubuntu1  Unicode fonts for the Khmer language of Cambodia
+    fonts-lao 0.0.20060226-8  font for Lao language
+    fonts-liberation 1.07.0-2  with the same metrics as Times, Arial and Courier
+    fonts-nanum 3.010-2  Korean fonts
+    fonts-opensymbol 2:102.2+LibO3.5.2-2ubuntu1  TrueType font
+    fonts-takao-pgothic 003.02.01-5ubuntu1  TrueType font set, Takao P Gothic Fonts
+    fonts-thai-tlwg 1:0.4.17-1ubuntu1  fonts maintained by TLWG (meta package)
+    fonts-tlwg-garuda 1:0.4.17-1ubuntu1  Garuda font
+    fonts-tlwg-kinnari 1:0.4.17-1ubuntu1  Kinnari font
+    fonts-tlwg-loma 1:0.4.17-1ubuntu1  Loma font
+    fonts-tlwg-mono 1:0.4.17-1ubuntu1  TlwgMono font
+    fonts-tlwg-norasi 1:0.4.17-1ubuntu1  Norasi font
+    fonts-tlwg-purisa 1:0.4.17-1ubuntu1  Purisa font
+    fonts-tlwg-sawasdee 1:0.4.17-1ubuntu1  Sawasdee font
+    fonts-tlwg-typewriter 1:0.4.17-1ubuntu1  TlwgTypewriter font
+    fonts-tlwg-typist 1:0.4.17-1ubuntu1  TlwgTypist font
+    fonts-tlwg-typo 1:0.4.17-1ubuntu1  TlwgTypo font
+    fonts-tlwg-umpush 1:0.4.17-1ubuntu1  Umpush font
+    fonts-tlwg-waree 1:0.4.17-1ubuntu1  Waree font
+    foomatic-db-compressed-ppds 20120322-0ubuntu1  printer support - Compressed PPDs derived from the database
+    foomatic-db-engine 4.0.8-2ubuntu1  printer support - programs
+    foomatic-filters 4.0.15-0ubuntu1  printer support - filters
+    friendly-recovery 0.2.25  recovery more user-friendly
+    ftp 0.17-25  file transfer client
+    fuse 2.8.6-2ubuntu2  in Userspace
+    gcalctool 6.4.1.1-0ubuntu2  desktop calculator
+    gcc 4:4.6.3-1ubuntu5  C compiler
+    gcc-4.6 4.6.3-1ubuntu5  C compiler
+    gcc-4.6-base 4.6.3-1ubuntu5  the GNU Compiler Collection (base package)
+    gconf-service 3.2.5-0ubuntu2  configuration database system (D-Bus service)
+    gconf-service-backend 3.2.5-0ubuntu2  configuration database system (D-Bus service)
+    gconf2 3.2.5-0ubuntu2  configuration database system (support tools)
+    gconf2-common 3.2.5-0ubuntu2  configuration database system (common files)
+    gdb 7.4-2012.02-0ubuntu2  GNU Debugger
+    gedit 3.4.1-0ubuntu1  text editor of the GNOME desktop environment
+    gedit-common 3.4.1-0ubuntu1  text editor of the GNOME desktop environment (support files)
+    genisoimage 9:1.1.11-2ubuntu2  ISO-9660 CD-ROM filesystem images
+    geoclue 0.12.0-1ubuntu12  information framework
+    geoclue-ubuntu-geoip 0.0.2-0ubuntu6  positioning for GeoClue via Ubuntu GeoIP services
+    geoip-database 20111220-1  lookup command line tools that use the GeoIP library (country database)
+    gettext-base 0.18.1.1-5ubuntu3  Internationalization utilities for the base system
+    ghostscript 9.05~dfsg-0ubuntu4  for the PostScript language and for PDF
+    ghostscript-cups 9.05~dfsg-0ubuntu4  for the PostScript language and for PDF - CUPS filters
+    ghostscript-x 9.05~dfsg-0ubuntu4  for the PostScript language and for PDF - X11 support
+    ginn 0.2.4-0ubuntu1  Injector: No-GEIS, No-Toolkits
+    gir1.2-appindicator3-0.1 0.4.92-0ubuntu1  files for libappindicator3-1.
+    gir1.2-atk-1.0 2.4.0-0ubuntu1  accessibility toolkit (GObject introspection)
+    gir1.2-atspi-2.0 2.4.0-1  Technology Service Provider (GObject introspection)
+    gir1.2-dbusmenu-glib-0.4 0.6.1-0ubuntu3  file for libdbusmenu-glib4
+    gir1.2-dbusmenu-gtk-0.4 0.6.1-0ubuntu3  file for libdbusmenu-gtk4
+    gir1.2-dee-1.0 1.0.10-0ubuntu1  introspection data for the Dee library
+    gir1.2-freedesktop 1.32.0-1  data for some FreeDesktop components
+    gir1.2-gdkpixbuf-2.0 2.26.1-1  Pixbuf library - GObject-Introspection
+    gir1.2-glib-2.0 1.32.0-1  data for GLib, GObject, Gio and GModule
+    gir1.2-gmenu-3.0 3.4.0-0ubuntu1  introspection data for the GNOME menu library
+    gir1.2-gnomebluetooth-1.0 3.2.2-0ubuntu5  data for GnomeBluetooth
+    gir1.2-gnomekeyring-1.0 3.2.2-2  keyring services library - introspection data
+    gir1.2-gst-plugins-base-0.10 0.10.36-1  GObject introspection data for the GStreamer Plugins Base library
+    gir1.2-gstreamer-0.10 0.10.36-1ubuntu1  GObject introspection data for the GStreamer library
+    gir1.2-gtk-2.0 2.24.10-0ubuntu6  graphical user interface library -- gir bindings
+    gir1.2-gtk-3.0 3.4.1-0ubuntu1  graphical user interface library -- gir bindings
+    gir1.2-gtksource-3.0 3.4.1-0ubuntu1  files for the GTK+ syntax highlighting widget
+    gir1.2-gudev-1.0 175-0ubuntu9  introspection data
+    gir1.2-indicate-0.7 0.6.92-0ubuntu1  file for libindicate5
+    gir1.2-javascriptcoregtk-3.0 1.8.0-0ubuntu2  introspection data for the GTK+-based JavaScriptCore library
+    gir1.2-launchpad-integration-3.0 0.1.56  for launchpad integration (gir files)
+    gir1.2-notify-0.7 0.7.5-1  desktop notifications to a notification daemon (Introspection files)
+    gir1.2-pango-1.0 1.30.0-0ubuntu2  and rendering of internationalized text - gir bindings
+    gir1.2-peas-1.0 1.2.0-1ubuntu1  plugin library (introspection files)
+    gir1.2-rb-3.0 2.96-0ubuntu4  introspection data for the rhythmbox music player
+    gir1.2-soup-2.4 2.38.1-1  introspection data for the libsoup HTTP library
+    gir1.2-totem-1.0 3.0.1-0ubuntu21  introspection data for Totem media player
+    gir1.2-totem-plparser-1.0 3.4.1-1  introspection data for the Totem Playlist Parser library
+    gir1.2-ubuntuoneui-3.0 3.0.0-0ubuntu1  One widget library
+    gir1.2-unity-5.0 5.10.0-0ubuntu1  introspection data for the Unity library
+    gir1.2-vte-2.90 1:0.32.1-0ubuntu1  introspection data for the VTE library
+    gir1.2-webkit-3.0 1.8.0-0ubuntu2  introspection data for the WebKit library
+    gir1.2-wnck-3.0 3.4.0-0ubuntu1  introspection data for the WNCK library
+    git 1:1.7.9.5-1ubuntu0.3  scalable, distributed revision control system
+    git-man 1:1.7.9.5-1ubuntu0.3  scalable, distributed revision control system (manual pages)
+    gksu 2.0.2-6ubuntu1  frontend to su
+    glib-networking 2.32.1-1  giomodules for GLib
+    glib-networking-common 2.32.1-1  giomodules for GLib - data files
+    glib-networking-services 2.32.1-1  giomodules for GLib - D-Bus services
+    gnome-accessibility-themes 3.4.1-0ubuntu1  themes for the GNOME desktop
+    gnome-bluetooth 3.2.2-0ubuntu5  Bluetooth tools
+    gnome-control-center 1:3.4.1-0ubuntu1  to configure the GNOME desktop
+    gnome-control-center-data 1:3.4.1-0ubuntu1  applets for GNOME - data files
+    gnome-desktop3-data 3.4.1-0ubuntu1  files for GNOME desktop apps
+    gnome-disk-utility 3.0.2-2ubuntu7  and configure disk drives and media
+    gnome-font-viewer 3.4.0-1  viewer for GNOME
+    gnome-games-data 1:3.4.1-0ubuntu1  files for the GNOME games
+    gnome-icon-theme 3.4.0-0ubuntu1  Desktop icon theme (small subset)
+    gnome-icon-theme-symbolic 3.4.0-1  desktop icon theme (symbolic icons)
+    gnome-keyring 3.2.2-2ubuntu4  keyring services (daemon and tools)
+    gnome-media 3.4.0-0ubuntu2  media utilities
+    gnome-menus 3.4.0-0ubuntu1  implementation of the freedesktop menu specification
+    gnome-nettool 3.2.0-0ubuntu1  information tool for GNOME
+    gnome-online-accounts 3.4.0-0ubuntu1  Online Accounts
+    gnome-orca 3.4.0-0ubuntu2  screen reader
+    gnome-power-manager 3.4.0-0ubuntu1  management tool for the GNOME desktop
+    gnome-screensaver 3.4.1-0ubuntu1  screen saver and locker
+    gnome-screenshot 3.4.1-0ubuntu1  application for GNOME
+    gnome-session 3.2.1-0ubuntu8  Session Manager - GNOME 3 session
+    gnome-session-bin 3.2.1-0ubuntu8  Session Manager - Minimal runtime
+    gnome-session-canberra 0.28-3ubuntu3  session log in and log out sound events
+    gnome-session-common 3.2.1-0ubuntu8  Session Manager - common files
+    gnome-settings-daemon 3.4.1-0ubuntu1  handling the GNOME session settings
+    gnome-sudoku 1:3.4.1-0ubuntu1  puzzle game for GNOME
+    gnome-system-log 3.4.1-0ubuntu1  log viewer for GNOME
+    gnome-system-monitor 3.4.1-0ubuntu1  viewer and system resource monitor for GNOME
+    gnome-terminal 3.4.1.1-0ubuntu1  terminal emulator application
+    gnome-terminal-data 3.4.1.1-0ubuntu1  files for the GNOME terminal emulator
+    gnome-user-guide 3.4.1-1  user's guide
+    gnome-user-share 3.0.2-0ubuntu1  level public file sharing via WebDAV or ObexFTP
+    gnomine 1:3.4.1-0ubuntu1  minesweeper puzzle game for GNOME
+    gnupg 1.4.11-3ubuntu2  privacy guard - a free PGP replacement
+    gpgv 1.4.11-3ubuntu2  privacy guard - signature verification tool
+    grep 2.10-1  grep, egrep and fgrep
+    groff-base 1.21-7  troff text-formatting system (base system components)
+    growisofs 7.1-10  recorder
+    grub-common 1.99-21ubuntu3  Unified Bootloader (common files)
+    grub-gfxpayload-lists 0.6  gfxpayload blacklist
+    grub-pc 1.99-21ubuntu3  Unified Bootloader, version 2 (PC/BIOS version)
+    grub-pc-bin 1.99-21ubuntu3  Unified Bootloader, version 2 (PC/BIOS binaries)
+    grub2-common 1.99-21ubuntu3  Unified Bootloader (common files for version 2)
+    gs-cjk-resource 1.20100103-3  files for gs-cjk, ghostscript CJK-TrueType extension
+    gsettings-desktop-schemas 3.4.1-0ubuntu1  deskop-wide schemas
+    gsfonts 1:8.11+urwcyr1.0.7~pre44-4.2ubuntu1  for the Ghostscript interpreter(s)
+    gstreamer0.10-alsa 0.10.36-1  plugin for ALSA
+    gstreamer0.10-gconf 0.10.31-1ubuntu1  plugin for getting the sink/source information from GConf
+    gstreamer0.10-nice 0.1.1-2ubuntu1  library (GStreamer plugin)
+    gstreamer0.10-plugins-base 0.10.36-1  plugins from the "base" set
+    gstreamer0.10-plugins-base-apps 0.10.36-1  helper programs from the "base" set
+    gstreamer0.10-plugins-good 0.10.31-1ubuntu1  plugins from the "good" set
+    gstreamer0.10-pulseaudio 0.10.31-1ubuntu1  plugin for PulseAudio
+    gstreamer0.10-tools 0.10.36-1ubuntu1  for use with GStreamer
+    gstreamer0.10-x 0.10.36-1  plugins for X11 and Pango
+    gtk2-engines 1:2.20.2-1ubuntu1  engines for GTK+ 2.x
+    gtk2-engines-murrine 0.98.2-0ubuntu1  gtk+-2.0 theme engine
+    gtk3-engines-unico 1.0.2-0ubuntu1  Gtk+ 3 theme engine
+    gucharmap 1:3.4.1.1-0ubuntu1  character picker and font browser
+    guile-1.8-libs 1.8.8+1-6ubuntu2  Guile libraries
+    gvfs 1.12.1-0ubuntu1  virtual filesystem - GIO module
+    gvfs-backends 1.12.1-0ubuntu1  virtual filesystem - backends
+    gvfs-bin 1.12.1-0ubuntu1  virtual filesystem - binaries
+    gvfs-common 1.12.1-0ubuntu1  virtual filesystem - common data files
+    gvfs-daemons 1.12.1-0ubuntu1  virtual filesystem - servers
+    gvfs-fuse 1.12.1-0ubuntu1  virtual filesystem - fuse server
+    gvfs-libs 1.12.1-0ubuntu1  virtual filesystem - private libraries
+    gwibber 3.4.0-0ubuntu4  source social networking client for GNOME
+    gwibber-service 3.4.0-0ubuntu4  source social networking client for GNOME
+    gwibber-service-facebook 3.4.0-0ubuntu4  plugin for Gwibber
+    gwibber-service-identica 3.4.0-0ubuntu4  plugin for Gwibber
+    gwibber-service-twitter 3.4.0-0ubuntu4  plugin for Gwibber
+    gzip 1.4-1ubuntu2  compression utilities
+    hdparm 9.37-0ubuntu3  hard disk parameters for high performance
+    hicolor-icon-theme 0.12-1ubuntu2  fallback theme for FreeDesktop.org icon themes
+    hostname 3.06ubuntu1  to set/show the host name or domain name
+    hplip 3.12.2-1ubuntu3  Linux Printing and Imaging System (HPLIP)
+    hplip-data 3.12.2-1ubuntu3  Linux Printing and Imaging - data files
+    humanity-icon-theme 0.5.3.11  Icon theme
+    hunspell-en-us 20070829-4ubuntu3  dictionary for hunspell
+    hwdata 0.233-1ubuntu1  identification / configuration data
+    hyphen-en-us 2.8.3-1  English hyphenation patterns for LibreOffice/OpenOffice.org
+    ibus 1.4.1-3ubuntu1  Input Bus - core
+    ibus-gtk 1.4.1-3ubuntu1  Input Bus - GTK+2 support
+    ibus-gtk3 1.4.1-3ubuntu1  Input Bus - GTK+3 support
+    ibus-pinyin 1.4.0-1  engine for IBus
+    ibus-pinyin-db-android 1.4.0-1  engine for IBus - Android database
+    ibus-table 1.3.9.20110827-1ubuntu1  engine for IBus
+    ifupdown 0.7~beta2ubuntu8  level tools to configure network interfaces
+    im-switch 1.20ubuntu5  method switch framework
+    indicator-application 0.5.0-0ubuntu1  Indicators
+    indicator-appmenu 0.3.97-0ubuntu1  for application menus.
+    indicator-datetime 0.3.94-0ubuntu2  clock
+    indicator-messages 0.6.0-0ubuntu1  that collects messages that need a response
+    indicator-power 2.0-0ubuntu1  showing power state.
+    indicator-printers 0.1.6-0ubuntu1  showing active print jobs
+    indicator-session 0.3.96-0ubuntu1  showing session management, status and user switching
+    indicator-sound 0.8.5.0-0ubuntu2  sound indicator.
+    indicator-status-provider-mc5 0.6.0-0ubuntu1  status provider for telepathy mission-control-5
+    info 4.13a.dfsg.1-8ubuntu2  GNU Info documentation browser
+    initramfs-tools 0.99ubuntu13  for generating an initramfs
+    initramfs-tools-bin 0.99ubuntu13  used by initramfs-tools
+    initscripts 2.88dsf-13.10ubuntu11  for initializing and shutting down the system
+    inputattach 1:1.4.2-1  to connect serial-attached peripherals to the input subsystem
+    insserv 1.14.0-2.1ubuntu2  to organize boot sequence using LSB init.d script dependencies
+    install-info 4.13a.dfsg.1-8ubuntu2  installed documentation in info format
+    intel-gpu-tools 1.2-1  for debugging the Intel graphics driver
+    iproute 20111117-1ubuntu2  and traffic control tools
+    iptables 1.4.12-1ubuntu4  tools for packet filtering and NAT
+    iputils-arping 3:20101006-1ubuntu1  to send ICMP echo requests to an ARP address
+    iputils-ping 3:20101006-1ubuntu1  to test the reachability of network hosts
+    iputils-tracepath 3:20101006-1ubuntu1  to trace the network path to a remote host
+    irqbalance 0.56-1ubuntu4  to balance interrupts for SMP systems
+    isc-dhcp-client 4.1.ESV-R4-0ubuntu5  DHCP client
+    isc-dhcp-common 4.1.ESV-R4-0ubuntu5  files used by all the isc-dhcp* packages
+    iso-codes 3.31-1  language, territory, currency, script codes and their translations
+    iw 3.2-1  for configuring Linux wireless devices
+    jockey-common 0.9.7-0ubuntu7  interface and desktop integration for driver management
+    jockey-gtk 0.9.7-0ubuntu7  user interface and desktop integration for driver management
+    kbd 1.15.2-3ubuntu4  console font and keytable utilities
+    kerneloops-daemon 0.12+git20090217-1ubuntu19  oops tracker
+    keyboard-configuration 1.70ubuntu5  keyboard preferences
+    klibc-utils 1.5.25-1ubuntu2  utilities built with klibc for early boot
+    krb5-locales 1.10+dfsg~beta1-2  support for MIT Kerberos
+    landscape-client-ui-install 12.04.3-0ubuntu1  Landscape administration system client - UI installer
+    language-pack-en 1:12.04+20140106  updates for language English
+    language-pack-en-base 1:12.04+20140106  for language English
+    language-pack-gnome-en 1:12.04+20140106  translation updates for language English
+    language-pack-gnome-en-base 1:12.04+20140106  translations for language English
+    language-selector-common 0.79  selector for Ubuntu
+    language-selector-gnome 0.79  selector for Ubuntu
+    laptop-detect 0.13.7ubuntu2  to detect a laptop
+    launchpad-integration 0.1.56  integration
+    less 444-1ubuntu1  program similar to more
+    libaa1 1.4p5-39ubuntu1  art library
+    libaccountsservice0 0.6.15-2ubuntu9  and manipulate user account information - shared libraries
+    libacl1 2.2.51-5ubuntu1  control list shared library
+    libapache2-mod-php5 5.3.10-1ubuntu3.26  HTML-embedded scripting language (Apache 2 module)
+    libappindicator1 0.4.92-0ubuntu1  Indicators
+    libappindicator3-1 0.4.92-0ubuntu1  Indicators
+    libapr1 1.4.6-1  Portable Runtime Library
+    libaprutil1 1.3.12+dfsg-3  Portable Runtime Utility Library
+    libaprutil1-dbd-sqlite3 1.3.12+dfsg-3  Portable Runtime Utility Library - SQLite3 Driver
+    libaprutil1-ldap 1.3.12+dfsg-3  Portable Runtime Utility Library - LDAP Driver
+    libapt-inst1.4 0.8.16~exp12ubuntu10  package format runtime library
+    libapt-pkg4.12 0.8.16~exp12ubuntu10  managment runtime library
+    libarchive12 3.0.3-6ubuntu1  archive and compression library (shared library)
+    libart-2.0-2 2.3.21-1  of functions for 2D graphics - runtime files
+    libasn1-8-heimdal 1.6~git20120311.dfsg.1-2  Kerberos - ASN.1 library
+    libasound2 1.0.25-1ubuntu10  library for ALSA applications
+    libasound2-plugins 1.0.25-1ubuntu1  library additional plugins
+    libaspell15 0.60.7~20110707-1  Aspell spell-checker runtime library
+    libasyncns0 0.8-4  name service query library
+    libatasmart4 0.18-3  S.M.A.R.T. reading and parsing library
+    libatk-adaptor 2.4.0-1ubuntu2
+    libatk-adaptor-schemas 2.4.0-1ubuntu2  GSettings schemas
+    libatk1.0-0 2.4.0-0ubuntu1  accessibility toolkit
+    libatk1.0-data 2.4.0-0ubuntu1  files for the ATK accessibility toolkit
+    libatkmm-1.6-1 2.22.6-1ubuntu1  wrappers for ATKdebug2: channel 0: window 983645 sent adjust 64931
+ accessibility toolkit (shared libraries)
+    libatspi2.0-0 2.4.0-1  Technology Service Provider Interface - shared library
+    libattr1 1:2.4.46-5ubuntu1  attribute shared library
+    libaudio2 1.9.3-4  Audio System - shared libraries
+    libavahi-client3 0.6.30-5ubuntu2  client library
+    libavahi-common-data 0.6.30-5ubuntu2  common data files
+    libavahi-common3 0.6.30-5ubuntu2  common library
+    libavahi-core7 0.6.30-5ubuntu2  embeddable mDNS/DNS-SD library
+    libavahi-glib1 0.6.30-5ubuntu2  glib integration library
+    libavahi-gobject0 0.6.30-5ubuntu2  GObject library
+    libavahi-ui-gtk3-0 0.6.30-5ubuntu2  GTK+ User interface library for GTK3
+    libavc1394-0 0.5.3-1ubuntu2  IEEE 1394 audio/video devices
+    libbamf0 0.2.114-0ubuntu1  matching library - shared library
+    libbamf3-0 0.2.114-0ubuntu1  matching library - shared library
+    libbind9-80 1:9.8.1.dfsg.P1-4  Shared Library used by BIND
+    libblkid1 2.20.1-1ubuntu3  device id library
+    libbluetooth3 4.98-2ubuntu7  to use the BlueZ Linux Bluetooth stack
+    libboost-serialization1.46.1 1.46.1-7ubuntu3  library for C++
+    libbrasero-media3-1 3.4.1-0ubuntu1  burning library for GNOME - runtime
+    libbrlapi0.5 4.3-1ubuntu5  display access via BRLTTY - shared library
+    libbsd0 0.3.0-2  functions from BSD systems - shared library
+    libburn4 1.1.8-1  to provide CD/DVD writing functions
+    libbz2-1.0 1.0.6-1  block-sorting file compressor library - runtime
+    libc-bin 2.15-0ubuntu10  GNU C Library: Binaries
+    libc-dev-bin 2.15-0ubuntu10  GNU C Library: Development binaries
+    libc6 2.15-0ubuntu10  GNU C Library: Shared libraries
+    libc6-dev 2.15-0ubuntu10  GNU C Library: Development Libraries and Header Files
+    libcaca0 0.99.beta17-2.1ubuntu2  ASCII art library
+    libcairo-gobject2 1.10.2-6.1ubuntu2  Cairo 2D vector graphics library (GObject library)
+    libcairo-perl 1.081-1build2  interface to the Cairo graphics library
+    libcairo2 1.10.2-6.1ubuntu2  Cairo 2D vector graphics library
+    libcairomm-1.0-1 1.10.0-1ubuntu1  wrappers for Cairo (shared libraries)
+    libcamel-1.2-29 3.2.3-0ubuntu6  MIME message handling library
+    libcanberra-gtk-module 0.28-3ubuntu3  GTK+ widgets signals to event sounds
+    libcanberra-gtk0 0.28-3ubuntu3  helper for playing widget event sounds with libcanberra
+    libcanberra-gtk3-0 0.28-3ubuntu3  3.0 helper for playing widget event sounds with libcanberra
+    libcanberra-gtk3-module 0.28-3ubuntu3  GTK3 widgets signals to event sounds
+    libcanberra-pulse 0.28-3ubuntu3  backend for libcanberra
+    libcanberra0 0.28-3ubuntu3  abstract interface for playing event sounds
+    libcap-ng0 0.6.6-1ubuntu1  alternate POSIX capabilities library
+    libcap2 1:2.22-1ubuntu3  for getting/setting POSIX.1e capabilities
+    libcap2-bin 1:2.22-1ubuntu3  utility programs for using capabilities
+    libcdio-cdda1 0.83-1  to read and control digital audio CDs
+    libcdio-paranoia1 0.83-1  to read digital audio CDs with error correction
+    libcdio13 0.83-1  to read and control CD-ROM
+    libcdparanoia0 3.10.2+debian-10ubuntu1  extraction tool for sampling CDs (library)
+    libck-connector0 0.4.5-2  libraries
+    libclass-isa-perl 0.36-3  the search path for a class's ISA tree
+    libcmis-0.2-0 0.1.0-1  protocol client library
+    libcolord1 0.1.16-2  service to manage device colour profiles -- runtime
+    libcomerr2 1.42-1ubuntu2  error description library
+    libcompizconfig0 0.9.7.0~bzr428-0ubuntu6  library for plugins - OpenCompositing Project
+    libcroco3 0.6.5-1  Style Sheet (CSS) parsing and manipulation toolkit
+    libcrypt-passwdmd5-perl 1.3-10  MD5-based crypt() for perl
+    libcryptsetup4 2:1.4.1-2ubuntu4  encryption support - shared library
+    libcups2 1.5.2-9ubuntu1  UNIX Printing System(tm) - Core library
+    libcupscgi1 1.5.2-9ubuntu1  UNIX Printing System(tm) - CGI library
+    libcupsdriver1 1.5.2-9ubuntu1  UNIX Printing System(tm) - Driver library
+    libcupsfilters1 1.0.17-0bzr0.1  CUPS Filters - Shared library
+    libcupsimage2 1.5.2-9ubuntu1  UNIX Printing System(tm) - Raster image library
+    libcupsmime1 1.5.2-9ubuntu1  UNIX Printing System(tm) - MIME library
+    libcupsppdc1 1.5.2-9ubuntu1  UNIX Printing System(tm) - PPD manipulation library
+    libcurl3 7.22.0-3ubuntu4  file transfer library (OpenSSL)
+    libcurl3-gnutls 7.22.0-3ubuntu4  file transfer library (GnuTLS)
+    libcurl3-nss 7.22.0-3ubuntu4  file transfer library (NSS)
+    libdaemon0 0.14-2  C library for daemons - runtime library
+    libdatrie1 0.2.5-3  trie library
+    libdb5.1 5.1.25-11build1  v5.1 Database Libraries [runtime]
+    libdbus-1-3 1.4.18-1ubuntu1  interprocess messaging system (library)
+    libdbus-glib-1-2 0.98-1ubuntu1  interprocess messaging system (GLib-based shared library)
+    libdbusmenu-glib4 0.6.1-0ubuntu3  for passing menus over DBus
+    libdbusmenu-gtk3-4 0.6.1-0ubuntu3  for passing menus over DBus - GTK+ version
+    libdbusmenu-gtk4 0.6.1-0ubuntu3  for passing menus over DBus - GTK+ version
+    libdbusmenu-qt2 0.9.2-0ubuntu1  implementation of the DBusMenu protocol
+    libdconf-dbus-1-0 0.12.0-0ubuntu1  configuration storage system - D-Bus library
+    libdconf-qt0 0.0.0.110722-0ubuntu4  Qt bindings (library)
+    libdconf0 0.12.0-0ubuntu1  configuration storage system - runtime library
+    libdecoration0 1:0.9.7.6-0ubuntu1  window decoration library
+    libdee-1.0-4 1.0.10-0ubuntu1  to synchronize mutiple instances over DBus - shared lib
+    libdevmapper-event1.02.1 2:1.02.48-4ubuntu7  Linux Kernel Device Mapper userspace library
+    libdevmapper1.02.1 2:1.02.48-4ubuntu7  Linux Kernel Device Mapper userspace library
+    libdiscid0 0.2.2-3  for creating MusicBrainz DiscIDs
+    libdjvulibre-text 3.5.24-9  support files for libdjvulibre
+    libdjvulibre21 3.5.24-9  support for the DjVu image format
+    libdmapsharing-3.0-2 2.9.14-1  client and server library - runtime
+    libdns81 1:9.8.1.dfsg.P1-4  Shared Library used by BIND
+    libdotconf1.0 1.0.13-3  file parser library - runtime files
+    libdrm-intel1 2.4.32-1ubuntu1  interface to intel-specific kernel DRM services -- runtime
+    libdrm-nouveau1a 2.4.32-1ubuntu1  interface to nouveau-specific kernel DRM services -- runtime
+    libdrm-radeon1 2.4.32-1ubuntu1  interface to radeon-specific kernel DRM services -- runtime
+    libdrm2 2.4.32-1ubuntu1  interface to kernel DRM services -- runtime
+    libdumbnet1 1.12-3.1ubuntu0.1  dumb, portable networking library -- shared library
+    libdv4 1.0.0-3ubuntu1  library for DV format digital video (runtime lib)
+    libebackend-1.2-1 3.2.3-0ubuntu6  library for evolution data servers
+    libebook-1.2-12 3.2.3-0ubuntu6  library for evolution address books
+    libecal-1.2-10 3.2.3-0ubuntu6  library for evolution calendars
+    libedata-book-1.2-11 3.2.3-0ubuntu6  library for evolution address books
+    libedata-cal-1.2-13 3.2.3-0ubuntu6  library for evolution calendars
+    libedataserver-1.2-15 3.2.3-0ubuntu6  library for evolution data servers
+    libedataserverui-3.0-1 3.2.3-0ubuntu6  utility library for evolution data servers
+    libedit2 2.11-20080614-3ubuntu2  editline and history libraries
+    libelf1 0.152-1ubuntu3  to read and write ELF files
+    libenchant1c2a 1.6.0-7  library for various spell checker engines (runtime libs)
+    liberror-perl 0.17-1  module for error/exception handling in an OO-ish way
+    libespeak1 1.46.02-0ubuntu1  software speech synthesizer: shared library
+    libevent-2.0-5 2.0.16-stable-1  event notification library
+    libevince3-3 3.4.0-0ubuntu1  (PostScript, PDF) rendering library
+    libexempi3 2.2.0-1  to parse XMP metadata (Library)
+    libexif12 0.6.20-2  to parse EXIF files
+    libexiv2-11 0.22-2  metadata manipulation library
+    libexpat1 2.0.1-7.2ubuntu1  parsing C library - runtime library
+    libexttextcat-data 3.2.0-1ubuntu1  detection library - data files
+    libexttextcat0 3.2.0-1ubuntu1  detection library
+    libfarstream-0.1-0 0.1.2-0ubuntu1  communications framework: core library
+    libffi6 3.0.11~rc1-5  Function Interface library runtime
+    libfile-basedir-perl 0.03-1fakesync1  module to use the freedesktop basedir specification
+    libfile-copy-recursive-perl 0.38-1  extension for recursively copying files and directories
+    libfile-desktopentry-perl 0.04-3  module to handle freedesktop .desktop files
+    libfile-mimeinfo-perl 0.15-2  module to determine file types
+    libflac8 1.2.1-6  Lossless Audio Codec - runtime C library
+    libfolks-eds25 0.6.8-2  backend for libfolks
+    libfolks-telepathy25 0.6.8-2  backend for libfolks
+    libfolks25 0.6.8-2  to aggregates people into metacontacts
+    libfontconfig1 2.8.0-3ubuntu9  font configuration library - runtime
+    libfontenc1 1:1.1.0-1  font encoding library
+    libfreerdp-plugins-standard 1.0.1-1ubuntu2  client for Windows Terminal Services (plugins)
+    libfreerdp1 1.0.1-1ubuntu2  client for Windows Terminal Services (library)
+    libfreetype6 2.4.8-1ubuntu2  2 font engine, shared library files
+    libfribidi0 0.19.2-1  Implementation of the Unicode BiDi algorithm
+    libfs6 2:1.0.3-1  Font Services library
+    libfuse2 2.8.6-2ubuntu2  in Userspace (library)
+    libgail-3-0 3.4.1-0ubuntu1  Accessibility Implementation Library -- shared libraries
+    libgail-common 2.24.10-0ubuntu6  Accessibility Implementation Library -- common modules
+    libgail18 2.24.10-0ubuntu6  Accessibility Implementation Library -- shared libraries
+    libgcc1 1:4.6.3-1ubuntu5  support library
+    libgck-1-0 3.2.2-2ubuntu4  wrapper library for PKCS#11 - runtime
+    libgconf-2-4 3.2.5-0ubuntu2  configuration database system (shared libraries)
+    libgconf2-4 3.2.5-0ubuntu2  configuration database system (dummy package)
+    libgcr-3-1 3.2.2-2ubuntu4  for Crypto UI related task - runtime
+    libgcr-3-common 3.2.2-2ubuntu4  for Crypto UI related task - common files
+    libgcrypt11 1.5.0-3  Crypto library - runtime library
+    libgd2-xpm 2.0.36~rc1~dfsg-6ubuntu2  Graphics Library version 2
+    libgdata-common 0.12.0-1  for accessing GData webservices - common data files
+    libgdata13 0.12.0-1  for accessing GData webservices - shared libraries
+    libgdbm3 1.8.3-10  dbm database routines (runtime version)
+    libgdk-pixbuf2.0-0 2.26.1-1  Pixbuf library
+    libgdk-pixbuf2.0-common 2.26.1-1  Pixbuf library - data files
+    libgdu-gtk0 3.0.2-2ubuntu7  standard dialog library for libgdu
+    libgdu0 3.0.2-2ubuntu7  based Disk Utility Library
+    libgee2 0.6.4-1  based collection library
+    libgeoclue0 0.12.0-1ubuntu12  API for GeoClue
+    libgeoip1 1.4.8+dfsg-2  IP-to-country resolver library
+    libgexiv2-1 0.4.1-1build1  wrapper around the Exiv2 library
+    libgirepository-1.0-1 1.32.0-1  for handling GObject introspection data (runtime library)
+    libgksu2-0 2.0.13~pre1-5ubuntu2  providing su and sudo functionality
+    libgl1-mesa-dri 8.0.2-0ubuntu3  implementation of the OpenGL API -- DRI modules
+    libgl1-mesa-glx 8.0.2-0ubuntu3  implementation of the OpenGL API -- GLX runtime
+    libglapi-mesa 8.0.2-0ubuntu3  implementation of the GL API -- shared library
+    libglew1.6 1.6.0-4  Extension Wrangler - runtime environment
+    libglewmx1.6 1.6.0-4  Extension Wrangler - runtime environment
+    libglib-perl 2:1.241-1  to the GLib and GObject libraries
+    libglib2.0-0 2.32.1-0ubuntu2  library of C routines
+    libglib2.0-bin 2.32.1-0ubuntu2  for the GLib library
+    libglib2.0-data 2.32.1-0ubuntu2  files for GLib library
+    libglibmm-2.4-1c2a 2.32.0-0ubuntu1  wrapper for the GLib toolkit (shared libraries)
+    libglu1-mesa 8.0.2-0ubuntu3  OpenGL utility library (GLU)
+    libgmime-2.6-0 2.6.7-1  message parser and creator library - runtime
+    libgmp10 2:5.0.2+dfsg-2ubuntu1  arithmetic library
+    libgnome-bluetooth8 3.2.2-0ubuntu5  Bluetooth tools - support library
+    libgnome-control-center1 1:3.4.1-0ubuntu1  to configure the GNOME desktop
+    libgnome-desktop-3-2 3.4.1-0ubuntu1  library for loading .desktop files - runtime files
+    libgnome-keyring-common 3.2.2-2  keyring services library - data files
+    libgnome-keyring0 3.2.2-2  keyring services library
+    libgnome-media-profiles-3.0-0 3.0.0-1  Media Profiles library
+    libgnome-menu-3-0 3.4.0-0ubuntu1  implementation of the freedesktop menu specification
+    libgnome-menu2 3.0.1-0ubuntu7  implementation of the freedesktop menu specification
+    libgnome2-common 2.32.1-2ubuntu1  GNOME library - common files
+    libgnomekbd-common 3.4.0.2-1  library to manage keyboard configuration - common files
+    libgnomekbd7 3.4.0.2-1  library to manage keyboard configuration - shared library
+    libgnutls26 2.12.14-5ubuntu3  TLS library - runtime library
+    libgoa-1.0-0 3.4.0-0ubuntu1  for GNOME Online Accounts
+    libgoa-1.0-common 3.4.0-0ubuntu1  for GNOME Online Accounts - common files
+    libgomp1 4.6.3-1ubuntu5  OpenMP (GOMP) support library
+    libgpg-error0 1.10-2ubuntu1  for common error values and messages in GnuPG components
+    libgpgme11 1.2.0-1.4ubuntu2  - GnuPG Made Easy
+    libgphoto2-2 2.4.13-1ubuntu1  digital camera library
+    libgphoto2-l10n 2.4.13-1ubuntu1  digital camera library - localized messages
+    libgphoto2-port0 2.4.13-1ubuntu1  digital camera port library
+    libgpm2 1.20.4-4  Purpose Mouse - shared library
+    libgpod-common 0.8.2-4  files for libgpod
+    libgpod4 0.8.2-4  to read and write songs and artwork to an iPod
+    libgrip0 0.3.4-0ubuntu1  library providing multitouch gestures to GTK+ apps.
+    libgs9 9.05~dfsg-0ubuntu4  for the PostScript language and for PDF - Library
+    libgs9-common 9.05~dfsg-0ubuntu4  for the PostScript language and for PDF - common files
+    libgssapi-krb5-2 1.10+dfsg~beta1-2  Kerberos runtime libraries - krb5 GSS-API Mechanism
+    libgssapi3-heimdal 1.6~git20120311.dfsg.1-2  Kerberos - GSSAPI support library
+    libgssdp-1.0-3 0.12.1-2  library for SSDP
+    libgstreamer-plugins-base0.10-0 0.10.36-1  libraries from the "base" set
+    libgstreamer0.10-0 0.10.36-1ubuntu1  GStreamer libraries and elements
+    libgtk-3-0 3.4.1-0ubuntu1  graphical user interface library
+    libgtk-3-bin 3.4.1-0ubuntu1  for the GTK+ graphical user interface library
+    libgtk-3-common 3.4.1-0ubuntu1  files for the GTK+ graphical user interface library
+    libgtk2-perl 2:1.223-1build3  interface to the 2.x series of the Gimp Toolkit library
+    libgtk2.0-0 2.24.10-0ubuntu6  graphical user interface library
+    libgtk2.0-bin 2.24.10-0ubuntu6  for the GTK+ graphical user interface library
+    libgtk2.0-common 2.24.10-0ubuntu6  files for the GTK+ graphical user interface library
+    libgtkmm-3.0-1 3.4.0-0ubuntu1  wrappers for GTK+ (shared libraries)
+    libgtksourceview-3.0-0 3.4.1-0ubuntu1  libraries for the GTK+ syntax highlighting widget
+    libgtksourceview-3.0-common 3.4.1-0ubuntu1  files for the GTK+ syntax highlighting widget
+    libgtkspell-3-0 3.0.0~hg20110814-1  addon for GTK's TextView widget
+    libgtop2-7 2.28.4-2  system monitoring library (shared)
+    libgtop2-common 2.28.4-2  system monitoring library (common)
+    libgucharmap-2-90-7 1:3.4.1.1-0ubuntu1  browser widget library (shared library)
+    libgudev-1.0-0 1:175-0ubuntu9  wrapper library for libudev
+    libgupnp-1.0-4 0.18.1-2  library for UPnP
+    libgupnp-igd-1.0-4 0.2.1-2  to handle UPnP IGD port mapping
+    libgutenprint2 5.2.8~pre1-0ubuntu2  for the Gutenprint printer driver library
+    libgweather-3-0 3.4.1-0ubuntu1  shared library
+    libgweather-common 3.4.1-0ubuntu1  common files
+    libgwibber-gtk2 3.4.0-0ubuntu4  GTK Widgets
+    libgwibber2 3.4.0-0ubuntu4  - shared library
+    libhcrypto4-heimdal 1.6~git20120311.dfsg.1-2  Kerberos - crypto library
+    libheimbase1-heimdal 1.6~git20120311.dfsg.1-2  Kerberos - Base library
+    libheimntlm0-heimdal 1.6~git20120311.dfsg.1-2  Kerberos - NTLM support library
+    libhpmud0 3.12.2-1ubuntu3  Multi-Point Transport Driver (hpmud) run-time libraries
+    libhunspell-1.3-0 1.3.2-4  checker and morphological analyzer (shared library)
+    libhx509-5-heimdal 1.6~git20120311.dfsg.1-2  Kerberos - X509 support library
+    libhyphen0 2.8.3-1  hyphenation library - shared library
+    libibus-1.0-0 1.4.1-3ubuntu1  Input Bus - shared library
+    libical0 0.48-1ubuntu3  library implementation in C (runtime)
+    libice6 2:1.0.7-2build1  Inter-Client Exchange library
+    libicu48 4.8.1.1-3  Components for Unicode
+    libidl-common 0.8.14-0.2ubuntu2  for parsing CORBA IDL files (common files)
+    libidl0 0.8.14-0.2ubuntu2  for parsing CORBA IDL files
+    libidn11 1.23-2  Libidn library, implementation of IETF IDN specifications
+    libido3-0.1-0 0.3.4-0ubuntu1  library providing extra gtk menu items for display in
+    libiec61883-0 1.2.0-0.1ubuntu1  partial implementation of IEC 61883
+    libieee1284-3 0.2.11-10build1  library for parallel port access
+    libijs-0.35 0.35-8  raster image transport protocol: shared library
+    libimobiledevice2 1.1.1-4  for communicating with the iPhone and iPod Touch
+    libindicate-gtk3 0.6.92-0ubuntu1  for raising indicators via DBus - GTK+ bindings
+    libindicate5 0.6.92-0ubuntu1  for raising indicators via DBus
+    libindicator-messages-status-provider1 0.6.0-0ubuntu1  status provider - shared library
+    libindicator3-7 0.5.0-0ubuntu1  indicator applet - shared library
+    libindicator7 0.5.0-0ubuntu1  indicator applet - shared library
+    libisc83 1:9.8.1.dfsg.P1-4  Shared Library used by BIND
+    libisccc80 1:9.8.1.dfsg.P1-4  Channel Library used by BIND
+    libisccfg82 1:9.8.1.dfsg.P1-4  File Handling Library used by BIND
+    libisofs6 1.1.6-1ubuntu1  to create ISO9660 images
+    libiw30 30~pre9-5ubuntu2  tools - library
+    libjack-jackd2-0 1.9.8~dfsg.1-1ubuntu1  Audio Connection Kit (libraries)
+    libjasper1 1.900.1-13  JPEG-2000 runtime library
+    libjavascriptcoregtk-3.0-0 1.8.0-0ubuntu2  engine library for GTK+
+    libjbig2dec0 0.11-1ubuntu1  decoder library - shared libraries
+    libjpeg-turbo8 1.1.90+svn733-0ubuntu4  JPEG compliant runtime library.
+    libjpeg8 8c-2ubuntu7  JPEG Group's JPEG runtime library (dependency package)
+    libjs-jquery 1.7.1-1ubuntu1  library for dynamic web applications
+    libjson-glib-1.0-0 0.14.2-1  JSON manipulation library
+    libjson0 0.9-1ubuntu1  manipulation library - shared library
+    libjte1 1.19-1  Template Export - runtime library
+    libk5crypto3 1.10+dfsg~beta1-2  Kerberos runtime libraries - Crypto Library
+    libkeyutils1 1.5.2-2  Key Management Utilities (library)
+    libklibc 1.5.25-1ubuntu2  libc subset for use with initramfs
+    libkpathsea5 2009-11ubuntu2  Live: path search library for TeX (runtime part)
+    libkrb5-26-heimdal 1.6~git20120311.dfsg.1-2  Kerberos - libraries
+    libkrb5-3 1.10+dfsg~beta1-2  Kerberos runtime libraries
+    libkrb5support0 1.10+dfsg~beta1-2  Kerberos runtime libraries - Support library
+    liblaunchpad-integration-3.0-1 0.1.56  for launchpad integration
+    liblaunchpad-integration-common 0.1.56  for launchpad integration common data
+    liblcms1 1.19.dfsg-1ubuntu3  CMS color management library
+    liblcms2-2 2.2+git20110628-2ubuntu3  CMS 2 color management library
+    libldap-2.4-2 2.4.28-1.1ubuntu4  libraries
+    liblightdm-gobject-1-0 1.2.1-0ubuntu1  GObject client library
+    liblircclient0 0.9.0-0ubuntu1  remote control support - client library
+    libllvm3.0 3.0-4ubuntu1  Virtual Machine (LLVM), runtime library
+    liblocale-gettext-perl 1.05-7build1  using libc functions for internationalization in Perl
+    liblockfile-bin 1.09-3  binaries for and cli utilities based on liblockfile
+    liblockfile1 1.09-3  locking library
+    liblouis-data 2.3.0-3  translation library - data
+    liblouis2 2.3.0-3  translation library - shared libs
+    libltdl7 2.4.2-1ubuntu1  system independent dlopen wrapper for GNU libtool
+    liblua5.1-0 5.1.4-12ubuntu1  library for the Lua interpreter version 5.1
+    liblvm2app2.2 2.02.66-4ubuntu7  application library
+    liblwres80 1:9.8.1.dfsg.P1-4  Resolver Library used by BIND
+    liblzma5 5.1.1alpha+20110809-3  compression library
+    libmagic1 5.09-2  type determination library using "magic" numbers
+    libmcrypt4 2.5.8-3.1  Library
+    libmeanwhile1 1.0.2-4ubuntu1  implementation of the Lotus Sametime Community Client protocol
+    libmetacity-private0 1:2.34.1-1ubuntu11  for the Metacity window manager
+    libmhash2 0.9.9.9-1  for cryptographic hashing and message authentication
+    libminiupnpc8 1.6-3ubuntu1  IGD client lightweight library
+    libmission-control-plugins0 1:5.12.0-0ubuntu2  daemon for Telepathy (library for plugins)
+    libmng1 1.0.10-3  Network Graphics library
+    libmount1 2.20.1-1ubuntu3  device id library
+    libmpc2 0.9-4  precision complex floating-point library
+    libmpfr4 3.1.0-3ubuntu2  precision floating-point computation
+    libmtdev1 1.1.0-2ubuntu1  Protocol Translation Library - shared library
+    libmtp-common 1.1.3-1  Transfer Protocol (MTP) common files
+    libmtp-runtime 1.1.3-1  Transfer Protocol (MTP) runtime tools
+    libmtp9 1.1.3-1  Transfer Protocol (MTP) library
+    libmusicbrainz3-6 3.0.2-2.1  to access the MusicBrainz.org database
+    libmythes-1.2-0 2:1.2.2-1  thesaurus library
+    libnautilus-extension1a 1:3.4.1-0ubuntu1  for nautilus components - runtime version
+    libncurses5 5.9-4  libraries for terminal handling
+    libncursesw5 5.9-4  libraries for terminal handling (wide character support)
+    libneon27-gnutls 0.29.6-1  and WebDAV client library (GnuTLS enabled)
+    libnetfilter-conntrack3 0.9.1-1ubuntu1  netlink-conntrack library
+    libnettle4 2.4-1  level cryptographic library (symmetric and one-way cryptos)
+    libnewt0.52 0.52.11-2ubuntu10  Erik's Windowing Toolkit - text mode windowing with slang
+    libnfnetlink0 1.0.0-1  netlink library
+    libnice10 0.1.1-2ubuntu1  library (shared library)
+    libnih-dbus1 1.0.3-4ubuntu9  D-Bus Bindings Library
+    libnih1 1.0.3-4ubuntu9  Utility Library
+    libnl-3-200 3.2.3-2ubuntu2  for dealing with netlink sockets
+    libnl-genl-3-200 3.2.3-2ubuntu2  for dealing with netlink sockets - generic netlink
+    libnl-route-3-200 3.2.3-2ubuntu2  for dealing with netlink sockets - route interface
+    libnm-glib-vpn1 0.9.4.0-0ubuntu3  management framework (GLib VPN shared library)
+    libnm-glib4 0.9.4.0-0ubuntu3  management framework (GLib shared library)
+    libnm-gtk-common 0.9.4.1-0ubuntu2  management framework (common files for wifi and mobile)
+    libnm-gtk0 0.9.4.1-0ubuntu2  management framework (GNOME dialogs for wifi and mobile)
+    libnm-util2 0.9.4.0-0ubuntu3  management framework (shared library)
+    libnotify-bin 0.7.5-1  desktop notifications to a notification daemon (Utilities)
+    libnotify4 0.7.5-1  desktop notifications to a notification daemon
+    libnspr4 4.8.9-1ubuntu2  Portable Runtime Library
+    libnss-mdns 0.10-3.2  module for Multicast DNS name resolution
+    libnss3 3.13.1.with.ckbi.1.88-1ubuntu6  Security Service libraries
+    libnux-2.0-0 2.10.0-0ubuntu1  rendering toolkit for real-time applications - shared lib
+    libnux-2.0-common 2.10.0-0ubuntu1  rendering toolkit for real-time applications - common files
+    liboauth0 0.9.4-3  library for implementing OAuth 1.0
+    libogg0 1.2.2~dfsg-1ubuntu1  bitstream library
+    libopencc1 0.3.0-1  chinese conversion library - runtime
+    libopenobex1 1.5-2build1  protocol library
+    liborbit2 1:2.14.19-0.1  for ORBit2 - a CORBA ORB
+    liborc-0.4-0 1:0.4.16-1ubuntu2  of Optimized Inner Loops Runtime Compiler
+    liboverlay-scrollbar-0.2-0 0.2.16-0ubuntu1  overlayed widget - shared lib
+    liboverlay-scrollbar3-0.2-0 0.2.16-0ubuntu1  overlayed widget - shared lib
+    libp11-kit0 0.12-2ubuntu1  for loading and coordinating access to PKCS#11 modules - runtime
+    libpackagekit-glib2-14 0.7.2-4ubuntu3  for accessing PackageKit using GLib
+    libpam-cap 1:2.22-1ubuntu3  module for implementing capabilities
+    libpam-ck-connector 0.4.5-2  PAM module
+    libpam-gnome-keyring 3.2.2-2ubuntu4  module to unlock the GNOME keyring upon login
+    libpam-modules 1.1.3-7ubuntu2  Authentication Modules for PAM
+    libpam-modules-bin 1.1.3-7ubuntu2  Authentication Modules for PAM - helper binaries
+    libpam-runtime 1.1.3-7ubuntu2  support for the PAM library
+    libpam0g 1.1.3-7ubuntu2  Authentication Modules library
+    libpango-perl 1.222-1build1  module to layout and render international text
+    libpango1.0-0 1.30.0-0ubuntu2  and rendering of internationalized text
+    libpangomm-1.4-1 2.28.4-1ubuntu1  Wrapper for pango (shared libraries)
+    libpaper-utils 1.1.24+nmu1build1  for handling paper characteristics (utilities)
+    libpaper1 1.1.24+nmu1build1  for handling paper characteristics
+    libparted0debian1 2.3-8ubuntu5  partition manipulator - shared library
+    libpcap0.8 1.1.1-10  interface for user-level packet capture
+    libpci3 1:3.1.8-2ubuntu5  PCI Utilities (shared library)
+    libpciaccess0 0.12.902-1  PCI access library for X
+    libpcre3 8.12-4  5 Compatible Regular Expression Library - runtime files
+    libpcsclite1 1.7.4-2ubuntu2  to access a smart card using PC/SC (library)
+    libpeas-1.0-0 1.2.0-1ubuntu1  plugin library
+    libpeas-common 1.2.0-1ubuntu1  plugin library (common files)
+    libperl5.14 5.14.2-6ubuntu2  Perl library
+    libpipeline1 1.2.1-1  manipulation library
+    libpixman-1-0 0.24.4-1  library for X and cairo
+    libplist1 1.8-1  for handling Apple binary and XML property lists
+    libplymouth2 0.8.2-2ubuntu30  boot animation and logger - shared libraries
+    libpng12-0 1.2.46-3ubuntu4  library - runtime
+    libpolkit-agent-1-0 0.104-1  Authentication Agent API
+    libpolkit-backend-1-0 0.104-1  backend API
+    libpolkit-gobject-1-0 0.104-1  Authorization API
+    libpoppler-glib8 0.18.4-1ubuntu2  rendering library (GLib-based shared library)
+    libpoppler19 0.18.4-1ubuntu2  rendering library
+    libpopt0 1.16-3ubuntu1  for parsing cmdline parameters
+    libportaudio2 19+svn20111121-1  audio I/O - shared library
+    libprotobuf7 2.4.1-1ubuntu2  buffers C++ library
+    libprotoc7 2.4.1-1ubuntu2  buffers compiler library
+    libproxy1 0.4.7-0ubuntu4  proxy configuration management library (shared)
+    libproxy1-plugin-gsettings 0.4.7-0ubuntu4  proxy configuration management library (GSettings plugin)
+    libproxy1-plugin-networkmanager 0.4.7-0ubuntu4  proxy configuration management library (Network Manager plugin)
+    libpth20 2.0.7-16ubuntu3  GNU Portable Threads
+    libpulse-mainloop-glib0 1:1.1-0ubuntu15  client libraries (glib support)
+    libpulse0 1:1.1-0ubuntu15  client libraries
+    libpulsedsp 1:1.1-0ubuntu15  OSS pre-load library
+    libpurple-bin 1:2.10.3-0ubuntu1  instant messaging library - extra utilities
+    libpurple0 1:2.10.3-0ubuntu1  instant messaging library
+    libpython2.7 2.7.3-0ubuntu3  Python runtime library (version 2.7)
+    libqt4-dbus 4:4.8.1-0ubuntu4  4 D-Bus module
+    libqt4-declarative 4:4.8.1-0ubuntu4  4 Declarative module
+    libqt4-network 4:4.8.1-0ubuntu4  4 network module
+    libqt4-opengl 4:4.8.1-0ubuntu4  4 OpenGL module
+    libqt4-script 4:4.8.1-0ubuntu4  4 script module
+    libqt4-sql 4:4.8.1-0ubuntu4  4 SQL module
+    libqt4-sql-sqlite 4:4.8.1-0ubuntu4  4 SQLite 3 database driver
+    libqt4-svg 4:4.8.1-0ubuntu4  4 SVG module
+    libqt4-xml 4:4.8.1-0ubuntu4  4 XML module
+    libqt4-xmlpatterns 4:4.8.1-0ubuntu4  4 XML patterns module
+    libqtbamf1 0.2.3-0ubuntu1  binding and QML plugin for bamf - shared library
+    libqtcore4 4:4.8.1-0ubuntu4  4 core module
+    libqtdee2 0.2.4-0ubuntu1  binding and QML plugin for Dee - shared library
+    libqtgconf1 0.1-0ubuntu5  binding and QML plugin for GConf - shared library
+    libqtgui4 4:4.8.1-0ubuntu4  4 GUI module
+    libquadmath0 4.6.3-1ubuntu5  Quad-Precision Math Library
+    libquvi-scripts 0.4.2-1  for parsing video download links (Lua scripts)
+    libquvi7 0.4.0-1  for parsing video download links (runtime libraries)
+    libraptor2-0 2.0.6-1  2 RDF syntax library
+    librasqal3 0.9.28-1  RDF query library
+    libraw1394-11 2.0.7-1ubuntu1  for direct access to IEEE 1394 bus (aka FireWire)
+    libraw5 0.14.4-0ubuntu2  image decoder library
+    librdf0 1.0.14-1  Resource Description Framework (RDF) library
+    libreadline6 6.2-8  readline and history libraries, run-time libraries
+    libreoffice-base-core 1:3.5.7-0ubuntu13  productivity suite -- shared library
+    libreoffice-calc 1:3.5.7-0ubuntu13  productivity suite -- spreadsheet
+    libreoffice-common 1:3.5.7-0ubuntu13  productivity suite -- arch-independent files
+    libreoffice-core 1:3.5.7-0ubuntu13  productivity suite -- arch-dependent files
+    libreoffice-draw 1:3.5.7-0ubuntu13  productivity suite -- drawing
+    libreoffice-emailmerge 1:3.5.2-2ubuntu1  productivity suite -- email mail merge
+    libreoffice-gnome 1:3.5.7-0ubuntu13  productivity suite -- GNOME integration
+    libreoffice-gtk 1:3.5.7-0ubuntu13  productivity suite -- GTK+ integration
+    libreoffice-help-en-us 1:3.5.7-0ubuntu13  productivity suite -- English_american help
+    libreoffice-impress 1:3.5.7-0ubuntu13  productivity suite -- presentation
+    libreoffice-math 1:3.5.7-0ubuntu13  productivity suite -- equation editor
+    libreoffice-style-human 1:3.5.2-2ubuntu1  productivity suite -- Human symbol style
+    libreoffice-style-tango 1:3.5.2-2ubuntu1  productivity suite -- Tango symbol style
+    libreoffice-writer 1:3.5.7-0ubuntu13  productivity suite -- word processor
+    librest-0.7-0 0.7.12-1ubuntu2  service access library
+    librhythmbox-core5 2.96-0ubuntu4  library for the rhythmbox music player
+    libroken18-heimdal 1.6~git20120311.dfsg.1-2  Kerberos - roken support library
+    librsvg2-2 2.36.1-0ubuntu1  renderer library for SVG files (runtime)
+    librsvg2-common 2.36.1-0ubuntu1  renderer library for SVG files (extra runtime)
+    librsync1 0.9.7-8build1  remote-delta algorithm library
+    librtmp0 2.4~20110711.gitc28f1bab-1  for RTMP streams (shared library)
+    libsamplerate0 0.1.8-4  sample rate conversion library
+    libsane 1.0.22-7ubuntu1  library for scanners
+    libsane-common 1.0.22-7ubuntu1  library for scanners -- documentation and support files
+    libsane-hpaio 3.12.2-1ubuntu3  SANE backend for multi-function peripherals
+    libsasl2-2 2.1.25.dfsg1-3  SASL - authentication abstraction library
+    libsasl2-modules 2.1.25.dfsg1-3  SASL - pluggable authentication modules
+    libsdl1.2debian 1.2.14-6.4ubuntu3  DirectMedia Layer
+    libselinux1 2.1.0-4.1ubuntu1  runtime shared libraries
+    libsensors4 1:3.3.1-2ubuntu1  to read temperature/voltage/fan sensors
+    libsgutils2-2 1.33-1  for devices using the SCSI command set (shared libraries)
+    libshout3 2.2.2-7ubuntu1  Vorbis broadcast streaming library
+    libsigc++-2.0-0c2a 2.2.10-0ubuntu2  Signal Framework for C++ - runtime
+    libslang2 2.2.4-3ubuntu1  programming library - runtime version
+    libslp1 1.2.1-7.8ubuntu1  libraries
+    libsm6 2:1.2.0-2build1  Session Management library
+    libsmbclient 2:3.6.3-2ubuntu2  library for communication with SMB/CIFS servers
+    libsndfile1 1.0.25-4  for reading/writing audio files
+    libsnmp-base 5.4.3~dfsg-2.4ubuntu1  (Simple Network Management Protocol) MIBs and documentation
+    libsnmp15 5.4.3~dfsg-2.4ubuntu1  (Simple Network Management Protocol) library
+    libsonic0 0.1.17-1.1  library to speed up or slow down speech
+    libsoup-gnome2.4-1 2.38.1-1  library implementation in C -- GNOME support library
+    libsoup2.4-1 2.38.1-1  library implementation in C -- Shared library
+    libspectre1 0.2.6-1build1  for rendering PostScript documents
+    libspeechd2 0.7.1-6ubuntu3  Dispatcher: Shared libraries
+    libspeex1 1.2~rc1-3ubuntu2  Speex codec runtime library
+    libspeexdsp1 1.2~rc1-3ubuntu2  Speex extended runtime library
+    libsqlite3-0 3.7.9-2ubuntu1  3 shared library
+    libss2 1.42-1ubuntu2  interface parsing library
+    libssh-4 0.5.2-1  C SSH library
+    libssl1.0.0 1.0.1-4ubuntu3  shared libraries
+    libstartup-notification0 0.12-1ubuntu1  for program launch feedback (shared library)
+    libstdc++6 4.6.3-1ubuntu5  Standard C++ Library v3
+    libswitch-perl 2.16-2  statement for Perl
+    libsyncdaemon-1.0-1 3.0.0-0ubuntu1  One synchronization daemon library
+    libsysfs2 2.1.0+repack-1  library to sysfs
+    libt1-5 5.1.2-3.4ubuntu1  1 font rasterizer library - runtime
+    libtag1-vanilla 1.7-1ubuntu5  meta-data library - vanilla flavour
+    libtag1c2a 1.7-1ubuntu5  meta-data library
+    libtalloc2 2.0.7-3  pool based memory allocator
+    libtasn1-3 2.10-1ubuntu1  ASN.1 structures (runtime)
+    libtdb1 1.2.9-4  Database - shared library
+    libtelepathy-farstream2 0.4.0-0ubuntu1  library between telepathy and farstream
+    libtelepathy-glib0 0.18.0-1ubuntu1  framework - GLib library
+    libtelepathy-logger2 0.4.0-0ubuntu1  logger service - utility library
+    libtext-charwidth-perl 0.04-7build1  display widths of characters on the terminal
+    libtext-iconv-perl 1.7-5  between character sets in Perl
+    libtext-wrapi18n-perl 0.06-7  substitute of Text::Wrap
+    libthai-data 0.1.16-3  files for Thai language support library
+    libthai0 0.1.16-3  language support library
+    libtheora0 1.1.1+dfsg.1-3ubuntu2  Theora Video Compression Codec
+    libtiff4 3.9.5-2ubuntu1  Image File Format (TIFF) library
+    libtimezonemap1 0.3.2  timezone map widget
+    libtinfo5 5.9-4  low-level terminfo library for terminal handling
+    libtotem-plparser17 3.4.1-1  Playlist Parser library - runtime files
+    libtotem0 3.0.1-0ubuntu21  library for the Totem media player
+    libubuntuoneui-3.0-1 3.0.0-0ubuntu1  One widget library
+    libudev0 175-0ubuntu9  library
+    libunique-3.0-0 3.0.2-1  for writing single instance applications - shared libraries
+    libunity-2d-private0 5.10.0-0ubuntu1  2D shared library
+    libunity-core-5.0-5 5.10.0-0ubuntu6  library for the Unity interface.
+    libunity-misc4 4.0.4-0ubuntu2  functions for Unity - shared library
+    libunity9 5.10.0-0ubuntu1  to get places into the launcher - shared library
+    libupower-glib1 0.9.15-3git1  for power management - shared library
+    libusb-0.1-4 2:0.1.12-20  USB programming library
+    libusb-1.0-0 2:1.0.9~rc3-2ubuntu1  USB programming library
+    libusbmuxd1 1.0.7-2  multiplexor daemon for iPhone and iPod Touch devices - library
+    libutempter0 1.1.5-4  privileged helper for utmp/wtmp updates (runtime)
+    libutouch-evemu1 1.0.9-0ubuntu1  Event Device Emulation Library
+    libutouch-frame1 2.2.3-0ubuntu1  Frame Library
+    libutouch-geis1 2.2.9-0ubuntu1  engine interface support
+    libutouch-grail1 3.0.5-0ubuntu1  Recognition And Instantiation Library
+    libuuid-perl 0.02-4ubuntu1  extension for using UUID interfaces as defined in e2fsprogs
+    libuuid1 2.20.1-1ubuntu3  Unique ID library
+    libv4l-0 0.8.6-1ubuntu1  of video4linux support libraries
+    libv4lconvert0 0.8.6-1ubuntu1  frame format conversion library
+    libvisual-0.4-0 0.4.0-4  visualization framework
+    libvisual-0.4-plugins 0.4.0.dfsg.1-7  visualization framework plugins
+    libvncserver0 0.9.8.2-2ubuntu1  to write one's own vnc server
+    libvorbis0a 1.3.2-1ubuntu3  Vorbis General Audio Compression Codec (Decoder library)
+    libvorbisenc2 1.3.2-1ubuntu3  Vorbis General Audio Compression Codec (Encoder library)
+    libvorbisfile3 1.3.2-1ubuntu3  Vorbis General Audio Compression Codec (High Level API)
+    libvte-2.90-9 1:0.32.1-0ubuntu1  emulator widget for GTK+ 3.0 - runtime files
+    libvte-2.90-common 1:0.32.1-0ubuntu1  emulator widget for GTK+ 3.0 - common files
+    libwacom-common 0.4-1ubuntu1  model feature query library (common files)
+    libwacom2 0.4-1ubuntu1  model feature query library
+    libwavpack1 4.60.1-2  codec (lossy and lossless) - library
+    libwbclient0 2:3.6.3-2ubuntu2  winbind client library
+    libwebkitgtk-3.0-0 1.8.0-0ubuntu2  content engine library for GTK+
+    libwebkitgtk-3.0-common 1.8.0-0ubuntu2  content engine library for GTK+ - data files
+    libwind0-heimdal 1.6~git20120311.dfsg.1-2  Kerberos - stringprep implementation
+    libwmf0.2-7 0.2.8.4-10ubuntu1  metafile conversion library
+    libwmf0.2-7-gtk 0.2.8.4-10ubuntu1  metafile conversion library
+    libwnck-3-0 3.4.0-0ubuntu1  Navigator Construction Kit - runtime files
+    libwnck-3-common 3.4.0-0ubuntu1  Navigator Construction Kit - common files
+    libwnck-common 1:2.30.7-0ubuntu1  Navigator Construction Kit - common files
+    libwnck22 1:2.30.7-0ubuntu1  Navigator Construction Kit - runtime files
+    libwpd-0.9-9 0.9.4-1  for handling WordPerfect documents (shared library)
+    libwpg-0.2-2 0.2.1-1  graphics import/convert library (shared library)
+    libwps-0.2-2 0.2.4-1  text file format import filter library (shared library)
+    libwrap0 7.6.q-21  Venema's TCP wrappers library
+    libx11-6 2:1.4.99.1-0ubuntu2  client-side library
+    libx11-data 2:1.4.99.1-0ubuntu2  client-side library
+    libx11-xcb1 2:1.4.99.1-0ubuntu2  interface library
+    libx86-1 1.1+ds1-7ubuntu1  real-mode library
+    libxapian22 1.2.8-1  engine library
+    libxatracker1 8.0.2-0ubuntu3  acceleration library -- runtime
+    libxau6 1:1.0.6-4  authorisation library
+    libxaw7 2:1.0.9-3ubuntu1  Athena Widget library
+    libxcb-dri2-0 1.8.1-1  C Binding, dri2 extension
+    libxcb-glx0 1.8.1-1  C Binding, glx extension
+    libxcb-render0 1.8.1-1  C Binding, render extension
+    libxcb-shape0 1.8.1-1  C Binding, shape extension
+    libxcb-shm0 1.8.1-1  C Binding, shm extension
+    libxcb-util0 0.3.8-2  libraries for X C Binding -- atom, aux and event
+    libxcb1 1.8.1-1  C Binding
+    libxcomposite1 1:0.4.3-2build1  Composite extension library
+    libxcursor1 1:1.1.12-1  cursor management library
+    libxdamage1 1:1.1.3-2build1  damaged region extension library
+    libxdmcp6 1:1.1.0-4  Display Manager Control Protocol library
+    libxext6 2:1.3.0-3build1  miscellaneous extension library
+    libxfixes3 1:5.0-4ubuntu4  miscellaneous 'fixes' extension library
+    libxfont1 1:1.4.4-1  font rasterisation library
+    libxft2 2.2.0-3ubuntu2  font drawing library for X
+    libxi6 2:1.6.0-0ubuntu2  Input extension library
+    libxinerama1 2:1.1.1-3build1  Xinerama extension library
+    libxkbfile1 1:1.0.7-1  keyboard file manipulation library
+    libxklavier16 5.2.1-1ubuntu1  Keyboard Extension high-level API
+    libxml2 2.7.8.dfsg-5.1ubuntu4  XML library
+    libxmu6 2:1.1.0-3  miscellaneous utility library
+    libxmuu1 2:1.1.0-3  miscellaneous micro-utility library
+    libxp6 1:1.0.1-2  Printing Extension (Xprint) client library
+    libxpm4 1:3.5.9-4  pixmap library
+    libxrandr2 2:1.3.2-2  RandR extension library
+    libxrender1 1:0.9.6-2build1  Rendering Extension client library
+    libxres1 2:1.0.5-1  Resource extension library
+    libxslt1.1 1.1.26-8ubuntu1  1.0 processing library - runtime library
+    libxt6 1:1.1.1-2build1  toolkit intrinsics library
+    libxtst6 2:1.2.0-4  Testing -- Record extension library
+    libxv1 2:1.0.6-2build1  Video extension library
+    libxvmc1 2:1.0.6-1ubuntu2  Video extension library
+    libxxf86dga1 2:1.1.2-1  Direct Graphics Access extension library
+    libxxf86vm1 1:1.1.1-2build1  XFree86 video mode extension library
+    libyajl1 1.0.12-2  Another JSON Library
+    libyaml-tiny-perl 1.50-1  module for reading and writing YAML files
+    libyelp0 3.4.1-0ubuntu1  for the GNOME help browser
+    libzeitgeist-1.0-1 0.3.18-1  to access Zeitgeist - shared library
+    libzephyr4 3.0.1-1  Athena's notification service - non-Kerberos libraries
+    light-themes 0.1.9.1-0ubuntu1  Themes (Ambiance and Radiance)
+    lightdm 1.2.1-0ubuntu1  Manager
+    linux-firmware 1.79  for Linux kernel drivers
+    linux-generic 3.2.0.23.25  Generic Linux kernel
+    linux-headers-3.2.0-23 3.2.0-23.36  files related to Linux kernel version 3.2.0
+    linux-headers-3.2.0-23-generic 3.2.0-23.36  kernel headers for version 3.2.0 on 64 bit x86 SMP
+    linux-headers-generic 3.2.0.23.25  Linux kernel headers
+    linux-image-3.2.0-23-generic 3.2.0-23.36  kernel image for version 3.2.0 on 64 bit x86 SMP
+    linux-image-generic 3.2.0.23.25  Linux kernel image
+    linux-libc-dev 3.2.0-23.36  Kernel Headers for development
+    linux-sound-base 1.0.25+dfsg-0ubuntu1  package for ALSA and OSS sound systems
+    locales 2.13+git20120306-3  files for locale support
+    lockfile-progs 0.1.16  for locking and unlocking files and mailboxes
+    login 1:4.1.4.2+svn3283-3ubuntu5  login tools
+    logrotate 3.7.8-6ubuntu5  rotation utility
+    lsb-base 4.0-0ubuntu20  Standard Base 4.0 init script functionality
+    lsb-release 4.0-0ubuntu20  Standard Base version reporting utility
+    lshw 02.15-2  about hardware configuration
+    lsof 4.81.dfsg.1-1build1  open files
+    ltrace 0.5.3-2.1ubuntu2  runtime library calls in dynamically linked programs
+    mahjongg 1:3.4.1-0ubuntu1  Eastern tile game for GNOME
+    make 3.81-8.1ubuntu1  utility for Directing compilation.
+    makedev 2.3.1-89ubuntu2  device files in /dev
+    man-db 2.6.1-2  manual pager
+    manpages 3.35-0.1ubuntu1  pages about using a GNU/Linux system
+    manpages-dev 3.35-0.1ubuntu1  pages about using GNU/Linux for development
+    mawk 1.3.3-17  pattern scanning and text processing language
+    media-player-info 16-1  player identification files
+    memtest86+ 4.20-1.1ubuntu1  real-mode memory tester
+    metacity 1:2.34.1-1ubuntu11  GTK+ window manager
+    metacity-common 1:2.34.1-1ubuntu11  files for the Metacity window manager
+    mime-support 3.51-1ubuntu1  files 'mime.types' & 'mailcap', and support programs
+    mlocate 0.23.1-1ubuntu2  find files on the filesystem based on their name
+    mobile-broadband-provider-info 20120410-0ubuntu1  of mobile broadband service providers
+    modemmanager 0.5.2.0-0ubuntu2  service for managing modems
+    module-init-tools 3.16-1ubuntu2  for managing Linux kernel modules
+    mount 2.20.1-1ubuntu3  for mounting and manipulating filesystems
+    mountall 2.36  mounting tool
+    mousetweaks 3.4.1-0ubuntu1  accessibility enhancements for the GNOME desktop
+    mscompress 0.3-3.1  "compress.exe/expand.exe" compatible (de)compressor
+    mtools 4.0.12-1  for manipulating MSDOS files
+    mtr-tiny 0.80-1ubuntu1  screen ncurses traceroute tool
+    multiarch-support 2.15-0ubuntu10  package to ensure multiarch compatibility
+    myspell-en-au 2.1-5.3ubuntu1  dictionary for myspell
+    myspell-en-gb 1:3.3.0-2ubuntu3  dictionary for myspell
+    myspell-en-za 1:3.3.0-2ubuntu3  dictionary for myspell
+    mythes-en-us 1:3.3.0-2ubuntu3  Thesaurus for LibreOffice/OpenOffice.org
+    nano 2.2.6-1  friendly text editor inspired by Pico
+    nautilus 1:3.4.1-0ubuntu1  manager and graphical shell for GNOME
+    nautilus-data 1:3.4.1-0ubuntu1  files for nautilus
+    nautilus-sendto 3.0.1-2ubuntu2  Evolution and Pidgin into the Nautilus file manager
+    nautilus-sendto-empathy 3.4.1-0ubuntu1  multi-protocol chat and call client (nautilus-sendto plugin)
+    nautilus-share 0.7.3-1ubuntu2  extension to share folder using Samba
+    ncurses-base 5.9-4  terminal type definitions
+    ncurses-bin 5.9-4  programs and man pages
+    net-tools 1.60-24.1ubuntu2  NET-3 networking toolkit
+    netbase 4.47ubuntu1  TCP/IP networking system
+    netcat-openbsd 1.89-4ubuntu1  swiss army knife
+    network-manager 0.9.4.0-0ubuntu3  management framework (daemon and userspace tools)
+    network-manager-gnome 0.9.4.1-0ubuntu2  management framework (GNOME frontend)
+    network-manager-pptp 0.9.4.0-0ubuntu1  management framework (PPTP plugin core)
+    network-manager-pptp-gnome 0.9.4.0-0ubuntu1  management framework (PPTP plugin GNOME GUI)
+    notify-osd 0.9.34-0ubuntu2  that displays passive pop-up notifications
+    notify-osd-icons 0.7  icons
+    ntfs-3g 1:2012.1.15AR.1-1ubuntu1  NTFS driver for FUSE
+    ntpdate 1:4.2.6.p3+dfsg-1ubuntu3  for setting system time from NTP servers
+    nux-tools 2.10.0-0ubuntu1  rendering toolkit for real-time applications - tools
+    nvidia-common 1:0.2.44  obsolete NVIDIA drivers
+    obex-data-server 0.4.6-0ubuntu1  service for OBEX client and server side functionality
+    obexd-client 0.44-0ubuntu1  OBEX client
+    onboard 0.97.0-0ubuntu3  On-screen Keyboard
+    oneconf 0.2.8  your configuration data over the network
+    open-vm-dkms 2011.12.20-562307-0ubuntu1.2  for VMware guest systems driver (DKMS)
+    open-vm-tools 2011.12.20-562307-0ubuntu1.2  and components for VMware guest systems (CLI tools)
+    openoffice.org-hyphenation 0.6  patterns for OpenOffice.org
+    openprinting-ppds 20120322-0ubuntu1  printer support - PostScript PPD files
+    openssh-client 1:5.9p1-5ubuntu1.10  shell (SSH) client, for secure access to remote machines
+    openssh-server 1:5.9p1-5ubuntu1.10  shell (SSH) server, for secure access from remote machines
+    openssl 1.0.1-4ubuntu3  Socket Layer (SSL) binary and related cryptographic tools
+    os-prober 1.51ubuntu3  to detect other OSes on a set of drives
+    overlay-scrollbar 0.2.16-0ubuntu1  overlayed widget
+    parted 2.3-8ubuntu5  partition manipulator
+    passwd 1:4.1.4.2+svn3283-3ubuntu5  and administer password and group data
+    patch 2.6.1-3ubuntu0.1  a diff file to an original
+    pciutils 1:3.1.8-2ubuntu5  PCI Utilities
+    pcmciautils 018-6  utilities for Linux 2.6
+    perl 5.14.2-6ubuntu2  Wall's Practical Extraction and Report Language
+    perl-base 5.14.2-6ubuntu2  Perl system
+    perl-modules 5.14.2-6ubuntu2  Perl modules
+    php5 5.3.10-1ubuntu3.26  HTML-embedded scripting language (metapackage)
+    php5-cli 5.3.10-1ubuntu3.26  interpreter for the php5 scripting language
+    php5-common 5.3.10-1ubuntu3.26  files for packages built from the php5 source
+    php5-mcrypt 5.3.5-0ubuntu1  module for php5
+    pkg-config 0.26-1ubuntu1  compile and link flags for libraries
+    plymouth 0.8.2-2ubuntu30  boot animation and logger - main package
+    plymouth-label 0.8.2-2ubuntu30  boot animation and logger - label control
+    plymouth-theme-ubuntu-logo 0.8.2-2ubuntu30  boot animation and logger - ubuntu-logo theme
+    plymouth-theme-ubuntu-text 0.8.2-2ubuntu30  boot animation and logger - ubuntu-logo theme
+    pm-utils 1.4.1-9  and scripts for power management
+    policykit-1 0.104-1  for managing administrative policies and privileges
+    policykit-1-gnome 0.105-1ubuntu3  authentication agent for PolicyKit-1
+    policykit-desktop-privileges 0.10  common desktop actions without password
+    poppler-data 0.4.5-2  data for the poppler PDF rendering library
+    poppler-utils 0.18.4-1ubuntu2  utilities (based on Poppler)
+    popularity-contest 1.53ubuntu1  for your favourite packages automatically
+    powermgmt-base 1.31  utils and configs for power management
+    ppp 2.4.5-5ubuntu1  Protocol (PPP) - daemon
+    pppconfig 2.3.18+nmu3ubuntu1  text menu based utility for configuring ppp
+    pppoeconf 1.20ubuntu1  PPPoE/ADSL connections
+    pptp-linux 1.7.2-6  Tunneling Protocol (PPTP) Client
+    printer-driver-c2esp 23-1  driver for Kodak ESP AiO color inkjet Series
+    printer-driver-foo2zjs 20111202dfsg0-1ubuntu1  driver for ZjStream-based printers
+    printer-driver-gutenprint 5.2.8~pre1-0ubuntu2  drivers for CUPS
+    printer-driver-hpcups 3.12.2-1ubuntu3  Linux Printing and Imaging - CUPS Raster driver (hpcups)
+    printer-driver-hpijs 3.12.2-1ubuntu3  Linux Printing and Imaging - gs IJS driver (hpijs)
+    printer-driver-min12xxw 0.0.9-6ubuntu1  driver for KonicaMinolta PagePro 1[234]xxW
+    printer-driver-pnm2ppa 1.13+nondbs-0ubuntu1  driver for HP-GDI printers
+    printer-driver-ptouch 1.3-3  driver Brother P-touch label printers
+    printer-driver-pxljr 1.3+repack0-2  driver for HP Color LaserJet 35xx/36xx
+    printer-driver-sag-gdi 0.1-3  driver for Ricoh Aficio SP 1000s/SP 1100s
+    printer-driver-splix 2.0.0+svn300-1.1ubuntu2  for Samsung and Xerox SPL2 and SPLc laser printers
+    procps 1:3.2.8-11ubuntu6  file system utilities
+    protobuf-compiler 2.4.1-1ubuntu2  for protocol buffer definition files
+    psmisc 22.15-2ubuntu1  that use the proc file system
+    pulseaudio 1:1.1-0ubuntu15  sound server
+    pulseaudio-module-bluetooth 1:1.1-0ubuntu15  module for PulseAudio sound server
+    pulseaudio-module-gconf 1:1.1-0ubuntu15  module for PulseAudio sound server
+    pulseaudio-module-x11 1:1.1-0ubuntu15  module for PulseAudio sound server
+    pulseaudio-utils 1:1.1-0ubuntu15  line tools for the PulseAudio sound server
+    python 2.7.3-0ubuntu2  high-level object-oriented language (default version)
+    python-appindicator 0.4.92-0ubuntu1  bindings for libappindicator
+    python-apport 2.0.1-0ubuntu5  crash report handling library
+    python-apt 0.8.3ubuntu7  interface to libapt-pkg
+    python-apt-common 0.8.3ubuntu7  interface to libapt-pkg (locales)
+    python-aptdaemon 0.43+bzr805-0ubuntu1  module for the server and client of aptdaemon
+    python-aptdaemon.gtk3widgets 0.43+bzr805-0ubuntu1  GTK+ 3 widgets to run an aptdaemon client
+    python-aptdaemon.pkcompat 0.43+bzr805-0ubuntu1  compatibilty for AptDaemon
+    python-brlapi 4.3-1ubuntu5  bindings for BrlAPI
+    python-cairo 1.8.8-1ubuntu3  bindings for the Cairo vector graphics library
+    python-chardet 2.0.1-2build1  character encoding detector
+    python-configglue 1.0-1build1  together optparse.OptionParser and ConfigParser.ConfigParser
+    python-crypto 2.4.1-1  algorithms and protocols for Python
+    python-cups 1.9.61-0ubuntu2  bindings for CUPS
+    python-cupshelpers 1.3.8+20120201-0ubuntu8  modules for printer configuration with CUPS
+    python-dateutil 1.5-1  extensions to the standard datetime module
+    python-dbus 1.0.0-1ubuntu1  interprocess messaging system (Python interface)
+    python-dbus-dev 1.0.0-1ubuntu1  loop integration development files for python-dbus
+    python-debian 0.1.21ubuntu1  modules to work with Debian-related data formats
+    python-debtagshw 1.9+git20120320  debtags hardware:: tags against the actual hardware
+    python-defer 1.0.2+bzr481-1  framework for asynchronous programming
+    python-dirspec 3.0.0-0ubuntu1  User Folders Specification Library
+    python-egenix-mxdatetime 3.2.1-1ubuntu1  and time handling routines for Python
+    python-egenix-mxtools 3.2.1-1ubuntu1  of additional builtins for Python
+    python-gconf 2.28.1+dfsg-1  bindings for the GConf configuration database system
+    python-gdbm 2.7.3-1ubuntu1  dbm database support for Python
+    python-gi 3.2.0-3  2.x bindings for gobject-introspection libraries
+    python-gi-cairo 3.2.0-3  Cairo bindings for the GObject library
+    python-gnomekeyring 2.32.0+dfsg-1  bindings for the GNOME keyring library
+    python-gnupginterface 0.3.2-9.1ubuntu3  interface to GnuPG (GPG)
+    python-gobject 3.2.0-3  2.x bindings for GObject - transitional package
+    python-gobject-2 2.28.6-10ubuntu1  static Python bindings for the GObject library
+    python-gst0.10 0.10.22-3  media-playing framework (Python bindings)
+    python-gtk2 2.24.0-3  bindings for the GTK+ widget set
+    python-httplib2 0.7.2-1ubuntu2  HTTP client library written for Python
+    python-ibus 1.4.1-3ubuntu1  Input Bus - Python support
+    python-imaging 1.1.7-4  Imaging Library
+    python-keyring 0.7.1-1fakesync1  and access your passwords safely
+    python-launchpadlib 1.9.12-1  web services client library
+    python-lazr.restfulclient 0.12.0-1ubuntu1  for lazr.restful-based web services
+    python-lazr.uri 1.0.3-1  for parsing, manipulating, and generating URIs
+    python-libproxy 0.4.7-0ubuntu4  proxy configuration management library (python)
+    python-libxml2 2.7.8.dfsg-5.1ubuntu4  bindings for the GNOME XML library
+    python-louis 2.3.0-3  bindings for liblouis
+    python-mako 0.5.0-1  and lightweight templating for the Python platform
+    python-markupsafe 0.15-1  Markup safe string for Python
+    python-minimal 2.7.3-0ubuntu2  subset of the Python language (default version)
+    python-notify 0.1.1-3  bindings for libnotify
+    python-oauth 1.0.1-3build1  library implementing of the OAuth protocol
+    python-openssl 0.12-1ubuntu2  wrapper around the OpenSSL library
+    python-packagekit 0.7.2-4ubuntu3  Python bindings
+    python-pam 0.4.2-12.2ubuntu4  Python interface to the PAM library
+    python-pexpect 2.3-1ubuntu2  module for automating interactive applications
+    python-piston-mini-client 0.7.2-0ubuntu1  for writing clients for Django's Piston REST APIs
+    python-pkg-resources 0.6.24-1ubuntu1  Discovery and Resource Access using pkg_resources
+    python-problem-report 2.0.1-0ubuntu5  library to handle problem reports
+    python-protobuf 2.4.1-1ubuntu2  bindings for protocol buffers
+    python-pyatspi2 2.4.0+dfsg-0ubuntu3  Technology Service Provider Interface - Python bindings
+    python-pycurl 7.19.0-4ubuntu3  bindings to libcurl
+    python-pyinotify 0.9.2-1  Linux inotify Python bindings
+    python-renderpm 2.5-1.1build1  low level render interface
+    python-reportlab 2.5-1.1build1  library to create PDF documents using Python
+    python-reportlab-accel 2.5-1.1build1  coded extension accelerator for the ReportLab Toolkit
+    python-serial 2.5-2.1build1  - module encapsulating access for the serial port
+    python-simplejson 2.3.2-1  fast, extensible JSON encoder/decoder for Python
+    python-smbc 1.0.13-0ubuntu1  bindings for Samba clients (libsmbclient)
+    python-software-properties 0.82.7  the repositories that you install software from
+    python-speechd 0.7.1-6ubuntu3  interface to Speech Dispatcher
+    python-twisted-bin 11.1.0-1ubuntu2  framework for internet applications
+    python-twisted-core 11.1.0-1ubuntu2  framework for internet applications
+    python-twisted-names 11.1.0-1  protocol implementation with client and server
+    python-twisted-web 11.1.0-1  protocol implementation together with clients and servers
+    python-ubuntu-sso-client 3.0.0-0ubuntu1  Single Sign-On client - Python library
+    python-ubuntuone-client 3.0.0-0ubuntu1  One client Python libraries
+    python-ubuntuone-control-panel 3.0.0-0ubuntu1  One Control Panel - Python Libraries
+    python-ubuntuone-storageprotocol 3.0.0-0ubuntu1  library for Ubuntu One file storage and sharing service
+    python-uno 1:3.5.7-0ubuntu13  bridge
+    python-virtkey 0.60.0-0ubuntu5  to emulate keyboard keypresses.
+    python-wadllib 1.3.0-2  library for navigating WADL files
+    python-xapian 1.2.8-1  search engine interface for Python
+    python-xdg 0.19-3ubuntu2  library to access freedesktop.org standards
+    python-xkit 0.4.2.3build1  for the manipulation of the xorg.conf
+    python-zeitgeist 0.9.0-1  logging framework - Python bindings
+    python-zope.interface 3.6.1-1ubuntu3  for Python
+    python2.7 2.7.3-0ubuntu3  high-level object-oriented language (version 2.7)
+    python2.7-minimal 2.7.3-0ubuntu3  subset of the Python language (version 2.7)
+    qdbus 4:4.8.1-0ubuntu4  4 D-Bus tool
+    qt-at-spi 0.2.0+git20120411-0ubuntu1  plugin for Qt
+    radeontool 1.6.2-1.1  to control ATI Radeon backlight functions on laptops
+    readline-common 6.2-8  readline and history libraries, common files
+    remmina 1.0.0-1ubuntu5  desktop client for GNOME desktop environment
+    remmina-common 1.0.0-1ubuntu5  files for remmina remote desktop client
+    remmina-plugin-rdp 1.0.0-1ubuntu5  plugin for remmina remote desktop client
+    remmina-plugin-vnc 1.0.0-1ubuntu5  plugin for remmina remote desktop client
+    resolvconf 1.63ubuntu11  server information handler
+    rfkill 0.4-1ubuntu2  for enabling and disabling wireless devices
+    rhythmbox 2.96-0ubuntu4  player and organizer for GNOME
+    rhythmbox-data 2.96-0ubuntu4  files for rhythmbox
+    rhythmbox-mozilla 2.96-0ubuntu4  Mozilla plugin
+    rhythmbox-plugin-cdrecorder 2.96-0ubuntu4  plugin for rhythmbox music player
+    rhythmbox-plugin-magnatune 2.96-0ubuntu4  plugin for rhythmbox music player
+    rhythmbox-plugin-zeitgeist 2.96-0ubuntu4  plugin for rhythmbox music player
+    rhythmbox-plugins 2.96-0ubuntu4  for rhythmbox music player
+    rhythmbox-ubuntuone 3.0.0-0ubuntu1  One Rhythmbox plugin
+    rsync 3.0.9-1ubuntu1  versatile, remote (and local) file-copying tool
+    rsyslog 5.8.6-1ubuntu8  system and kernel logging daemon
+    rtkit 0.10-2  Policy and Watchdog Daemon
+    samba-common 2:3.6.3-2ubuntu2  files used by both the Samba server and client
+    samba-common-bin 2:3.6.3-2ubuntu2  files used by both the Samba server and client
+    sane-utils 1.0.22-7ubuntu1  library for scanners -- utilities
+    seahorse 3.2.2-0ubuntu2  front end for GnuPG
+    sed 4.2.1-9  GNU sed stream editor
+    sensible-utils 0.0.6ubuntu2  for sensible alternative selection
+    sessioninstaller 0.20+bzr128-0ubuntu1  based installer using PackageKit's session DBus API
+    sgml-base 1.26+nmu1ubuntu1  infrastructure and SGML catalog file support
+    shared-mime-info 1.0-0ubuntu4  shared MIME database and spec
+    shotwell 0.12.2-0ubuntu2  photo organizer
+    simple-scan 3.4.1-0ubuntu1  Scanning Utility
+    smbclient 2:3.6.3-2ubuntu2  SMB/CIFS clients for Unix
+    sni-qt 0.2.5-0ubuntu3  support for Qt
+    software-center 5.2  for browsing, installing, and removing software
+    software-center-aptdaemon-plugins 0.1.2  aptdaemon plugins for software-center
+    software-properties-common 0.82.7  the repositories that you install software from (common)
+    software-properties-gtk 0.82.7  the repositories that you install software from (gtk)
+    sound-theme-freedesktop 0.7.pristine-2  sound theme
+    speech-dispatcher 0.7.1-6ubuntu3  interface to speech synthesizers
+    ssh-askpass-gnome 1:5.9p1-5ubuntu1  X program to prompt users for a passphrase for ssh-add
+    ssh-import-id 2.10-0ubuntu1  retrieve an SSH public key and install it locally
+    ssl-cert 1.0.28  debconf wrapper for OpenSSL
+    strace 4.5.20-2.3ubuntu1  system call tracer
+    sudo 1.8.3p1-1ubuntu3  limited super user privileges to specific users
+    syslinux 2:4.05+dfsg-2  of boot loaders
+    syslinux-common 2:4.05+dfsg-2  of boot loaders (common files)
+    syslinux-legacy 2:3.63+dfsg-2ubuntu5  for Linux/i386 using MS-DOS floppies
+    system-config-printer-common 1.3.8+20120201-0ubuntu8  configuration GUI
+    system-config-printer-gnome 1.3.8+20120201-0ubuntu8  configuration GUI
+    system-config-printer-udev 1.3.8+20120201-0ubuntu8  auto-configuration facility based on udev
+    sysv-rc 2.88dsf-13.10ubuntu11  runlevel change mechanism
+    sysvinit-utils 2.88dsf-13.10ubuntu11  utilities
+    tar 1.26-4ubuntu1  version of the tar archiving utility
+    tcpd 7.6.q-21  Venema's TCP wrapper utilities
+    tcpdump 4.2.1-1ubuntu2  network traffic analyzer
+    telepathy-gabble 0.16.0-0ubuntu1  connection manager
+    telepathy-haze 0.6.0-0ubuntu1  connection manager that uses libpurple
+    telepathy-idle 0.1.11-2  connection manager for Telepathy
+    telepathy-indicator 0.2.1-0ubuntu1  service to integrate Telepathy with the messaging menu.
+    telepathy-logger 0.4.0-0ubuntu1  logger service - Daemon
+    telepathy-mission-control-5 1:5.12.0-0ubuntu2  daemon for Telepathy real-time communication framework
+    telepathy-salut 0.8.0-0ubuntu1  XMPP connection manager for the Telepathy framework
+    telnet 0.17-36build1  telnet client
+    thunderbird 1:45.8.0+build1-0ubuntu0.12.04.1  RSS and newsgroup client with integrated spam filter
+    thunderbird-globalmenu 1:45.8.0+build1-0ubuntu0.12.04.1  RSS and newsgroup client (transitional package)
+    thunderbird-gnome-support 1:45.8.0+build1-0ubuntu0.12.04.1  RSS and newsgroup client - GNOME support
+    thunderbird-locale-en 1:45.8.0+build1-0ubuntu0.12.04.1  language pack for Thunderbird
+    thunderbird-locale-en-us 1:45.8.0+build1-0ubuntu0.12.04.1  English language pack for Thunderbird
+    time 1.7-23.1  GNU time program for measuring cpu resource usage
+    tmux 1.6-1ubuntu1  multiplexer
+    toshset 1.76-2  much of the Toshiba laptop hardware interface
+    totem 3.0.1-0ubuntu21  media player for the GNOME desktop based on GStreamer
+    totem-common 3.0.1-0ubuntu21  files for the Totem media player
+    totem-mozilla 3.0.1-0ubuntu21  Mozilla plugin
+    totem-plugins 3.0.1-0ubuntu21  for the Totem media player
+    transmission-common 2.51-0ubuntu1  BitTorrent client (common files)
+    transmission-gtk 2.51-0ubuntu1  BitTorrent client (GTK interface)
+    ttf-dejavu-core 2.33-2ubuntu1  font family derivate with additional characters
+    ttf-freefont 20100919-1  Serif, Sans and Mono Truetype fonts
+    ttf-indic-fonts-core 1:0.5.11ubuntu1  collection of free fonts for languages of India
+    ttf-punjabi-fonts 1:0.5.11ubuntu1  TrueType fonts for the Punjabi language
+    ttf-ubuntu-font-family 0.80-0ubuntu2  Font Family, sans-serif typeface hinted for clarity
+    ttf-wqy-microhei 0.2.0-beta-1ubuntu1  droid derived Sans-Seri style CJK font
+    tzdata 2012b-1  zone and daylight-saving time data
+    ubuntu-artwork 57  themes and artwork
+    ubuntu-docs 12.04.4  Desktop Guide
+    ubuntu-extras-keyring 2010.09.27  keys of the Ubuntu extras archive
+    ubuntu-keyring 2011.11.21  keys of the Ubuntu archive
+    ubuntu-minimal 1.267  core of Ubuntu
+    ubuntu-mono 0.0.40  Mono Icon theme
+    ubuntu-sounds 0.13  GNOME audio theme
+    ubuntu-sso-client 3.0.0-0ubuntu1  Single Sign-On client
+    ubuntu-sso-client-gtk 3.0.0-0ubuntu1  Single Sign-On client - GTK+ frontend
+    ubuntu-standard 1.267  Ubuntu standard system
+    ubuntu-system-service 0.2.2  service to set various system-wide configurations
+    ubuntu-wallpapers 0.34.1  Wallpapers
+    ubuntu-wallpapers-precise 0.34.1  12.04 Wallpapers
+    ubuntuone-client 3.0.0-0ubuntu1  One client
+    ubuntuone-client-gnome 3.0.0-0ubuntu1  One client GNOME integration
+    ubuntuone-control-panel 3.0.0-0ubuntu1  One Control Panel
+    ubuntuone-couch 0.3.0-0ubuntu4  One CouchDB
+    ubuntuone-installer 3.0.0-0ubuntu1  One Installer
+    ucf 3.0025+nmu2ubuntu1  Configuration File: preserve user changes to config files.
+    udev 175-0ubuntu9  device node and kernel event manager
+    udisks 1.0.4-5ubuntu2  media interface
+    ufw 0.31.1-1  for managing a Netfilter firewall
+    unattended-upgrades 0.76  installation of security upgrades
+    unity 5.10.0-0ubuntu6  designed for efficiency of space and interaction.
+    unity-2d 5.10.0-0ubuntu1  interface for non-accelerated graphics cards
+    unity-2d-common 5.10.0-0ubuntu1  files for Unity 2D Shell
+    unity-2d-panel 5.10.0-0ubuntu1  2D Panel
+    unity-2d-shell 5.10.0-0ubuntu1  and Launcher for the Unity 2D environment
+    unity-2d-spread 5.10.0-0ubuntu1  2D Spread
+    unity-asset-pool 0.8.23-0ubuntu1  Assets Pool
+    unity-common 5.10.0-0ubuntu6  files for the Unity interface.
+    unity-greeter 0.2.8-0ubuntu1  Greeter
+    unity-lens-applications 5.10.0-0ubuntu1  lens for unity
+    unity-lens-files 5.10.0-0ubuntu1  lens for unity
+    unity-lens-music 5.10.0-0ubuntu1  lens for unity
+    unity-lens-video 0.3.5-0ubuntu1  Video lens
+    unity-scope-musicstores 5.10.0-0ubuntu1  music lens for unity
+    unity-scope-video-remote 0.3.5-0ubuntu2  videos engine
+    unity-services 5.10.0-0ubuntu6  for the Unity interface
+    uno-libs3 3.5.7-0ubuntu13  UNO runtime environment -- public shared libraries
+    unzip 6.0-4ubuntu2.5  for .zip files
+    update-inetd 4.41  configuration file updater
+    update-manager 1:0.156.14  application that manages apt updates
+    update-manager-core 1:0.156.14  release upgrades
+    update-notifier 0.119ubuntu8.1  which notifies about package updates
+    update-notifier-common 0.119ubuntu8.1  shared between update-notifier and other packages
+    upower 0.9.15-3git1  for power management
+    upstart 1.5-0ubuntu5  init daemon
+    ure 3.5.7-0ubuntu13  UNO runtime environment
+    ureadahead 0.100.0-12  required files in advance
+    usb-creator-common 0.2.38  a startup disk using a CD or disc image (common files)
+    usb-creator-gtk 0.2.38  a startup disk using a CD or disc image (for GNOME)
+    usb-modeswitch 1.2.3+repack0-1ubuntu2  switching tool for controlling "flip flop" USB devices
+    usb-modeswitch-data 20120120-0ubuntu1  switching data for usb-modeswitch
+    usbmuxd 1.0.7-2  multiplexor daemon for iPhone and iPod Touch devices
+    usbutils 1:005-1  USB utilities
+    util-linux 2.20.1-1ubuntu3  system utilities
+    uuid-runtime 2.20.1-1ubuntu3  components for the Universally Unique ID library
+    vbetool 1.1-2ubuntu1  real-mode video BIOS code to alter hardware state
+    vim-common 2:7.3.429-2ubuntu2  IMproved - Common files
+    vim-tiny 2:7.3.429-2ubuntu2  IMproved - enhanced vi editor - compact version
+    vino 3.4.1-0ubuntu1  server for GNOME
+    wamerican 7.1-1  English dictionary words for /usr/share/dict
+    wbritish 7.1-1  English dictionary words for /usr/share/dict
+    wget 1.13.4-2ubuntu1  files from the web
+    whiptail 0.52.11-2ubuntu10  user-friendly dialog boxes from shell scripts
+    whois 5.0.15ubuntu2  WHOIS client
+    whoopsie 0.1.32  crash database submission daemon
+    wireless-regdb 2011.04.28-1ubuntu3  regulatory database
+    wireless-tools 30~pre9-5ubuntu2  for manipulating Linux Wireless Extensions
+    wodim 9:1.1.1debug2: channel 0: window 983040 sent adjust 65536
+1-2ubuntu2  line CD/DVD writing tool
+    wpasupplicant 0.7.3-6ubuntu2  support for WPA and WPA2 (IEEE 802.11i)
+    x11-apps 7.6+5ubuntu1  applications
+    x11-common 1:7.6+12ubuntu1  Window System (X.Org) infrastructure
+    x11-session-utils 7.6+2  session utilities
+    x11-utils 7.6+4  utilities
+    x11-xfs-utils 7.6+1  font server utilities
+    x11-xkb-utils 7.6+4  XKB utilities
+    x11-xserver-utils 7.6+3  server utilities
+    xauth 1:1.0.6-1  authentication utility
+    xbitmaps 1.1.1-1  X bitmaps
+    xcursor-themes 1.0.3-1  X cursor themes
+    xdg-user-dirs 0.14-0ubuntu2  to manage well known user directories
+    xdg-user-dirs-gtk 0.9-0ubuntu1  to manage well known user directories (Gtk extension)
+    xdg-utils 1.1.0~rc1-2ubuntu6  integration utilities from freedesktop.org
+    xdiagnose 2.5  diagnosis tool
+    xfonts-base 1:1.0.3  fonts for X
+    xfonts-encodings 1:1.0.4-1ubuntu1  for X.Org fonts
+    xfonts-mathml 4ubuntu1  Symbol font for MathML
+    xfonts-scalable 1:1.0.3-1  fonts for X
+    xfonts-utils 1:7.6+1  Window System font utility programs
+    xinit 1.3.1-1  server initialisation tool
+    xinput 1.5.99.1-0ubuntu2  configuration and test of XInput devices
+    xkb-data 2.5-1ubuntu1  Keyboard Extension (XKB) configuration data
+    xml-core 0.13  infrastructure and XML catalog file support
+    xorg 1:7.6+12ubuntu1  X Window System
+    xorg-docs-core 1:1.6-1ubuntu2  documentation for the X.org X Window System
+    xserver-common 2:1.11.4-0ubuntu10  files used by various X servers
+    xserver-xorg 1:7.6+12ubuntu1  X server
+    xserver-xorg-core 2:1.11.4-0ubuntu10  X server - core server
+    xserver-xorg-input-all 1:7.6+12ubuntu1  X server -- input driver metapackage
+    xserver-xorg-input-evdev 1:2.7.0-0ubuntu1  X server -- evdev input driver
+    xserver-xorg-input-mouse 1:1.7.1-1build3  X server -- mouse input driver
+    xserver-xorg-input-synaptics 1.5.99.902-0ubuntu5  TouchPad driver for X.Org server
+    xserver-xorg-input-vmmouse 1:12.8.0-1  X server -- VMMouse input driver to use with VMWare
+    xserver-xorg-input-wacom 1:0.14.0-0ubuntu2  X server -- Wacom input driver
+    xserver-xorg-video-all 1:7.6+12ubuntu1  X server -- output driver metapackage
+    xserver-xorg-video-ati 1:6.14.99~git20111219.aacbd629-0ubuntu2  X server -- AMD/ATI display driver wrapper
+    xserver-xorg-video-cirrus 1:1.3.2-4build1  X server -- Cirrus display driver
+    xserver-xorg-video-fbdev 1:0.4.2-4ubuntu2  X server -- fbdev display driver
+    xserver-xorg-video-intel 2:2.17.0-1ubuntu4  X server -- Intel i8xx, i9xx display driver
+    xserver-xorg-video-mach64 6.9.0-1build2  X server -- ATI Mach64 display driver
+    xserver-xorg-video-mga 1:1.4.13.dfsg-4build2  X server -- MGA display driver
+    xserver-xorg-video-neomagic 1:1.2.5-2build2  X server -- Neomagic display driver
+    xserver-xorg-video-nouveau 1:0.0.16+git20111201+b5534a1-1build2  X server -- Nouveau display driver
+    xserver-xorg-video-openchrome 1:0.2.904+svn1050-1  X server -- VIA display driver
+    xserver-xorg-video-qxl 0.0.16-2  X server -- QXL display driver
+    xserver-xorg-video-r128 6.8.1-5build2  X server -- ATI r128 display driver
+    xserver-xorg-video-radeon 1:6.14.99~git20111219.aacbd629-0ubuntu2  X server -- AMD/ATI Radeon display driver
+    xserver-xorg-video-s3 1:0.6.3-4build2  X server -- legacy S3 display driver
+    xserver-xorg-video-savage 1:2.3.3-1ubuntu1  X server -- Savage display driver
+    xserver-xorg-video-siliconmotion 1:1.7.5-1build2  X server -- SiliconMotion display driver
+    xserver-xorg-video-sis 1:0.10.3-3build2  X server -- SiS display driver
+    xserver-xorg-video-sisusb 1:0.9.4-2build2  X server -- SiS USB display driver
+    xserver-xorg-video-tdfx 1:1.4.3-4build2  X server -- tdfx display driver
+    xserver-xorg-video-trident 1:1.3.4-2build2  X server -- Trident display driver
+    xserver-xorg-video-vesa 1:2.3.0-7build2  X server -- VESA display driver
+    xserver-xorg-video-vmware 1:12.0.1-1ubuntu1  X server -- VMware display driver
+    xterm 271-1ubuntu2  terminal emulator
+    xul-ext-ubufox 2.0.2-0ubuntu1  configuration defaults and apt support for Firefox
+    xz-lzma 5.1.1alpha+20110809-3  compression utilities - compatibility commands
+    xz-utils 5.1.1alpha+20110809-3  compression utilities
+    yelp 3.4.1-0ubuntu1  browser for GNOME
+    yelp-xsl 3.4.1-1  stylesheets for the yelp help browser
+    zeitgeist 0.9.0-1  logging framework
+    zeitgeist-core 0.9.0-1  logging framework - engine
+    zeitgeist-datahub 0.8.2-1ubuntu2  logging framework - passive logging daemon
+    zenity 3.4.0-0ubuntu2  graphical dialog boxes from shell scripts
+    zenity-common 3.4.0-0ubuntu2  graphical dialog boxes from shell scripts (common files)
+    zerofree 1.0.1-2ubuntu1  free blocks from ext2/3 file-systems
+    zip 3.0-4  for .zip files
+    zlib1g 1:1.2.3.4.dfsg-3ubuntu4  library - runtime
+
+[+] Current processes
+    USER PID START TIME COMMAND
+    root 1 15:47 0:01 /sbin/init
+    root 2 15:47 0:00 [kthreadd]
+    root 3 15:47 0:00 [ksoftirqd/0]
+    root 4 15:47 0:00 [kworker/0:0]
+    root 5 15:47 0:00 [kworker/u:0]
+    root 6 15:47 0:00 [migration/0]
+    root 7 15:47 0:00 [watchdog/0]
+    root 8 15:47 0:00 [cpuset]
+    root 9 15:47 0:00 [khelper]
+    root 10 15:47 0:00 [kdevtmpfs]
+    root 11 15:47 0:00 [netns]
+    root 12 15:47 0:00 [sync_supers]
+    root 13 15:47 0:00 [bdi-default]
+    root 14 15:47 0:00 [kintegrityd]
+    root 15 15:47 0:00 [kblockd]
+    root 16 15:47 0:00 [ata_sff]
+    root 17 15:47 0:00 [khubd]
+    root 18 15:47 0:00 [md]
+    root 19 15:47 0:00 [kworker/u:1]
+    root 21 15:47 0:00 [khungtaskd]
+    root 22 15:47 0:00 [kswapd0]
+    root 23 15:47 0:00 [ksmd]
+    root 24 15:47 0:00 [khugepaged]
+    root 25 15:47 0:00 [fsnotify_mark]
+    root 26 15:47 0:00 [ecryptfs-kthrea]
+    root 27 15:47 0:00 [crypto]
+    root 35 15:47 0:00 [kthrotld]
+    root 36 15:47 0:00 [kworker/0:1]
+    root 37 15:47 0:00 [scsi_eh_0]
+    root 38 15:47 0:00 [scsi_eh_1]
+    root 39 15:47 0:00 [kworker/u:2]
+    root 40 15:47 0:00 [kworker/u:3]
+    root 59 15:47 0:00 [devfreq_wq]
+    root 60 15:47 0:00 [kworker/0:2]
+    root 130 15:47 0:00 [scsi_eh_2]
+    root 134 15:47 0:00 [vmw_pvscsi_wq_2]
+    root 231 15:47 0:00 [jbd2/sda1-8]
+    root 232 15:47 0:00 [ext4-dio-unwrit]
+    root 367 15:47 0:00 upstart-udev-bridge
+    root 388 15:47 0:00 /sbin/udevd
+    root 494 15:47 0:00 /sbin/udevd
+    root 592 15:47 0:00 [kpsmoused]
+    syslog 606 15:47 0:00 rsyslogd
+    root 659 15:47 0:00 upstart-socket-bridge
+    102 706 15:47 0:00 dbus-daemon
+    root 746 15:47 0:00 /usr/sbin/modem-manager
+    root 755 15:47 0:00 /usr/sbin/bluetoothd
+    avahi 775 15:47 0:00 avahi-daemon:
+    avahi 776 15:47 0:00 avahi-daemon:
+    root 796 15:47 0:00 /usr/sbin/cupsd
+    root 811 15:47 0:00 NetworkManager
+    root 814 15:47 0:00 /usr/lib/policykit-1/polkitd
+    root 857 15:47 0:00 tpvmlpd2
+    root 863 15:47 0:00 [flush-8:0]
+    root 864 15:47 0:00 sshd:
+    root 920 15:47 0:00 /usr/sbin/sshd
+    root 1009 15:47 0:00 /sbin/getty
+    root 1019 15:47 0:00 /sbin/getty
+    root 1023 15:47 0:00 /usr/bin/tmux
+    root 1027 15:47 0:00 /sbin/getty
+    root 1028 15:47 0:00 /sbin/getty
+    root 1031 15:47 0:00 -bash
+    root 1037 15:47 0:00 /sbin/getty
+    root 1051 15:47 0:00 anacron
+    root 1052 15:47 0:00 acpid
+    root 1053 15:47 0:00 cron
+    daemon 1054 15:47 0:00 atd
+    whoopsie 1056 15:47 0:00 whoopsie
+    root 1084 15:47 0:00 /sbin/udevd
+    root 1119 15:47 0:00 /usr/bin/vmtoolsd
+    root 1192 15:47 0:00 /usr/sbin/apache2
+    www-data 1312 15:47 0:00 /usr/sbin/apache2
+    www-data 1313 15:47 0:00 /usr/sbin/apache2
+    www-data 1314 15:47 0:00 /usr/sbin/apache2
+    www-data 1315 15:47 0:00 /usr/sbin/apache2
+    www-data 1316 15:47 0:00 /usr/sbin/apache2
+    root 1450 15:47 0:00 /sbin/getty
+    root 1613 15:47 0:00 /usr/lib/vmware-vgauth/VGAuthService
+    root 1648 15:47 0:00 //usr/lib/vmware-caf/pme/bin/ManagementAgentHost
+    root 1663 15:47 0:00 /usr/sbin/console-kit-daemon
+    hype 1871 15:47 0:00 sshd:
+    hype 1872 15:47 0:00 -bash
+    hype 2013 15:49 0:00 python
+    root 2065 15:49 0:00 sshd:
+    sshd 2066 15:49 0:00 sshd:
+    hype 2424 15:49 0:00 /bin/sh
+    hype 2425 15:49 0:00 ps
+    hype 2426 15:49 0:00 awk
+
+[+] Apache Version and Modules
+    Server version: Apache/2.2.22 (Ubuntu)
+    Server built:   Jul 15 2016 15:32:34
+    Loaded Modules:
+    core_module (static)
+    log_config_module (static)
+    logio_module (static)
+    mpm_prefork_module (static)
+    http_module (static)
+    so_module (static)
+    alias_module (shared)
+    auth_basic_module (shared)
+    authn_file_module (shared)
+    authz_default_module (shared)
+    authz_groupfile_module (shared)
+    authz_host_module (shared)
+    authz_user_module (shared)
+    autoindex_module (shared)
+    cgi_module (shared)
+    deflate_module (shared)
+    dir_module (shared)
+    env_module (shared)
+    mime_module (shared)
+    negotiation_module (shared)
+    php5_module (shared)
+    reqtimeout_module (shared)
+    setenvif_module (shared)
+    ssl_module (shared)
+    status_module (shared)
+    Compiled in modules:
+    core.c
+    mod_log_config.c
+    mod_logio.c
+    prefork.c
+    http_core.c
+    mod_so.c
+
+[+] Apache Config File
+    #
+    # Based upon the NCSA server configuration files originally by Rob McCool.
+    #
+    # This is the main Apache server configuration file.  It contains the
+    # configuration directives that give the server its instructions.
+    # See http://httpd.apache.org/docs/2.2/ for detailed information about
+    # the directives.
+    #
+    # Do NOT simply read the instructions in here without understanding
+    # what they do.  They're here only as hints or reminders.  If you are unsure
+    # consult the online docs. You have been warned.
+    #
+    # The configuration directives are grouped into three basic sections:
+    #  1. Directives that control the operation of the Apache server process as a
+    #     whole (the 'global environment').
+    #  2. Directives that define the parameters of the 'main' or 'default' server,
+    #     which responds to requests that aren't handled by a virtual host.
+    #     These directives also provide default values for the settings
+    #     of all virtual hosts.
+    #  3. Settings for virtual hosts, which allow Web requests to be sent to
+    #     different IP addresses or hostnames and have them handled by the
+    #     same Apache server process.
+    #
+    # Configuration and logfile names: If the filenames you specify for many
+    # of the server's control files begin with "/" (or "drive:/" for Win32), the
+    # server will use that explicit path.  If the filenames do *not* begin
+    # with "/", the value of ServerRoot is prepended -- so "foo.log"
+    # with ServerRoot set to "/etc/apache2" will be interpreted by the
+    # server as "/etc/apache2/foo.log".
+    #
+    ### Section 1: Global Environment
+    #
+    # The directives in this section affect the overall operation of Apache,
+    # such as the number of concurrent requests it can handle or where it
+    # can find its configuration files.
+    #
+    #
+    # ServerRoot: The top of the directory tree under which the server's
+    # configuration, error, and log files are kept.
+    #
+    # NOTE!  If you intend to place this on an NFS (or otherwise network)
+    # mounted filesystem then please read the LockFile documentation (available
+    # at <URL:http://httpd.apache.org/docs/2.2/mod/mpm_common.html#lockfile>);
+    # you will save yourself a lot of trouble.
+    #
+    # Do NOT add a slash at the end of the directory path.
+    #
+    #ServerRoot "/etc/apache2"
+    #
+    # The accept serialization lock file MUST BE STORED ON A LOCAL DISK.
+    #
+    LockFile ${APACHE_LOCK_DIR}/accept.lock
+    #
+    # PidFile: The file in which the server should record its process
+    # identification number when it starts.
+    # This needs to be set in /etc/apache2/envvars
+    #
+    PidFile ${APACHE_PID_FILE}
+    #
+    # Timeout: The number of seconds before receives and sends time out.
+    #
+    Timeout 300
+    #
+    # KeepAlive: Whether or not to allow persistent connections (more than
+    # one request per connection). Set to "Off" to deactivate.
+    #
+    KeepAlive On
+    #
+    # MaxKeepAliveRequests: The maximum number of requests to allow
+    # during a persistent connection. Set to 0 to allow an unlimited amount.
+    # We recommend you leave this number high, for maximum performance.
+    #
+    MaxKeepAliveRequests 100
+    #
+    # KeepAliveTimeout: Number of seconds to wait for the next request from the
+    # same client on the same connection.
+    #
+    KeepAliveTimeout 5
+    ##
+    ## Server-Pool Size Regulation (MPM specific)
+    ##
+    # prefork MPM
+    # StartServers: number of server processes to start
+    # MinSpareServers: minimum number of server processes which are kept spare
+    # MaxSpareServers: maximum number of server processes which are kept spare
+    # MaxClients: maximum number of server processes allowed to start
+    # MaxRequestsPerChild: maximum number of requests a server process serves
+    <IfModule mpm_prefork_module>
+    StartServers          5
+    MinSpareServers       5
+    MaxSpareServers      10
+    MaxClients          150
+    MaxRequestsPerChild   0
+    </IfModule>
+    # worker MPM
+    # StartServers: initial number of server processes to start
+    # MinSpareThreads: minimum number of worker threads which are kept spare
+    # MaxSpareThreads: maximum number of worker threads which are kept spare
+    # ThreadLimit: ThreadsPerChild can be changed to this maximum value during a
+    #              graceful restart. ThreadLimit can only be changed by stopping
+    #              and starting Apache.
+    # ThreadsPerChild: constant number of worker threads in each server process
+    # MaxClients: maximum number of simultaneous client connections
+    # MaxRequestsPerChild: maximum number of requests a server process serves
+    <IfModule mpm_worker_module>
+    StartServers          2
+    MinSpareThreads      25
+    MaxSpareThreads      75
+    ThreadLimit          64
+    ThreadsPerChild      25
+    MaxClients          150
+    MaxRequestsPerChild   0
+    </IfModule>
+    # event MPM
+    # StartServers: initial number of server processes to start
+    # MinSpareThreads: minimum number of worker threads which are kept spare
+    # MaxSpareThreads: maximum number of worker threads which are kept spare
+    # ThreadsPerChild: constant number of worker threads in each server process
+    # MaxClients: maximum number of simultaneous client connections
+    # MaxRequestsPerChild: maximum number of requests a server process serves
+    <IfModule mpm_event_module>
+    StartServers          2
+    MinSpareThreads      25
+    MaxSpareThreads      75
+    ThreadLimit          64
+    ThreadsPerChild      25
+    MaxClients          150
+    MaxRequestsPerChild   0
+    </IfModule>
+    # These need to be set in /etc/apache2/envvars
+    User ${APACHE_RUN_USER}
+    Group ${APACHE_RUN_GROUP}
+    #
+    # AccessFileName: The name of the file to look for in each directory
+    # for additional configuration directives.  See also the AllowOverride
+    # directive.
+    #
+    AccessFileName .htaccess
+    #
+    # The following lines prevent .htaccess and .htpasswd files from being
+    # viewed by Web clients.
+    #
+    <Files ~ "^\.ht">
+    Order allow,deny
+    Deny from all
+    Satisfy all
+    </Files>
+    #
+    # DefaultType is the default MIME type the server will use for a document
+    # if it cannot otherwise determine one, such as from filename extensions.
+    # If your server contains mostly text or HTML documents, "text/plain" is
+    # a good value.  If most of your content is binary, such as applications
+    # or images, you may want to use "application/octet-stream" instead to
+    # keep browsers from trying to display binary files as though they are
+    # text.
+    #
+    # It is also possible to omit any default MIME type and let the
+    # client's browser guess an appropriate action instead. Typically the
+    # browser will decide based on the file's extension then. In cases
+    # where no good assumption can be made, letting the default MIME type
+    # unset is suggested  instead of forcing the browser to accept
+    # incorrect  metadata.
+    #
+    DefaultType None
+    #
+    # HostnameLookups: Log the names of clients or just their IP addresses
+    # e.g., www.apache.org (on) or 204.62.129.132 (off).
+    # The default is off because it'd be overall better for the net if people
+    # had to knowingly turn this feature on, since enabling it means that
+    # each client request will result in AT LEAST one lookup request to the
+    # nameserver.
+    #
+    HostnameLookups Off
+    # ErrorLog: The location of the error log file.
+    # If you do not specify an ErrorLog directive within a <VirtualHost>
+    # container, error messages relating to that virtual host will be
+    # logged here.  If you *do* define an error logfile for a <VirtualHost>
+    # container, that host's errors will be logged there and not here.
+    #
+    ErrorLog ${APACHE_LOG_DIR}/error.log
+    #
+    # LogLevel: Control the number of messages logged to the error_log.
+    # Possible values include: debug, info, notice, warn, error, crit,
+    # alert, emerg.
+    #
+    LogLevel warn
+    # Include module configuration:
+    Include mods-enabled/*.load
+    Include mods-enabled/*.conf
+    # Include all the user configurations:
+    Include httpd.conf
+    # Include ports listing
+    Include ports.conf
+    #
+    # The following directives define some format nicknames for use with
+    # a CustomLog directive (see below).
+    # If you are behind a reverse proxy, you might want to change %h into %{X-Forwarded-For}i
+    #
+    LogFormat "%v:%p %h %l %u %t \"%r\" %>s %O \"%{Referer}i\" \"%{User-Agent}i\"" vhost_combined
+    LogFormat "%h %l %u %t \"%r\" %>s %O \"%{Referer}i\" \"%{User-Agent}i\"" combined
+    LogFormat "%h %l %u %t \"%r\" %>s %O" common
+    LogFormat "%{Referer}i -> %U" referer
+    LogFormat "%{User-agent}i" agent
+    # Include of directories ignores editors' and dpkg's backup files,
+    # see README.Debian for details.
+    # Include generic snippets of statements
+    Include conf.d/
+    # Include the virtual host configurations:
+    Include sites-enabled/
+
+[+] Sudo Version (Check out http://www.exploit-db.com/search/?action=search&filter_page=1&filter_description=sudo)
+    Sudo version 1.8.3p1
+    Sudoers policy plugin version 1.8.3p1
+    Sudoers file grammar version 40
+    Sudoers I/O plugin version 1.8.3p1
+
+[*] IDENTIFYING PROCESSES AND PACKAGES RUNNING AS ROOT OR OTHER SUPERUSER...
+
+    root 1037 15:47 0:00 /sbin/getty
+    root 863 15:47 0:00 [flush-8:0]
+    root 231 15:47 0:00 [jbd2/sda1-8]
+    root 25 15:47 0:00 [fsnotify_mark]
+    root 388 15:47 0:00 /sbin/udevd
+    root 746 15:47 0:00 /usr/sbin/modem-manager
+    root 134 15:47 0:00 [vmw_pvscsi_wq_2]
+    root 15 15:47 0:00 [kblockd]
+    root 1648 15:47 0:00 //usr/lib/vmware-caf/pme/bin/ManagementAgentHost
+    root 1027 15:47 0:00 /sbin/getty
+    root 1019 15:47 0:00 /sbin/getty
+    root 1009 15:47 0:00 /sbin/getty
+    root 755 15:47 0:00 /usr/sbin/bluetoothd
+    root 59 15:47 0:00 [devfreq_wq]
+    root 60 15:47 0:00 [kworker/0:2]
+    root 19 15:47 0:00 [kworker/u:1]
+    root 35 15:47 0:00 [kthrotld]
+    root 11 15:47 0:00 [netns]
+    root 2 15:47 0:00 [kthreadd]
+    root 811 15:47 0:00 NetworkManager
+    root 1053 15:47 0:00 cron
+        Possible Related Packages:
+             anacron 2.3-14ubuntu1  program that doesn't go by time
+             cron 3.0pl1-120ubuntu3  scheduling daemon
+    root 592 15:47 0:00 [kpsmoused]
+    root 2065 15:49 0:00 sshd:
+    root 8 15:47 0:00 [cpuset]
+    root 814 15:47 0:00 /usr/lib/policykit-1/polkitd
+    root 659 15:47 0:00 upstart-socket-bridge
+    root 37 15:47 0:00 [scsi_eh_0]
+    root 1663 15:47 0:00 /usr/sbin/console-kit-daemon
+    root 26 15:47 0:00 [ecryptfs-kthrea]
+    root 16 15:47 0:00 [ata_sff]
+    root 27 15:47 0:00 [crypto]
+    root 23 15:47 0:00 [ksmd]
+    root 1028 15:47 0:00 /sbin/getty
+    root 4 15:47 0:00 [kworker/0:0]
+    root 21 15:47 0:00 [khungtaskd]
+    root 130 15:47 0:00 [scsi_eh_2]
+    root 857 15:47 0:00 tpvmlpd2
+    root 40 15:47 0:00 [kworker/u:3]
+    root 24 15:47 0:00 [khugepaged]
+    root 1031 15:47 0:00 -bash
+    root 18 15:47 0:00 [md]
+    root 1023 15:47 0:00 /usr/bin/tmux
+        Possible Related Packages:
+             tmux 1.6-1ubuntu1  multiplexer
+    root 1052 15:47 0:00 acpid
+        Possible Related Packages:
+             acpid 1:2.0.10-1ubuntu3  Configuration and Power Interface event daemon
+    root 6 15:47 0:00 [migration/0]
+    root 9 15:47 0:00 [khelper]
+    root 1 15:47 0:01 /sbin/init
+        Possible Related Packages:
+             busybox-initramfs 1:1.18.5-1ubuntu4  shell setup for initramfs
+             initramfs-tools 0.99ubuntu13  for generating an initramfs
+             initramfs-tools-bin 0.99ubuntu13  used by initramfs-tools
+             initscripts 2.88dsf-13.10ubuntu11  for initializing and shutting down the system
+             insserv 1.14.0-2.1ubuntu2  to organize boot sequence using LSB init.d script dependencies
+             libklibc 1.5.25-1ubuntu2  libc subset for use with initramfs
+             lsb-base 4.0-0ubuntu20  Standard Base 4.0 init script functionality
+             module-init-tools 3.16-1ubuntu2  for managing Linux kernel modules
+             ncurses-base 5.9-4  terminal type definitions
+             protobuf-compiler 2.4.1-1ubuntu2  for protocol buffer definition files
+             sysvinit-utils 2.88dsf-13.10ubuntu11  utilities
+             upstart 1.5-0ubuntu5  init daemon
+             xinit 1.3.1-1  server initialisation tool
+    root 38 15:47 0:00 [scsi_eh_1]
+    root 1084 15:47 0:00 /sbin/udevd
+    root 920 15:47 0:00 /usr/sbin/sshd
+    root 494 15:47 0:00 /sbin/udevd
+    root 5 15:47 0:00 [kworker/u:0]
+    root 39 15:47 0:00 [kworker/u:2]
+    root 367 15:47 0:00 upstart-udev-bridge
+    root 1119 15:47 0:00 /usr/bin/vmtoolsd
+    root 14 15:47 0:00 [kintegrityd]
+    root 36 15:47 0:00 [kworker/0:1]
+    root 22 15:47 0:00 [kswapd0]
+    root 10 15:47 0:00 [kdevtmpfs]
+    root 17 15:47 0:00 [khubd]
+    root 864 15:47 0:00 sshd:
+    root 1192 15:47 0:00 /usr/sbin/apache2
+        Possible Related Packages:
+             apache2 2.2.22-1ubuntu1.11  HTTP Server metapackage
+             apache2-mpm-prefork 2.2.22-1ubuntu1.11  HTTP Server - traditional non-threaded model
+             apache2-utils 2.2.22-1ubuntu1.11  programs for webservers
+             apache2.2-bin 2.2.22-1ubuntu1.11  HTTP Server common binary files
+             apache2.2-common 2.2.22-1ubuntu1.11  HTTP Server common files
+             libapache2-mod-php5 5.3.10-1ubuntu3.26  HTML-embedded scripting language (Apache 2 module)
+    root 1450 15:47 0:00 /sbin/getty
+    root 3 15:47 0:00 [ksoftirqd/0]
+    root 1051 15:47 0:00 anacron
+        Possible Related Packages:
+             anacron 2.3-14ubuntu1  program that doesn't go by time
+    root 796 15:47 0:00 /usr/sbin/cupsd
+        Possible Related Packages:
+             libcupsdriver1 1.5.2-9ubuntu1  UNIX Printing System(tm) - Driver library
+    root 7 15:47 0:00 [watchdog/0]
+    root 12 15:47 0:00 [sync_supers]
+    root 232 15:47 0:00 [ext4-dio-unwrit]
+    root 13 15:47 0:00 [bdi-default]
+    root 1613 15:47 0:00 /usr/lib/vmware-vgauth/VGAuthService
+
+[*] ENUMERATING INSTALLED LANGUAGES/TOOLS FOR SPLOIT BUILDING...
+
+[+] Installed Tools
+    /usr/bin/awk
+    /usr/bin/perl
+    /usr/bin/python
+    /usr/bin/gcc
+    /usr/bin/cc
+    /usr/bin/vi
+    /usr/bin/find
+    /bin/netcat
+    /bin/nc
+    /usr/bin/wget
+    /usr/bin/ftp
+
+[+] Related Shell Escape Sequences...
+
+    vi-->	:!bash
+    vi-->	:set shell=/bin/bash:shell
+    awk-->	awk 'BEGIN {system("/bin/bash")}'
+    find-->	find / -exec /usr/bin/awk 'BEGIN {system("/bin/bash")}' \;
+    perl-->	perl -e 'exec "/bin/bash";'
+
+[*] FINDING RELEVENT PRIVILEGE ESCALATION EXPLOITS...
+
+    Note: Exploits relying on a compile/scripting language not detected on this system are marked with a '**' but should still be tested!
+
+    The following exploits are ranked higher in probability of success because this script detected a related running process, OS, or mounted file system
+
+    The following exploits are applicable to this kernel version and should be investigated as well
+    - Kernel ia32syscall Emulation Privilege Escalation || http://www.exploit-db.com/exploits/15023 || Language=c
+    - Sendpage Local Privilege Escalation || http://www.exploit-db.com/exploits/19933 || Language=ruby**
+    - CAP_SYS_ADMIN to Root Exploit 2 (32 and 64-bit) || http://www.exploit-db.com/exploits/15944 || Language=c
+    - CAP_SYS_ADMIN to root Exploit || http://www.exploit-db.com/exploits/15916 || Language=c
+    - MySQL 4.x/5.0 User-Defined Function Local Privilege Escalation Exploit || http://www.exploit-db.com/exploits/1518 || Language=c
+    - open-time Capability file_ns_capable() Privilege Escalation || http://www.exploit-db.com/exploits/25450 || Language=c
+    - open-time Capability file_ns_capable() - Privilege Escalation Vulnerability || http://www.exploit-db.com/exploits/25307 || Language=c
+
+Finished
+=================================================================================================
+hype@Valentine:/var/tmp$

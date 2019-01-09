@@ -1,0 +1,92 @@
+# nmap -A 10.10.10.79 --top-ports 50 -Pn -n --open -v
+
+Starting Nmap 7.60 ( https://nmap.org ) at 2018-06-18 16:56 EDT
+NSE: Loaded 146 scripts for scanning.
+NSE: Script Pre-scanning.
+Initiating NSE at 16:56
+Completed NSE at 16:56, 0.00s elapsed
+Initiating NSE at 16:56
+Completed NSE at 16:56, 0.00s elapsed
+Initiating SYN Stealth Scan at 16:56
+Scanning 10.10.10.79 [50 ports]
+Discovered open port 22/tcp on 10.10.10.79
+Discovered open port 80/tcp on 10.10.10.79
+Discovered open port 443/tcp on 10.10.10.79
+Completed SYN Stealth Scan at 16:56, 0.39s elapsed (50 total ports)
+Initiating Service scan at 16:56
+Scanning 3 services on 10.10.10.79
+Completed Service scan at 16:56, 12.71s elapsed (3 services on 1 host)
+Initiating OS detection (try #1) against 10.10.10.79
+Retrying OS detection (try #2) against 10.10.10.79
+Retrying OS detection (try #3) against 10.10.10.79
+Retrying OS detection (try #4) against 10.10.10.79
+Retrying OS detection (try #5) against 10.10.10.79
+Initiating Traceroute at 16:56
+Completed Traceroute at 16:56, 0.13s elapsed
+NSE: Script scanning 10.10.10.79.
+Initiating NSE at 16:56
+Completed NSE at 16:56, 3.92s elapsed
+Initiating NSE at 16:56
+Completed NSE at 16:56, 0.00s elapsed
+Nmap scan report for 10.10.10.79
+Host is up (0.085s latency).
+Not shown: 47 closed ports
+PORT    STATE SERVICE  VERSION
+22/tcp  open  ssh      OpenSSH 5.9p1 Debian 5ubuntu1.10 (Ubuntu Linux; protocol 2.0)
+| ssh-hostkey:
+|   1024 96:4c:51:42:3c:ba:22:49:20:4d:3e:ec:90:cc:fd:0e (DSA)
+|   2048 46:bf:1f:cc:92:4f:1d:a0:42:b3:d2:16:a8:58:31:33 (RSA)
+|_  256 e6:2b:25:19:cb:7e:54:cb:0a:b9:ac:16:98:c6:7d:a9 (ECDSA)
+80/tcp  open  http     Apache httpd 2.2.22 ((Ubuntu))
+| http-methods:
+|_  Supported Methods: GET HEAD POST OPTIONS
+|_http-server-header: Apache/2.2.22 (Ubuntu)
+|_http-title: Site doesn't have a title (text/html).
+443/tcp open  ssl/http Apache httpd 2.2.22 ((Ubuntu))
+| http-methods:
+|_  Supported Methods: GET HEAD POST OPTIONS
+|_http-server-header: Apache/2.2.22 (Ubuntu)
+|_http-title: Site doesn't have a title (text/html).
+| ssl-cert: Subject: commonName=valentine.htb/organizationName=valentine.htb/stateOrProvinceName=FL/countryName=US
+| Issuer: commonName=valentine.htb/organizationName=valentine.htb/stateOrProvinceName=FL/countryName=US
+| Public Key type: rsa
+| Public Key bits: 2048
+| Signature Algorithm: sha1WithRSAEncryption
+| Not valid before: 2018-02-06T00:45:25
+| Not valid after:  2019-02-06T00:45:25
+| MD5:   a413 c4f0 b145 2154 fb54 b2de c7a9 809d
+|_SHA-1: 2303 80da 60e7 bde7 2ba6 76dd 5214 3c3c 6f53 01b1
+|_ssl-date: 2018-06-18T20:56:32+00:00; 0s from scanner time.
+No exact OS matches for host (If you know what OS is running on it, see https://nmap.org/submit/ ).
+TCP/IP fingerprint:
+OS:SCAN(V=7.60%E=4%D=6/18%OT=22%CT=21%CU=33589%PV=Y%DS=2%DC=T%G=Y%TM=5B281C
+OS:84%P=x86_64-pc-linux-gnu)SEQ(SP=103%GCD=1%ISR=10C%TI=Z%CI=Z%II=I%TS=8)OP
+OS:S(O1=M54DST11NW4%O2=M54DST11NW4%O3=M54DNNT11NW4%O4=M54DST11NW4%O5=M54DST
+OS:11NW4%O6=M54DST11)WIN(W1=3890%W2=3890%W3=3890%W4=3890%W5=3890%W6=3890)EC
+OS:N(R=Y%DF=Y%T=40%W=3908%O=M54DNNSNW4%CC=Y%Q=)T1(R=Y%DF=Y%T=40%S=O%A=S+%F=
+OS:AS%RD=0%Q=)T2(R=N)T3(R=Y%DF=Y%T=40%W=3890%S=O%A=S+%F=AS%O=M54DST11NW4%RD
+OS:=0%Q=)T4(R=Y%DF=Y%T=40%W=0%S=A%A=Z%F=R%O=%RD=0%Q=)T5(R=Y%DF=Y%T=40%W=0%S
+OS:=Z%A=S+%F=AR%O=%RD=0%Q=)T6(R=Y%DF=Y%T=40%W=0%S=A%A=Z%F=R%O=%RD=0%Q=)T7(R
+OS:=Y%DF=Y%T=40%W=0%S=Z%A=S+%F=AR%O=%RD=0%Q=)U1(R=Y%DF=N%T=40%IPL=164%UN=0%
+OS:RIPL=G%RID=G%RIPCK=G%RUCK=G%RUD=G)IE(R=Y%DFI=N%T=40%CD=S)
+
+Uptime guess: 0.003 days (since Mon Jun 18 16:51:48 2018)
+Network Distance: 2 hops
+TCP Sequence Prediction: Difficulty=257 (Good luck!)
+IP ID Sequence Generation: All zeros
+Service Info: OS: Linux; CPE: cpe:/o:linux:linux_kernel
+
+TRACEROUTE (using port 22/tcp)
+HOP RTT       ADDRESS
+1   123.19 ms 10.10.14.1
+2   123.77 ms 10.10.10.79
+
+NSE: Script Post-scanning.
+Initiating NSE at 16:56
+Completed NSE at 16:56, 0.00s elapsed
+Initiating NSE at 16:56
+Completed NSE at 16:56, 0.00s elapsed
+Read data files from: /usr/bin/../share/nmap
+OS and Service detection performed. Please report any incorrect results at https://nmap.org/submit/ .
+Nmap done: 1 IP address (1 host up) scanned in 29.92 seconds
+           Raw packets sent: 156 (10.686KB) | Rcvd: 136 (9.090KB)
