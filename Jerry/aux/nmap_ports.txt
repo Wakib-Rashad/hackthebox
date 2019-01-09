@@ -1,0 +1,5 @@
+# nmap --top-ports 100 10.10.10.95 -Pn -n -oG -
+# Nmap 7.40 scan initiated Sun Nov 11 12:31:15 2018 as: nmap --top-ports 100 -Pn -n -oG - 10.10.10.95
+Host: 10.10.10.95 ()	Status: Up
+Host: 10.10.10.95 ()	Ports: 8080/open/tcp//http-proxy///	Ignored State: filtered (99)
+# Nmap done at Sun Nov 11 12:31:21 2018 -- 1 IP address (1 host up) scanned in 6.19 seconds
