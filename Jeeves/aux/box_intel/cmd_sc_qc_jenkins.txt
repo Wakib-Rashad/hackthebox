@@ -1,0 +1,14 @@
+C:\Users\Administrator\.jenkins>sc qc jenkins
+sc qc jenkins
+[SC] QueryServiceConfig SUCCESS
+
+SERVICE_NAME: jenkins
+        TYPE               : 10  WIN32_OWN_PROCESS
+        START_TYPE         : 2   AUTO_START
+        ERROR_CONTROL      : 1   NORMAL
+        BINARY_PATH_NAME   : "C:\Users\Administrator\.jenkins\jenkins.exe"
+        LOAD_ORDER_GROUP   :
+        TAG                : 0
+        DISPLAY_NAME       : jenkins
+        DEPENDENCIES       :
+        SERVICE_START_NAME : .\kohsuke

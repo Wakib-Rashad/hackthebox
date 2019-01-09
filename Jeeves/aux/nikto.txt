@@ -1,0 +1,38 @@
+# nikto -host http://10.10.10.63
+- Nikto v2.1.6
+---------------------------------------------------------------------------
++ Target IP:          10.10.10.63
++ Target Hostname:    10.10.10.63
++ Target Port:        80
++ Start Time:         2018-04-11 00:09:11 (GMT3)
+---------------------------------------------------------------------------
++ Server: Microsoft-IIS/10.0
++ The anti-clickjacking X-Frame-Options header is not present.
++ The X-XSS-Protection header is not defined. This header can hint to the user agent to protect against some forms of XSS
++ The X-Content-Type-Options header is not set. This could allow the user agent to render the content of the site in a different fashion to the MIME type
++ No CGI Directories found (use '-C all' to force check all possible dirs)
++ Allowed HTTP Methods: OPTIONS, TRACE, GET, HEAD, POST
++ Public HTTP Methods: OPTIONS, TRACE, GET, HEAD, POST
++ 7499 requests: 0 error(s) and 5 item(s) reported on remote host
++ End Time:           2018-04-11 00:26:51 (GMT3) (1060 seconds)
+---------------------------------------------------------------------------
++ 1 host(s) tested
+
+
+# nikto -host http://10.10.10.63:50000/
+- Nikto v2.1.6
+---------------------------------------------------------------------------
++ Target IP:          10.10.10.63
++ Target Hostname:    10.10.10.63
++ Target Port:        50000
++ Start Time:         2018-04-11 02:04:32 (GMT3)
+---------------------------------------------------------------------------
++ Server: Jetty(9.4.z-SNAPSHOT)
++ The anti-clickjacking X-Frame-Options header is not present.
++ The X-XSS-Protection header is not defined. This header can hint to the user agent to protect against some forms of XSS
++ The X-Content-Type-Options header is not set. This could allow the user agent to render the content of the site in a different fashion to the MIME type
++ No CGI Directories found (use '-C all' to force check all possible dirs)
++ 7500 requests: 0 error(s) and 3 item(s) reported on remote host
++ End Time:           2018-04-11 02:53:34 (GMT3) (2942 seconds)
+---------------------------------------------------------------------------
++ 1 host(s) tested

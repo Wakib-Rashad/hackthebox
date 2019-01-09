@@ -1,0 +1,132 @@
+C:\Users\Administrator\.jenkins>tasklist
+tasklist
+
+Image Name                     PID Session Name        Session#    Mem Usage
+========================= ======== ================ =========== ============
+System Idle Process              0                            0          4 K
+System                           4                            0     52,792 K
+smss.exe                       508                            0        936 K
+csrss.exe                      584                            0      3,368 K
+wininit.exe                    656                            0      4,256 K
+csrss.exe                      668                            1      2,948 K
+winlogon.exe                   720                            1     10,576 K
+services.exe                   760                            0      6,400 K
+lsass.exe                      768                            0     10,696 K
+svchost.exe                    840                            0      9,368 K
+svchost.exe                    872                            0      7,520 K
+dwm.exe                        976                            1     21,276 K
+svchost.exe                     96                            0     33,700 K
+svchost.exe                    516                            0     16,080 K
+svchost.exe                    568                            0     14,988 K
+svchost.exe                    672                            0      5,968 K
+svchost.exe                    756                            0     32,584 K
+vmacthlp.exe                   936                            0      4,740 K
+svchost.exe                   1104                            0     11,992 K
+svchost.exe                   1248                            0     12,140 K
+spoolsv.exe                   1356                            0     11,624 K
+svchost.exe                   1632                            0      7,488 K
+svchost.exe                   1652                            0     16,016 K
+svchost.exe                   1740                            0      6,884 K
+VGAuthService.exe             1780                            0      6,000 K
+vmtoolsd.exe                  1792                            0     12,936 K
+svchost.exe                   1836                            0      8,196 K
+MsMpEng.exe                   1868                            0    109,272 K
+dasHost.exe                   2020                            0      7,836 K
+svchost.exe                   2120                            0      5,396 K
+dllhost.exe                   2576                            0      9,164 K
+NisSrv.exe                    2812                            0      1,948 K
+msdtc.exe                     2984                            0      6,724 K
+jenkins.exe                   1660                            0      9,284 K
+java.exe                      1988                            0    248,268 K
+conhost.exe                   2612                            0      5,208 K
+LogonUI.exe                   2376                            1     42,892 K
+SearchIndexer.exe             3076                            0     19,408 K
+WmiPrvSE.exe                   692                            0     17,124 K
+cmd.exe                       3928                            0      3,400 K
+conhost.exe                   2424                            0      4,872 K
+ftp.exe                       3588                            0      4,424 K
+cmd.exe                       3776                            0      3,624 K
+conhost.exe                   4720                            0      8,760 K
+ftp.exe                       3412                            0      4,868 K
+cmd.exe                       2348                            0      3,580 K
+conhost.exe                   1592                            0      8,760 K
+SearchProtocolHost.exe        5100                            0      7,932 K
+conhost.exe                   3584                            0      8,784 K
+svchost.exe                   2084                            0      7,856 K
+cmd.exe                        304                            0      3,848 K
+conhost.exe                   4364                            0      8,748 K
+powershell.exe                 608                            0     74,540 K
+powershell.exe                4396                            0     49,320 K
+cmd.exe                       4284                            0      3,284 K
+conhost.exe                   4744                            0      8,772 K
+nc64.exe                      4548                            0      3,912 K
+cmd.exe                       4664                            0      3,044 K
+ftp.exe                       5112                            0      4,688 K
+SearchFilterHost.exe          4816                            0      5,496 K
+tasklist.exe                  3888                            0      7,008 K
+
+C:\Users\Administrator\.jenkins>powershell.exe get-process
+powershell.exe get-process
+
+Handles  NPM(K)    PM(K)      WS(K) VM(M)   CPU(s)     Id  SI ProcessName
+-------  ------    -----      ----- -----   ------     --  -- -----------
+     50       5     2052       3848    81     0.00    304   0 cmd
+     47       5     1892       3580    83     0.05   2348   0 cmd
+     48       5     1948       3624    83     0.03   3776   0 cmd
+     48       5     1904       3400    83     0.02   3928   0 cmd
+     47       4     1840       3284    79     0.00   4284   0 cmd
+     48       4     1600       3036 ...71     0.03   4664   0 cmd
+     89       8    10028       8760 ...21     0.05   1592   0 conhost
+     90       8    10036       4872 ...21     0.02   2424   0 conhost
+    100       8    10152       5208 ...23     0.94   2612   0 conhost
+     89       8    10048       8784 ...21     0.02   3584   0 conhost
+     90       8    10028       8748 ...21     0.03   4364   0 conhost
+     90       8    10028       8760 ...21     0.03   4720   0 conhost
+     92       8    10052       8772 ...21     0.05   4744   0 conhost
+    474      16     1188       3360 ...07             584   0 csrss
+    120      12     1056       2948 ...98             668   1 csrss
+    303      14     2488       7836 ...90            2020   0 dasHost
+    217      13     3432       9164 ...05            2576   0 dllhost
+    262      19    11664      21276 ...84             976   1 dwm
+     92       9     1352       4868    85     0.02   3412   0 ftp
+     92       9     1148       4424    85     0.03   3588   0 ftp
+      0       0        0          4     0               0   0 Idle
+   1053      57   357408     249440   490   252.53   1988   0 java
+    224      26    17368       9284   523     0.34   1660   0 jenkins
+    510      27    11508      42904 ...99            2376   1 LogonUI
+    896      20     4276      10696 ...99             768   0 lsass
+    188      12     2440       6724 ...98            2984   0 msdtc
+    581      69   122136     111580 ...91            1868   0 MsMpEng
+     99       7      836       3912    32     0.13   4548   0 nc64
+    272     160     4896       1948 ...05            2812   0 NisSrv
+    498      31    66184      74620 ...70     3.91    608   0 powershell
+    463      24    55444      55936 ...52     0.92   3744   0 powershell
+    430      23    50208      49320 ...44     0.55   4396   0 powershell
+     96       7     1120       5496 ...83            4816   0 SearchFilterHost
+    644      37    17620      19408 ...89            3076   0 SearchIndexer
+    337      12     2136       7700 ...28            5100   0 SearchProtocolHost
+    267       9     2600       6400 ...76             760   0 services
+     49       2      368        936 ...58             508   0 smss
+    473      30     8656      11624 ...59            1356   0 spoolsv
+   1374      50    17588      33700 ...31              96   0 svchost
+    505      38    15260      16112 ...69             516   0 svchost
+    544      23    10472      14996 ...30             568   0 svchost
+    199      13     1860       5968 ...94             672   0 svchost
+    455      25    40068      32588 ...97             756   0 svchost
+    461      14     4848       9384 ...98             840   0 svchost
+    387      15     2856       7516 ...92             872   0 svchost
+    765      26     6292      11992 ...47            1104   0 svchost
+    508      33     5688      12128 ...49            1248   0 svchost
+    129      11     3696       7488 ...00            1632   0 svchost
+    285      19     5124      16020 ...94            1652   0 svchost
+    158      11     1932       6884 ...04            1740   0 svchost
+    201      14     4132       8196 ...08            1836   0 svchost
+    122       8     1796       7856 ...96            2084   0 svchost
+    121       9     1412       5396 ...82            2120   0 svchost
+    891       0      332      51896    97               4   0 System
+    147      12     4444       6000    78            1780   0 VGAuthService
+     94       7     1152       4740    56             936   0 vmacthlp
+    353      23     8228      12936   106            1792   0 vmtoolsd
+     94       8      948       4256 ...76             656   0 wininit
+    158       9     2008      10576 ...30             720   1 winlogon
+    324      16     7960      17192 ...98             692   0 WmiPrvSE

@@ -1,0 +1,25 @@
+$ nmap -sT -sC -sV --script="*-vuln-*" -Pn -n 10.10.10.63 -p80,135,445,50000
+
+Starting Nmap 7.60 ( https://nmap.org ) at 2018-04-11 01:01 EEST
+NSE: [rsa-vuln-roca] This script requires the latest update to NSE's openssl library bindings.
+NSE: [rsa-vuln-roca] This script requires the latest update to NSE's openssl library bindings.
+NSE: [rsa-vuln-roca] This script requires the latest update to NSE's openssl library bindings.
+NSE: [rsa-vuln-roca] This script requires the latest update to NSE's openssl library bindings.
+Nmap scan report for 10.10.10.63
+Host is up (0.30s latency).
+
+PORT      STATE SERVICE      VERSION
+80/tcp    open  http         Microsoft IIS httpd 10.0
+|_http-server-header: Microsoft-IIS/10.0
+135/tcp   open  msrpc        Microsoft Windows RPC
+445/tcp   open  microsoft-ds Microsoft Windows 7 - 10 microsoft-ds (workgroup: WORKGROUP)
+50000/tcp open  http         Jetty 9.4.z-SNAPSHOT
+Service Info: Host: JEEVES; OS: Windows; CPE: cpe:/o:microsoft:windows
+
+Host script results:
+|_samba-vuln-cve-2012-1182: NT_STATUS_ACCESS_DENIED
+|_smb-vuln-ms10-054: false
+|_smb-vuln-ms10-061: No accounts left to try
+
+Service detection performed. Please report any incorrect results at https://nmap.org/submit/ .
+Nmap done: 1 IP address (1 host up) scanned in 59.05 seconds

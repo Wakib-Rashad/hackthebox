@@ -1,0 +1,41 @@
+# wafw00f -a http://10.10.10.63:50000
+
+                                 ^     ^
+        _   __  _   ____ _   __  _    _   ____
+       ///7/ /.' \ / __////7/ /,' \ ,' \ / __/
+      | V V // o // _/ | V V // 0 // 0 // _/
+      |_n_,'/_n_//_/   |_n_,' \_,' \_,'/_/
+                                <
+                                 ...'
+
+    WAFW00F - Web Application Firewall Detection Tool
+
+    By Sandro Gauci && Wendel G. Henrique
+
+Checking http://10.10.10.63:50000
+Generic Detection results:
+The site http://10.10.10.63:50000 seems to be behind a WAF or some sort of security solution
+Reason: Blocking is being done at connection/packet level.
+Number of requests: 11
+
+
+# wafw00f -a http://10.10.10.63
+
+                                 ^     ^
+        _   __  _   ____ _   __  _    _   ____
+       ///7/ /.' \ / __////7/ /,' \ ,' \ / __/
+      | V V // o // _/ | V V // 0 // 0 // _/
+      |_n_,'/_n_//_/   |_n_,' \_,' \_,'/_/
+                                <
+                                 ...'
+
+    WAFW00F - Web Application Firewall Detection Tool
+
+    By Sandro Gauci && Wendel G. Henrique
+
+Checking http://10.10.10.63
+Generic Detection results:
+The site http://10.10.10.63 seems to be behind a WAF or some sort of security solution
+Reason: The server header is different when an attack is detected.
+The server header for a normal response is "Microsoft-IIS/10.0", while the server header a response to an attack is "Microsoft-HTTPAPI/2.0.",
+Number of requests: 12

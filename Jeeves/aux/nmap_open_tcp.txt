@@ -1,0 +1,5 @@
+# nmap -sT -p- -Pn -n 10.10.10.63 --oG - --open
+# Nmap 7.60 scan initiated Wed Apr 11 00:20:37 2018 as: nmap -sT -p- -Pn -n --oG - --open 10.10.10.63
+Host: 10.10.10.63 ()	Status: Up
+Host: 10.10.10.63 ()	Ports: 80/open/tcp//http///, 135/open/tcp//msrpc///, 445/open/tcp//microsoft-ds///, 50000/open/tcp//ibm-db2///	Ignored State: filtered (65531)
+# Nmap done at Wed Apr 11 00:30:08 2018 -- 1 IP address (1 host up) scanned in 571.57 seconds
