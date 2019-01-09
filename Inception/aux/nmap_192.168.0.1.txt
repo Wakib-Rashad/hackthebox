@@ -1,0 +1,54 @@
+Starting Nmap 7.60 ( https://nmap.org ) at 2018-04-04 03:02 EEST
+Nmap scan report for 192.168.0.1
+Host is up (0.11s latency).
+Not shown: 97 closed ports
+PORT   STATE SERVICE VERSION
+21/tcp open  ftp     vsftpd 3.0.3
+| ftp-anon: Anonymous FTP login allowed (FTP code 230)
+| drwxr-xr-x    2 0        0            4096 Nov 30 18:34 bin
+| drwxr-xr-x    3 0        0            4096 Nov 30 18:34 boot
+| drwxr-xr-x   19 0        0            3920 Apr 03 22:31 dev
+| drwxr-xr-x   93 0        0            4096 Nov 30 18:34 etc
+| drwxr-xr-x    2 0        0            4096 Nov 06 09:02 home
+| lrwxrwxrwx    1 0        0              33 Nov 30 18:29 initrd.img -> boot/initrd.img-4.4.0-101-generic
+| lrwxrwxrwx    1 0        0              32 Nov 06 08:01 initrd.img.old -> boot/initrd.img-4.4.0-98-generic
+| drwxr-xr-x   22 0        0            4096 Nov 30 18:34 lib
+| drwxr-xr-x    2 0        0            4096 Oct 30 06:25 lib64
+| drwx------    2 0        0           16384 Oct 30 06:25 lost+found
+| drwxr-xr-x    3 0        0            4096 Oct 30 06:25 media
+| drwxr-xr-x    2 0        0            4096 Aug 01  2017 mnt
+| drwxr-xr-x    2 0        0            4096 Aug 01  2017 opt
+| dr-xr-xr-x  215 0        0               0 Apr 03 22:31 proc
+| drwx------    6 0        0            4096 Nov 08 08:48 root
+| drwxr-xr-x   26 0        0             920 Apr 03 22:31 run
+| drwxr-xr-x    2 0        0           12288 Nov 30 18:28 sbin
+| drwxr-xr-x    2 0        0            4096 Apr 29  2017 snap
+| drwxr-xr-x    3 0        0            4096 Nov 06 05:24 srv
+| dr-xr-xr-x   13 0        0               0 Apr 03 22:31 sys
+|_Only 20 shown. Use --script-args ftp-anon.maxlist=-1 to see all.
+| ftp-syst:
+|   STAT:
+| FTP server status:
+|      Connected to ::ffff:192.168.0.10
+|      Logged in as ftp
+|      TYPE: ASCII
+|      No session bandwidth limit
+|      Session timeout in seconds is 300
+|      Control connection is plain text
+|      Data connections will be plain text
+|      At session startup, client count was 3
+|      vsFTPd 3.0.3 - secure, fast, stable
+|_End of status
+|_tls-alpn: ERROR: Script execution failed (use -d to debug)
+22/tcp open  ssh     OpenSSH 7.2p2 Ubuntu 4ubuntu2.2 (Ubuntu Linux; protocol 2.0)
+| ssh-hostkey:
+|   2048 18:6c:c8:76:45:a9:1d:64:6c:7d:cb:df:61:67:77:5b (RSA)
+|   256 ad:86:9a:39:e4:36:cf:7c:f0:4e:0d:0b:2c:f5:04:dc (ECDSA)
+|_  256 33:46:71:45:cb:87:3a:3c:f1:2d:d2:28:c6:3b:99:46 (EdDSA)
+53/tcp open  domain  dnsmasq 2.75
+| dns-nsid:
+|_  bind.version: dnsmasq-2.75
+Service Info: OSs: Unix, Linux; CPE: cpe:/o:linux:linux_kernel
+
+Service detection performed. Please report any incorrect results at https://nmap.org/submit/ .
+Nmap done: 1 IP address (1 host up) scanned in 25.91 seconds

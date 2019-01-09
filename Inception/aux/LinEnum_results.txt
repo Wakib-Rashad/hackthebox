@@ -1,0 +1,3350 @@
+www-data@Inception:/tmp $ bash LinEnum.sh
+
+#########################################################
+# Local Linux Enumeration & Privilege Escalation Script #
+#########################################################
+# www.rebootuser.com
+#
+
+Debug Info
+thorough tests = disabled
+
+
+Scan started at:
+Fri Mar 30 18:08:03 UTC 2018
+
+
+### SYSTEM ##############################################
+Kernel information:
+Linux Inception 4.4.0-101-generic #124-Ubuntu SMP Fri Nov 10 18:29:59 UTC 2017 x86_64 x86_64 x86_64 GNU/Linux
+
+
+Kernel information (continued):
+Linux version 4.4.0-101-generic (buildd@lcy01-amd64-006) (gcc version 5.4.0 20160609 (Ubuntu 5.4.0-6ubuntu1~16.04.5) ) #124-Ubuntu SMP Fri Nov 10 18:29:59 UTC 2017
+
+
+Specific release information:
+DISTRIB_ID=Ubuntu
+DISTRIB_RELEASE=16.04
+DISTRIB_CODENAME=xenial
+DISTRIB_DESCRIPTION="Ubuntu 16.04.3 LTS"
+NAME="Ubuntu"
+VERSION="16.04.3 LTS (Xenial Xerus)"
+ID=ubuntu
+ID_LIKE=debian
+PRETTY_NAME="Ubuntu 16.04.3 LTS"
+VERSION_ID="16.04"
+HOME_URL="http://www.ubuntu.com/"
+SUPPORT_URL="http://help.ubuntu.com/"
+BUG_REPORT_URL="http://bugs.launchpad.net/ubuntu/"
+VERSION_CODENAME=xenial
+UBUNTU_CODENAME=xenial
+
+
+Hostname:
+Inception
+
+
+### USER/GROUP ##########################################
+Current user/group info:
+uid=33(www-data) gid=33(www-data) groups=33(www-data)
+
+
+Users that have previously logged onto the system:
+Username         Port     From             Latest
+cobb             pts/2    127.0.0.1        Fri Mar 30 17:53:59 +0000 2018
+
+
+Who else is logged on:
+ 18:08:03 up  4:19,  3 users,  load average: 0.35, 0.25, 0.18
+USER     TTY      FROM             LOGIN@   IDLE   JCPU   PCPU WHAT
+cobb     pts/0    127.0.0.1        17:49   13:07   0.02s  0.01s ssh 192.168.0.10
+cobb     pts/1    192.168.0.10     17:53   13:07   0.00s  0.00s -bash
+cobb     pts/2    127.0.0.1        17:53    3.00s  0.02s  0.00s ftp
+
+
+Group memberships:
+uid=0(root) gid=0(root) groups=0(root)
+uid=1(daemon) gid=1(daemon) groups=1(daemon)
+uid=2(bin) gid=2(bin) groups=2(bin)
+uid=3(sys) gid=3(sys) groups=3(sys)
+uid=4(sync) gid=65534(nogroup) groups=65534(nogroup)
+uid=5(games) gid=60(games) groups=60(games)
+uid=6(man) gid=12(man) groups=12(man)
+uid=7(lp) gid=7(lp) groups=7(lp)
+uid=8(mail) gid=8(mail) groups=8(mail)
+uid=9(news) gid=9(news) groups=9(news)
+uid=10(uucp) gid=10(uucp) groups=10(uucp)
+uid=13(proxy) gid=13(proxy) groups=13(proxy)
+uid=33(www-data) gid=33(www-data) groups=33(www-data)
+uid=34(backup) gid=34(backup) groups=34(backup)
+uid=38(list) gid=38(list) groups=38(list)
+uid=39(irc) gid=39(irc) groups=39(irc)
+uid=41(gnats) gid=41(gnats) groups=41(gnats)
+uid=65534(nobody) gid=65534(nogroup) groups=65534(nogroup)
+uid=100(systemd-timesync) gid=102(systemd-timesync) groups=102(systemd-timesync)
+uid=101(systemd-network) gid=103(systemd-network) groups=103(systemd-network)
+uid=102(systemd-resolve) gid=104(systemd-resolve) groups=104(systemd-resolve)
+uid=103(systemd-bus-proxy) gid=105(systemd-bus-proxy) groups=105(systemd-bus-proxy)
+uid=104(syslog) gid=108(syslog) groups=108(syslog),4(adm)
+uid=105(_apt) gid=65534(nogroup) groups=65534(nogroup)
+uid=106(sshd) gid=65534(nogroup) groups=65534(nogroup)
+uid=1000(cobb) gid=1000(cobb) groups=1000(cobb),27(sudo)
+
+Seems we met some admin users!!!
+
+uid=104(syslog) gid=108(syslog) groups=108(syslog),4(adm)
+
+
+
+Sample entires from /etc/passwd (searching for uid values 0, 500, 501, 502, 1000, 1001, 1002, 2000, 2001, 2002):
+root:x:0:0:root:/root:/bin/bash
+cobb:x:1000:1000::/home/cobb:/bin/bash
+
+
+Super user account(s):
+root
+
+
+Are permissions on /home directories lax:
+total 12K
+drwxr-xr-x  3 root root 4.0K Nov  6 05:01 .
+drwxr-xr-x 21 root root 4.0K Nov  1 06:09 ..
+drwxr-xr-x  4 cobb cobb 4.0K Mar 30 17:53 cobb
+
+
+### ENVIRONMENTAL #######################################
+ Environment information:
+APACHE_PID_FILE=/var/run/apache2/apache2.pid
+APACHE_RUN_USER=www-data
+APACHE_LOG_DIR=/var/log/apache2
+PATH=/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin
+PWD=/tmp
+APACHE_RUN_GROUP=www-data
+LANG=C
+SHLVL=1
+APACHE_LOCK_DIR=/var/lock/apache2
+APACHE_RUN_DIR=/var/run/apache2
+_=/usr/bin/env
+
+
+Path information:
+/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin
+
+
+Available shells:
+# /etc/shells: valid login shells
+/bin/sh
+/bin/dash
+/bin/bash
+/bin/rbash
+/usr/bin/tmux
+/usr/bin/screen
+
+
+Current umask value:
+0022
+u=rwx,g=rx,o=rx
+
+
+umask value as specified in /etc/login.defs:
+UMASK		022
+
+
+Password and storage information:
+PASS_MAX_DAYS	99999
+PASS_MIN_DAYS	0
+PASS_WARN_AGE	7
+ENCRYPT_METHOD SHA512
+
+
+### JOBS/TASKS ##########################################
+Cron jobs:
+-rw-r--r-- 1 root root  722 Apr  5  2016 /etc/crontab
+
+/etc/cron.d:
+total 16
+drwxr-xr-x  2 root root 4096 Nov  6 01:30 .
+drwxr-xr-x 75 root root 4096 Nov  6 05:23 ..
+-rw-r--r--  1 root root  102 Apr  5  2016 .placeholder
+-rw-r--r--  1 root root  670 Mar  1  2016 php
+
+/etc/cron.daily:
+total 32
+drwxr-xr-x  2 root root 4096 Nov  6 00:39 .
+drwxr-xr-x 75 root root 4096 Nov  6 05:23 ..
+-rw-r--r--  1 root root  102 Apr  5  2016 .placeholder
+-rwxr-xr-x  1 root root  539 Apr  5  2016 apache2
+-rwxr-xr-x  1 root root 1474 Jun 19  2017 apt-compat
+-rwxr-xr-x  1 root root 1597 Nov 26  2015 dpkg
+-rwxr-xr-x  1 root root  372 May  6  2015 logrotate
+-rwxr-xr-x  1 root root  249 Nov 12  2015 passwd
+
+/etc/cron.hourly:
+total 12
+drwxr-xr-x  2 root root 4096 Oct 27 03:54 .
+drwxr-xr-x 75 root root 4096 Nov  6 05:23 ..
+-rw-r--r--  1 root root  102 Apr  5  2016 .placeholder
+
+/etc/cron.monthly:
+total 12
+drwxr-xr-x  2 root root 4096 Oct 27 03:54 .
+drwxr-xr-x 75 root root 4096 Nov  6 05:23 ..
+-rw-r--r--  1 root root  102 Apr  5  2016 .placeholder
+
+/etc/cron.weekly:
+total 16
+drwxr-xr-x  2 root root 4096 Oct 27 03:55 .
+drwxr-xr-x 75 root root 4096 Nov  6 05:23 ..
+-rw-r--r--  1 root root  102 Apr  5  2016 .placeholder
+-rwxr-xr-x  1 root root   86 Apr 13  2016 fstrim
+
+
+Crontab contents:
+# /etc/crontab: system-wide crontab
+# Unlike any other crontab you don't have to run the `crontab'
+# command to install the new version when you edit this file
+# and files in /etc/cron.d. These files also have username fields,
+# that none of the other crontabs do.
+
+SHELL=/bin/sh
+PATH=/usr/local/sbin:/usr/local/bin:/sbin:/bin:/usr/sbin:/usr/bin
+
+# m h dom mon dow user	command
+17 *	* * *	root    cd / && run-parts --report /etc/cron.hourly
+25 6	* * *	root	test -x /usr/sbin/anacron || ( cd / && run-parts --report /etc/cron.daily )
+47 6	* * 7	root	test -x /usr/sbin/anacron || ( cd / && run-parts --report /etc/cron.weekly )
+52 6	1 * *	root	test -x /usr/sbin/anacron || ( cd / && run-parts --report /etc/cron.monthly )
+#
+
+
+### NETWORKING  ##########################################
+Network & IP info:
+eth0      Link encap:Ethernet  HWaddr 00:16:3e:28:53:63
+          inet addr:192.168.0.10  Bcast:192.168.0.255  Mask:255.255.255.0
+          inet6 addr: fe80::216:3eff:fe28:5363/64 Scope:Link
+          UP BROADCAST RUNNING MULTICAST  MTU:1500  Metric:1
+          RX packets:2824331 errors:0 dropped:0 overruns:0 frame:0
+          TX packets:2007629 errors:0 dropped:0 overruns:0 carrier:0
+          collisions:0 txqueuelen:1000
+          RX bytes:271958655 (271.9 MB)  TX bytes:480241809 (480.2 MB)
+
+lo        Link encap:Local Loopback
+          inet addr:127.0.0.1  Mask:255.0.0.0
+          inet6 addr: ::1/128 Scope:Host
+          UP LOOPBACK RUNNING  MTU:65536  Metric:1
+          RX packets:1146562 errors:0 dropped:0 overruns:0 frame:0
+          TX packets:1146562 errors:0 dropped:0 overruns:0 carrier:0
+          collisions:0 txqueuelen:1
+          RX bytes:273055303 (273.0 MB)  TX bytes:273055303 (273.0 MB)
+
+
+ARP history:
+? (192.168.0.1) at fe:45:e1:49:34:5d [ether] on eth0
+
+
+Nameserver(s):
+nameserver 192.168.0.1
+
+
+Default route:
+default         192.168.0.1     0.0.0.0         UG    0      0        0 eth0
+
+
+Listening TCP:
+Active Internet connections (servers and established)
+Proto Recv-Q Send-Q Local Address           Foreign Address         State       PID/Program name
+tcp        0      0 0.0.0.0:22              0.0.0.0:*               LISTEN      -
+tcp        0      0 192.168.0.10:48272      192.168.0.10:22         ESTABLISHED -
+tcp        0      1 192.168.0.10:41126      10.10.15.10:9999        SYN_SENT    1653/wget
+tcp        0      0 127.0.0.1:36192         127.0.0.1:22            ESTABLISHED -
+tcp        0      0 127.0.0.1:36480         127.0.0.1:22            ESTABLISHED -
+tcp        0      0 192.168.0.10:34064      192.168.0.1:21          ESTABLISHED -
+tcp        0      0 192.168.0.10:22         192.168.0.10:48272      ESTABLISHED -
+tcp        0      0 127.0.0.1:22            127.0.0.1:36192         ESTABLISHED -
+tcp        0      0 127.0.0.1:22            127.0.0.1:36480         ESTABLISHED -
+tcp6       0      0 :::80                   :::*                    LISTEN      -
+tcp6       0      0 :::22                   :::*                    LISTEN      -
+tcp6       0      0 :::3128                 :::*                    LISTEN      -
+tcp6       0      0 192.168.0.10:80         192.168.0.1:34449       TIME_WAIT   -
+tcp6       0      1 192.168.0.10:80         192.168.0.1:46980       LAST_ACK    -
+tcp6       0    441 192.168.0.10:80         192.168.0.1:47588       ESTABLISHED -
+tcp6       0    446 192.168.0.10:80         192.168.0.1:47584       ESTABLISHED -
+tcp6       0      0 192.168.0.10:80         192.168.0.1:46982       ESTABLISHED -
+tcp6       0    448 192.168.0.10:80         192.168.0.1:47616       ESTABLISHED -
+tcp6       0      0 192.168.0.10:80         192.168.0.1:47688       SYN_RECV    -
+tcp6       0      1 192.168.0.10:80         192.168.0.1:46956       LAST_ACK    -
+tcp6       0      1 192.168.0.10:80         192.168.0.1:46976       LAST_ACK    -
+tcp6       0      1 192.168.0.10:80         192.168.0.1:46958       LAST_ACK    -
+tcp6       0      0 192.168.0.10:80         192.168.0.1:47668       SYN_RECV    -
+tcp6       0      1 192.168.0.10:80         192.168.0.1:46914       LAST_ACK    -
+tcp6       0      1 192.168.0.10:80         192.168.0.1:46646       LAST_ACK    -
+tcp6       0      0 192.168.0.10:80         192.168.0.1:47660       SYN_RECV    -
+tcp6       0      0 192.168.0.10:80         192.168.0.1:47682       SYN_RECV    -
+tcp6       0      1 192.168.0.10:80         192.168.0.1:46962       LAST_ACK    -
+tcp6       0      0 192.168.0.10:80         192.168.0.1:47696       SYN_RECV    -
+tcp6       0      1 192.168.0.10:80         192.168.0.1:46966       LAST_ACK    -
+tcp6       0      0 192.168.0.10:80         192.168.0.1:47664       SYN_RECV    -
+tcp6       0    438 192.168.0.10:80         192.168.0.1:47600       ESTABLISHED -
+tcp6       0     36 192.168.0.10:3128       192.168.0.1:59514       ESTABLISHED -
+tcp6       0    442 192.168.0.10:80         192.168.0.1:47614       ESTABLISHED -
+tcp6       0      0 192.168.0.10:80         192.168.0.1:47692       SYN_RECV    -
+tcp6       0      0 192.168.0.10:80         192.168.0.1:38307       TIME_WAIT   -
+tcp6       0      0 192.168.0.10:80         192.168.0.1:47680       SYN_RECV    -
+tcp6       0      0 192.168.0.10:80         192.168.0.1:47754       SYN_RECV    -
+tcp6       0    447 192.168.0.10:80         192.168.0.1:47618       ESTABLISHED -
+tcp6       0      1 192.168.0.10:80         192.168.0.1:46650       LAST_ACK    -
+tcp6       0    443 192.168.0.10:80         192.168.0.1:47110       ESTABLISHED -
+tcp6       0      0 192.168.0.10:80         192.168.0.1:47670       SYN_RECV    -
+tcp6       0      1 192.168.0.10:80         192.168.0.1:46656       LAST_ACK    -
+tcp6       0      1 192.168.0.10:80         192.168.0.1:46652       LAST_ACK    -
+tcp6       0    443 192.168.0.10:80         192.168.0.1:47116       ESTABLISHED -
+tcp6       0      0 192.168.0.10:80         192.168.0.1:47708       SYN_RECV    -
+tcp6       0      0 192.168.0.10:80         192.168.0.1:47716       SYN_RECV    -
+tcp6       0      0 192.168.0.10:80         192.168.0.1:41769       ESTABLISHED -
+tcp6       0      1 192.168.0.10:80         192.168.0.1:46970       LAST_ACK    -
+tcp6       0      0 192.168.0.10:80         192.168.0.1:37753       TIME_WAIT   -
+tcp6       0      1 192.168.0.10:80         192.168.0.1:46960       LAST_ACK    -
+tcp6       0    442 192.168.0.10:80         192.168.0.1:47188       ESTABLISHED -
+tcp6       0      0 192.168.0.10:80         192.168.0.1:47712       SYN_RECV    -
+tcp6       0      0 192.168.0.10:80         192.168.0.1:47662       SYN_RECV    -
+tcp6       0      1 192.168.0.10:80         192.168.0.1:46964       LAST_ACK    -
+tcp6       0      1 192.168.0.10:80         192.168.0.1:46774       LAST_ACK    -
+tcp6       0      1 192.168.0.10:80         192.168.0.1:46954       LAST_ACK    -
+tcp6       0      0 192.168.0.10:80         192.168.0.1:47694       SYN_RECV    -
+tcp6       0      0 192.168.0.10:80         192.168.0.1:47686       SYN_RECV    -
+tcp6       0      1 192.168.0.10:80         192.168.0.1:46644       LAST_ACK    -
+tcp6       0      0 192.168.0.10:3128       192.168.0.1:59512       ESTABLISHED -
+tcp6       0      1 192.168.0.10:80         192.168.0.1:46946       LAST_ACK    -
+tcp6       0    444 192.168.0.10:80         192.168.0.1:47582       ESTABLISHED -
+tcp6       0      0 192.168.0.10:80         192.168.0.1:47612       SYN_RECV    -
+tcp6       0    440 192.168.0.10:80         192.168.0.1:47651       ESTABLISHED -
+tcp6       0    448 192.168.0.10:80         192.168.0.1:47122       ESTABLISHED -
+tcp6       0      1 192.168.0.10:80         192.168.0.1:46974       LAST_ACK    -
+tcp6       0      1 192.168.0.10:80         192.168.0.1:46768       LAST_ACK    -
+tcp6       0      1 192.168.0.10:80         192.168.0.1:46686       LAST_ACK    -
+tcp6       0    452 192.168.0.10:80         192.168.0.1:47284       ESTABLISHED -
+tcp6       0      0 192.168.0.10:80         192.168.0.1:47710       SYN_RECV    -
+tcp6       0    444 192.168.0.10:80         192.168.0.1:47594       ESTABLISHED -
+tcp6       0    439 192.168.0.10:80         192.168.0.1:47602       ESTABLISHED -
+tcp6       0      1 192.168.0.10:80         192.168.0.1:46660       LAST_ACK    -
+tcp6       0    442 192.168.0.10:80         192.168.0.1:47034       ESTABLISHED -
+tcp6       0      0 192.168.0.10:80         192.168.0.1:47698       SYN_RECV    -
+tcp6       0      0 192.168.0.10:80         192.168.0.1:47758       SYN_RECV    -
+tcp6       0    442 192.168.0.10:80         192.168.0.1:47362       ESTABLISHED -
+tcp6       0      1 192.168.0.10:80         192.168.0.1:46662       LAST_ACK    -
+tcp6       0      0 192.168.0.10:80         192.168.0.1:47756       SYN_RECV    -
+tcp6       0    446 192.168.0.10:80         192.168.0.1:47592       ESTABLISHED -
+tcp6       0    456 192.168.0.10:80         192.168.0.1:47552       ESTABLISHED -
+tcp6       0      0 192.168.0.10:80         192.168.0.1:47750       SYN_RECV    -
+tcp6       0    446 192.168.0.10:80         192.168.0.1:47622       ESTABLISHED -
+tcp6       0    450 192.168.0.10:80         192.168.0.1:47152       ESTABLISHED -
+tcp6       0    452 192.168.0.10:80         192.168.0.1:47608       ESTABLISHED -
+tcp6       0    441 192.168.0.10:80         192.168.0.1:46968       ESTABLISHED -
+tcp6       0      1 192.168.0.10:80         192.168.0.1:46658       LAST_ACK    -
+tcp6       0      1 192.168.0.10:80         192.168.0.1:46978       LAST_ACK    -
+tcp6       0      0 192.168.0.10:80         192.168.0.1:47666       SYN_RECV    -
+tcp6       0      1 192.168.0.10:80         192.168.0.1:46654       LAST_ACK    -
+tcp6       0      1 192.168.0.10:80         192.168.0.1:46770       LAST_ACK    -
+tcp6       0      0 192.168.0.10:80         192.168.0.1:1043        ESTABLISHED -
+tcp6       0      0 192.168.0.10:80         192.168.0.1:47700       SYN_RECV    -
+tcp6       0    442 192.168.0.10:80         192.168.0.1:47598       ESTABLISHED -
+tcp6       0      0 192.168.0.10:80         192.168.0.1:47706       SYN_RECV    -
+tcp6       0    438 192.168.0.10:80         192.168.0.1:47658       ESTABLISHED -
+tcp6       0      0 192.168.0.10:80         192.168.0.1:47684       SYN_RECV    -
+tcp6       0      1 192.168.0.10:80         192.168.0.1:46772       LAST_ACK    -
+tcp6       0      0 192.168.0.10:80         192.168.0.1:47718       SYN_RECV    -
+tcp6       0      0 192.168.0.10:80         192.168.0.1:47714       SYN_RECV    -
+tcp6       0      0 192.168.0.10:80         192.168.0.1:47704       SYN_RECV    -
+tcp6       0      0 192.168.0.10:80         192.168.0.1:47752       SYN_RECV    -
+tcp6       0      1 192.168.0.10:80         192.168.0.1:46648       LAST_ACK    -
+tcp6       0      0 192.168.0.10:80         192.168.0.1:47674       SYN_RECV    -
+tcp6       0      0 192.168.0.10:80         192.168.0.1:1284        TIME_WAIT   -
+tcp6       0      1 192.168.0.10:80         192.168.0.1:46626       LAST_ACK    -
+tcp6       0      0 192.168.0.10:80         192.168.0.1:47702       SYN_RECV    -
+tcp6       0      0 192.168.0.10:80         192.168.0.1:1282        TIME_WAIT   -
+tcp6       0      0 192.168.0.10:80         192.168.0.1:47672       SYN_RECV    -
+tcp6       0      1 192.168.0.10:80         192.168.0.1:46702       LAST_ACK    -
+tcp6       0      1 192.168.0.10:80         192.168.0.1:46948       LAST_ACK    -
+tcp6       0      0 192.168.0.10:80         192.168.0.1:47690       SYN_RECV    -
+tcp6       0      1 192.168.0.10:80         192.168.0.1:47060       LAST_ACK    -
+tcp6       0      1 192.168.0.10:80         192.168.0.1:46952       LAST_ACK    -
+tcp6       0    440 192.168.0.10:80         192.168.0.1:47590       ESTABLISHED -
+tcp6       0      0 192.168.0.10:80         192.168.0.1:53859       TIME_WAIT   -
+tcp6       0      0 192.168.0.10:80         192.168.0.1:1283        TIME_WAIT   -
+tcp6       0    443 192.168.0.10:80         192.168.0.1:47446       ESTABLISHED -
+tcp6       0    443 192.168.0.10:80         192.168.0.1:47596       ESTABLISHED -
+tcp6       0      0 192.168.0.10:80         192.168.0.1:47748       SYN_RECV    -
+
+
+Listening UDP:
+Active Internet connections (servers and established)
+Proto Recv-Q Send-Q Local Address           Foreign Address         State       PID/Program name
+udp        0      0 0.0.0.0:34363           0.0.0.0:*                           -
+udp6       0      0 ::1:33834               ::1:47597               ESTABLISHED -
+udp6       0      0 :::55612                :::*                                -
+udp6       0      0 ::1:47597               ::1:33834               ESTABLISHED -
+
+
+### SERVICES #############################################
+Running processes:
+USER       PID %CPU %MEM    VSZ   RSS TTY      STAT START   TIME COMMAND
+root         1  0.0  0.5  37236  5136 ?        Ss   13:48   0:00 /sbin/init
+root        37  0.0  0.3  41588  3096 ?        Ss   13:48   0:00 /lib/systemd/systemd-udevd
+root        39  0.0  0.2  33436  3020 ?        Ss   13:48   0:00 /lib/systemd/systemd-journald
+syslog     140  0.0  0.3 182664  3132 ?        Ssl  13:48   0:00 /usr/sbin/rsyslogd -n
+root       143  0.0  0.2  29008  2992 ?        Ss   13:48   0:00 /usr/sbin/cron -f
+root       175  0.0  0.6  65520  6244 ?        Ss   13:48   0:00 /usr/sbin/sshd -D
+root       178  0.0  0.2  15756  2208 pts/0    Ss+  13:48   0:00 /sbin/agetty --noclear --keep-baud console 115200 38400 9600 linux
+root       249  0.0  0.6 109276  6144 ?        Ss   13:48   0:00 /usr/sbin/squid -YC -f /etc/squid/squid.conf
+proxy      251  0.3  3.1 153260 31632 ?        S    13:48   0:52 (squid-1) -YC -f /etc/squid/squid.conf
+root       252  0.0  2.5 280440 25884 ?        Ss   13:48   0:01 /usr/sbin/apache2 -k start
+proxy      255  0.0  0.1  13280  1624 ?        S    13:48   0:00 (logfile-daemon) /var/log/squid/access.log
+www-data   257  0.0  1.6 286760 16916 ?        S    13:48   0:03 /usr/sbin/apache2 -k start
+proxy      261  0.0  0.1  13416  1716 ?        S    13:48   0:00 (pinger)
+www-data   538  0.0  2.0 286860 21036 ?        S    15:56   0:03 /usr/sbin/apache2 -k start
+www-data   540  0.0  1.6 286800 16472 ?        S    15:56   0:03 /usr/sbin/apache2 -k start
+www-data   798  0.0  0.0   4508   756 ?        S    17:18   0:00 sh -c cd /var/www/html/webdav&lowbar;test&lowbar;inception; ping 10.10.15.131 2>&1
+www-data   801  0.0  0.0   6536   740 ?        S    17:18   0:00 ping 10.10.15.131
+www-data   806  0.0  0.0   4508   720 ?        S    17:18   0:00 sh -c cd /var/www/html/webdav&lowbar;test&lowbar;inception; ping 10.10.15.131 2>&1
+www-data   809  0.0  0.0   6536   684 ?        S    17:18   0:00 ping 10.10.15.131
+www-data   821  0.0  0.0   4508   748 ?        S    17:19   0:00 sh -c cd /var/www/html/webdav&lowbar;test&lowbar;inception; ping 10.10.15.131 2>&1
+www-data   824  0.0  0.0   6536   704 ?        S    17:19   0:00 ping 10.10.15.131
+root      1537  0.0  0.6  93052  6436 ?        Ss   17:49   0:00 sshd: cobb [priv]
+cobb      1552  0.0  0.3  93052  3496 ?        S    17:49   0:00 sshd: cobb@pts/0
+cobb      1553  0.0  0.3  21196  3740 pts/0    Ss   17:49   0:00 -bash
+www-data  1617  0.0  1.2 280772 12624 ?        S    17:51   0:00 /usr/sbin/apache2 -k start
+www-data  1652  0.0  0.0   4508   712 ?        S    17:52   0:00 sh -c wget http://10.10.15.10:9999/1.txt 2>&1
+www-data  1653  0.0  0.3  33352  3536 ?        S    17:52   0:00 wget http://10.10.15.10:9999/1.txt
+cobb      1690  0.0  0.5  44920  5476 pts/0    S+   17:53   0:00 ssh 192.168.0.10
+root      1691  0.0  0.6  93052  6504 ?        Ss   17:53   0:00 sshd: cobb [priv]
+cobb      1700  0.0  0.3  93052  3380 ?        S    17:53   0:00 sshd: cobb@pts/1
+cobb      1701  0.0  0.3  21196  3732 pts/1    Ss+  17:53   0:00 -bash
+root      1722  0.0  0.6  93052  6488 ?        Ss   17:53   0:00 sshd: cobb [priv]
+cobb      1738  0.0  0.3  93052  3392 ?        S    17:53   0:00 sshd: cobb@pts/2
+cobb      1739  0.0  0.3  21196  3744 pts/2    Ss   17:53   0:00 -bash
+www-data  1988  0.3  1.2 280772 12564 ?        S    18:02   0:01 /usr/sbin/apache2 -k start
+www-data  2003  0.3  1.2 280780 12916 ?        S    18:02   0:01 /usr/sbin/apache2 -k start
+cobb      2063  0.0  0.3  20552  3108 pts/2    S+   18:03   0:00 ftp
+www-data  2071  0.3  1.2 280772 12560 ?        S    18:03   0:00 /usr/sbin/apache2 -k start
+www-data  2073  0.3  1.2 280772 12436 ?        S    18:03   0:00 /usr/sbin/apache2 -k start
+www-data  2075  0.3  1.2 280780 12856 ?        S    18:03   0:00 /usr/sbin/apache2 -k start
+www-data  2083  0.3  1.2 280780 12560 ?        S    18:03   0:00 /usr/sbin/apache2 -k start
+www-data  2089  0.3  1.2 280772 12560 ?        S    18:03   0:00 /usr/sbin/apache2 -k start
+www-data  2093  0.3  1.2 280772 12560 ?        S    18:03   0:00 /usr/sbin/apache2 -k start
+www-data  2096  0.3  1.2 280772 12560 ?        S    18:03   0:00 /usr/sbin/apache2 -k start
+www-data  2106  0.3  1.2 280772 12560 ?        S    18:04   0:00 /usr/sbin/apache2 -k start
+www-data  2109  0.3  1.2 280772 12560 ?        S    18:04   0:00 /usr/sbin/apache2 -k start
+www-data  2129  0.3  1.2 280780 12916 ?        S    18:05   0:00 /usr/sbin/apache2 -k start
+www-data  2135  0.3  1.2 280780 12560 ?        S    18:05   0:00 /usr/sbin/apache2 -k start
+www-data  2137  0.3  1.2 280772 12436 ?        S    18:05   0:00 /usr/sbin/apache2 -k start
+www-data  2141  0.3  1.2 280772 12560 ?        S    18:05   0:00 /usr/sbin/apache2 -k start
+www-data  2148  0.3  1.2 280772 12560 ?        S    18:05   0:00 /usr/sbin/apache2 -k start
+www-data  2155  0.3  1.2 280772 12560 ?        S    18:05   0:00 /usr/sbin/apache2 -k start
+www-data  2157  0.3  1.2 280772 12504 ?        S    18:06   0:00 /usr/sbin/apache2 -k start
+www-data  2163  0.3  0.8 280512  8172 ?        S    18:06   0:00 /usr/sbin/apache2 -k start
+www-data  2168  0.3  1.2 280772 12560 ?        S    18:06   0:00 /usr/sbin/apache2 -k start
+www-data  2173  0.3  0.8 280512  8172 ?        S    18:06   0:00 /usr/sbin/apache2 -k start
+www-data  2177  0.3  1.2 280772 12604 ?        S    18:06   0:00 /usr/sbin/apache2 -k start
+www-data  2178  0.3  0.8 280512  8172 ?        S    18:06   0:00 /usr/sbin/apache2 -k start
+www-data  2179  0.3  1.2 280772 12624 ?        S    18:06   0:00 /usr/sbin/apache2 -k start
+www-data  2180  0.2  1.2 280772 12560 ?        S    18:06   0:00 /usr/sbin/apache2 -k start
+www-data  2185  0.3  0.8 280512  8172 ?        S    18:06   0:00 /usr/sbin/apache2 -k start
+www-data  2186  0.3  0.8 280512  8172 ?        S    18:06   0:00 /usr/sbin/apache2 -k start
+www-data  2190  0.3  0.8 280512  8172 ?        S    18:07   0:00 /usr/sbin/apache2 -k start
+www-data  2192  0.4  1.2 280772 12564 ?        S    18:07   0:00 /usr/sbin/apache2 -k start
+www-data  2195  0.3  0.8 280512  8172 ?        S    18:07   0:00 /usr/sbin/apache2 -k start
+www-data  2196  0.3  0.8 280512  8172 ?        S    18:07   0:00 /usr/sbin/apache2 -k start
+www-data  2198  0.3  0.8 280512  8172 ?        S    18:07   0:00 /usr/sbin/apache2 -k start
+www-data  2199  0.3  0.8 280512  8172 ?        S    18:07   0:00 /usr/sbin/apache2 -k start
+www-data  2200  0.3  0.8 280512  8172 ?        S    18:07   0:00 /usr/sbin/apache2 -k start
+www-data  2201  0.4  0.8 280512  8172 ?        S    18:07   0:00 /usr/sbin/apache2 -k start
+www-data  2202  0.4  0.8 280512  8172 ?        S    18:07   0:00 /usr/sbin/apache2 -k start
+www-data  2203  0.3  0.8 280512  8172 ?        S    18:07   0:00 /usr/sbin/apache2 -k start
+www-data  2204  0.4  0.8 280512  8172 ?        S    18:07   0:00 /usr/sbin/apache2 -k start
+www-data  2206  0.3  0.8 280512  8172 ?        S    18:07   0:00 /usr/sbin/apache2 -k start
+www-data  2211  0.4  0.8 280512  8172 ?        S    18:07   0:00 /usr/sbin/apache2 -k start
+www-data  2215  0.4  0.8 280512  8172 ?        S    18:07   0:00 /usr/sbin/apache2 -k start
+www-data  2216  0.6  0.8 280512  8172 ?        S    18:07   0:00 /usr/sbin/apache2 -k start
+www-data  2217  0.4  0.8 280512  8172 ?        S    18:07   0:00 /usr/sbin/apache2 -k start
+www-data  2218  0.0  0.0   4508   756 ?        S    18:08   0:00 sh -c bash LinEnum.sh 2>&1
+www-data  2219  0.0  0.3  18904  3668 ?        S    18:08   0:00 bash LinEnum.sh
+www-data  2220  0.0  0.3  18996  3368 ?        S    18:08   0:00 bash LinEnum.sh
+www-data  2221  0.0  0.0   4384   760 ?        S    18:08   0:00 tee -a
+www-data  2297  0.7  0.8 280512  8172 ?        S    18:08   0:00 /usr/sbin/apache2 -k start
+www-data  2298  0.7  0.8 280512  8172 ?        S    18:08   0:00 /usr/sbin/apache2 -k start
+www-data  2367  1.2  0.8 280512  8172 ?        S    18:08   0:00 /usr/sbin/apache2 -k start
+www-data  2373  0.0  0.8 280512  8172 ?        S    18:08   0:00 /usr/sbin/apache2 -k start
+www-data  2374  0.0  0.8 280512  8172 ?        S    18:08   0:00 /usr/sbin/apache2 -k start
+www-data  2379  0.0  0.2  18996  2864 ?        S    18:08   0:00 bash LinEnum.sh
+www-data  2380  0.0  0.2  34424  2856 ?        R    18:08   0:00 ps aux
+
+
+Process binaries & associated permissions (from above list):
+320K -rwxr-xr-x 1 root root 319K Oct 27 10:12 /lib/systemd/systemd-journald
+444K -rwxr-xr-x 1 root root 443K Oct 27 10:12 /lib/systemd/systemd-udevd
+ 44K -rwxr-xr-x 1 root root  44K Jun 14  2017 /sbin/agetty
+   0 lrwxrwxrwx 1 root root   20 Oct 27 10:11 /sbin/init -> /lib/systemd/systemd
+648K -rwxr-xr-x 1 root root 647K Sep 18  2017 /usr/sbin/apache2
+ 44K -rwxr-xr-x 1 root root  44K Apr  5  2016 /usr/sbin/cron
+588K -rwxr-xr-x 1 root root 586K Apr  5  2016 /usr/sbin/rsyslogd
+6.2M -rwxr-xr-x 1 root root 6.2M Jul 26  2017 /usr/sbin/squid
+784K -rwxr-xr-x 1 root root 781K Mar 16  2017 /usr/sbin/sshd
+
+
+/etc/init.d/ binary permissions:
+total 216
+drwxr-xr-x  2 root root 4096 Nov  6 05:23 .
+drwxr-xr-x 75 root root 4096 Nov  6 05:23 ..
+-rw-r--r--  1 root root  956 Nov  6 05:23 .depend.boot
+-rw-r--r--  1 root root  257 Nov  6 05:23 .depend.start
+-rw-r--r--  1 root root  522 Nov  6 05:23 .depend.stop
+-rw-r--r--  1 root root 2427 Jan 19  2016 README
+-rwxr-xr-x  1 root root 2210 Apr  5  2016 apache-htcacheclean
+-rwxr-xr-x  1 root root 8087 Apr  5  2016 apache2
+-rwxr-xr-x  1 root root 1275 Jan 19  2016 bootmisc.sh
+-rwxr-xr-x  1 root root 3807 Jan 19  2016 checkfs.sh
+-rwxr-xr-x  1 root root 1098 Jan 19  2016 checkroot-bootclean.sh
+-rwxr-xr-x  1 root root 9353 Jan 19  2016 checkroot.sh
+-rwxr-xr-x  1 root root 1343 Apr  4  2016 console-setup
+-rwxr-xr-x  1 root root 3049 Apr  5  2016 cron
+-rwxr-xr-x  1 root root 1336 Jan 19  2016 halt
+-rwxr-xr-x  1 root root 1423 Jan 19  2016 hostname.sh
+-rwxr-xr-x  1 root root 3809 Mar 12  2016 hwclock.sh
+-rwxr-xr-x  1 root root 1804 Apr  4  2016 keyboard-setup
+-rwxr-xr-x  1 root root 1300 Jan 19  2016 killprocs
+-rwxr-xr-x  1 root root 2087 Dec 20  2015 kmod
+-rwxr-xr-x  1 root root  703 Jan 19  2016 mountall-bootclean.sh
+-rwxr-xr-x  1 root root 2301 Jan 19  2016 mountall.sh
+-rwxr-xr-x  1 root root 1461 Jan 19  2016 mountdevsubfs.sh
+-rwxr-xr-x  1 root root 1564 Jan 19  2016 mountkernfs.sh
+-rwxr-xr-x  1 root root  711 Jan 19  2016 mountnfs-bootclean.sh
+-rwxr-xr-x  1 root root 2456 Jan 19  2016 mountnfs.sh
+-rwxr-xr-x  1 root root 4771 Jul 19  2015 networking
+-rwxr-xr-x  1 root root 1581 Oct 16  2015 ondemand
+-rwxr-xr-x  1 root root 1192 Sep  6  2015 procps
+-rwxr-xr-x  1 root root 6366 Jan 19  2016 rc
+-rwxr-xr-x  1 root root  820 Jan 19  2016 rc.local
+-rwxr-xr-x  1 root root  117 Jan 19  2016 rcS
+-rwxr-xr-x  1 root root  661 Jan 19  2016 reboot
+-rwxr-xr-x  1 root root 4149 Nov 23  2015 resolvconf
+-rwxr-xr-x  1 root root 2796 Feb  3  2016 rsyslog
+-rwxr-xr-x  1 root root 1226 Jun  9  2015 screen-cleanup
+-rwxr-xr-x  1 root root 3927 Jan 19  2016 sendsigs
+-rwxr-xr-x  1 root root  597 Jan 19  2016 single
+-rw-r--r--  1 root root 1087 Jan 19  2016 skeleton
+-rwxr-xr-x  1 root root 4123 Jul 26  2017 squid
+-rwxr-xr-x  1 root root 4077 Mar 16  2017 ssh
+-rwxr-xr-x  1 root root 6087 Apr 12  2016 udev
+-rwxr-xr-x  1 root root 2737 Jan 19  2016 umountfs
+-rwxr-xr-x  1 root root 2202 Jan 19  2016 umountnfs.sh
+-rwxr-xr-x  1 root root 1879 Jan 19  2016 umountroot
+-rwxr-xr-x  1 root root 3111 Jan 19  2016 urandom
+
+
+### SOFTWARE #############################################
+Sudo version:
+Sudo version 1.8.16
+
+
+Apache version:
+Server version: Apache/2.4.18 (Ubuntu)
+Server built:   2017-09-18T15:09:02
+
+
+Apache user configuration:
+APACHE_RUN_USER=www-data
+APACHE_RUN_GROUP=www-data
+
+
+Installed Apache modules:
+Loaded Modules:
+ core_module (static)
+ so_module (static)
+ watchdog_module (static)
+ http_module (static)
+ log_config_module (static)
+ logio_module (static)
+ version_module (static)
+ unixd_module (static)
+ access_compat_module (shared)
+ alias_module (shared)
+ auth_basic_module (shared)
+ authn_core_module (shared)
+ authn_file_module (shared)
+ authz_core_module (shared)
+ authz_host_module (shared)
+ authz_user_module (shared)
+ autoindex_module (shared)
+ dav_module (shared)
+ dav_fs_module (shared)
+ deflate_module (shared)
+ dir_module (shared)
+ env_module (shared)
+ filter_module (shared)
+ mime_module (shared)
+ mpm_prefork_module (shared)
+ negotiation_module (shared)
+ php7_module (shared)
+ setenvif_module (shared)
+ status_module (shared)
+
+
+Anything in the Apache home dirs?:
+/var/www/:
+total 12K
+drwxr-xr-x  3 root root 4.0K Nov  6 00:39 .
+drwxr-xr-x 12 root root 4.0K Nov  6 00:39 ..
+drwxr-xr-x  7 root root 4.0K Nov  6 08:36 html
+
+/var/www/html:
+total 7.9M
+drwxr-xr-x 7 root     root     4.0K Nov  6 08:36 .
+drwxr-xr-x 3 root     root     4.0K Nov  6 00:39 ..
+-rw-r--r-- 1 root     root      17K May  7  2017 LICENSE.txt
+-rw-r--r-- 1 root     root     2.3K May  7  2017 README.txt
+drwxr-xr-x 6 root     root     4.0K May  7  2017 assets
+drwxrwxr-x 4 root     root     4.0K Nov  6 02:33 dompdf
+drwxr-xr-x 2 root     root     4.0K May  7  2017 images
+-rw-r--r-- 1 root     root     2.9K Nov  6 08:36 index.html
+-rw-r--r-- 1 root     root     7.9M Oct 31 13:13 latest.tar.gz
+drwxr-xr-x 3 www-data www-data 4.0K Mar 30 17:45 webdav_test_inception
+drwxr-xr-x 5 root     root     4.0K Nov  6 03:57 wordpress_4.8.3
+
+/var/www/html/assets:
+total 24K
+drwxr-xr-x 6 root root 4.0K May  7  2017 .
+drwxr-xr-x 7 root root 4.0K Nov  6 08:36 ..
+drwxr-xr-x 2 root root 4.0K May  7  2017 css
+drwxrwxr-x 2 root root 4.0K May  7  2017 fonts
+drwxr-xr-x 3 root root 4.0K Nov  6 02:49 js
+drwxr-xr-x 6 root root 4.0K May  7  2017 sass
+
+/var/www/html/assets/css:
+total 72K
+drwxr-xr-x 2 root root 4.0K May  7  2017 .
+drwxr-xr-x 6 root root 4.0K May  7  2017 ..
+-rw-rw-r-- 1 root root  29K May  7  2017 font-awesome.min.css
+-rw-rw-r-- 1 root root  422 May  7  2017 ie8.css
+-rw-rw-r-- 1 root root  228 May  7  2017 ie9.css
+-rw-rw-r-- 1 root root  22K May  7  2017 main.css
+
+/var/www/html/assets/fonts:
+total 908K
+drwxrwxr-x 2 root root 4.0K May  7  2017 .
+drwxr-xr-x 6 root root 4.0K May  7  2017 ..
+-rw-rw-r-- 1 root root 123K May  7  2017 FontAwesome.otf
+-rw-rw-r-- 1 root root  75K May  7  2017 fontawesome-webfont.eot
+-rw-rw-r-- 1 root root 383K May  7  2017 fontawesome-webfont.svg
+-rw-rw-r-- 1 root root 150K May  7  2017 fontawesome-webfont.ttf
+-rw-rw-r-- 1 root root  89K May  7  2017 fontawesome-webfont.woff
+-rw-rw-r-- 1 root root  71K May  7  2017 fontawesome-webfont.woff2
+
+/var/www/html/assets/js:
+total 20K
+drwxr-xr-x 3 root root 4.0K Nov  6 02:49 .
+drwxr-xr-x 6 root root 4.0K May  7  2017 ..
+drwxrwxr-x 2 root root 4.0K May  7  2017 ie
+-rw-r--r-- 1 root root 5.2K Nov  6 02:49 main.js
+
+/var/www/html/assets/js/ie:
+total 20K
+drwxrwxr-x 2 root root 4.0K May  7  2017 .
+drwxr-xr-x 3 root root 4.0K Nov  6 02:49 ..
+-rw-rw-r-- 1 root root 2.4K May  7  2017 html5shiv.js
+-rw-r--r-- 1 root root 4.5K May  7  2017 respond.min.js
+
+/var/www/html/assets/sass:
+total 36K
+drwxr-xr-x 6 root root 4.0K May  7  2017 .
+drwxr-xr-x 6 root root 4.0K May  7  2017 ..
+drwxr-xr-x 2 root root 4.0K May  7  2017 base
+drwxr-xr-x 2 root root 4.0K May  7  2017 components
+-rw-r--r-- 1 root root  587 May  7  2017 ie8.scss
+-rw-r--r-- 1 root root  348 May  7  2017 ie9.scss
+drwxr-xr-x 2 root root 4.0K May  7  2017 layout
+drwxr-xr-x 2 root root 4.0K May  7  2017 libs
+-rw-rwxr-- 1 root root 1.1K May  7  2017 main.scss
+
+/var/www/html/assets/sass/base:
+total 20K
+drwxr-xr-x 2 root root 4.0K May  7  2017 .
+drwxr-xr-x 6 root root 4.0K May  7  2017 ..
+-rw-r--r-- 1 root root 1.5K May  7  2017 _bg.scss
+-rw-r--r-- 1 root root 1.4K May  7  2017 _page.scss
+-rw-r--r-- 1 root root 3.0K May  7  2017 _typography.scss
+
+/var/www/html/assets/sass/components:
+total 32K
+drwxr-xr-x 2 root root 4.0K May  7  2017 .
+drwxr-xr-x 6 root root 4.0K May  7  2017 ..
+-rw-r--r-- 1 root root 1.3K May  7  2017 _button.scss
+-rw-r--r-- 1 root root 4.6K May  7  2017 _form.scss
+-rw-r--r-- 1 root root  371 May  7  2017 _icon.scss
+-rw-r--r-- 1 root root  849 May  7  2017 _list.scss
+-rw-r--r-- 1 root root 1.1K May  7  2017 _section.scss
+
+/var/www/html/assets/sass/layout:
+total 20K
+drwxr-xr-x 2 root root 4.0K May  7  2017 .
+drwxr-xr-x 6 root root 4.0K May  7  2017 ..
+-rw-r--r-- 1 root root 1.4K May  7  2017 _footer.scss
+-rw-r--r-- 1 root root  654 May  7  2017 _header.scss
+-rw-r--r-- 1 root root  937 May  7  2017 _signup-form.scss
+
+/var/www/html/assets/sass/libs:
+total 48K
+drwxr-xr-x 2 root root 4.0K May  7  2017 .
+drwxr-xr-x 6 root root 4.0K May  7  2017 ..
+-rw-r--r-- 1 root root  787 May  7  2017 _functions.scss
+-rw-r--r-- 1 root root 9.2K May  7  2017 _mixins.scss
+-rw-r--r-- 1 root root  17K May  7  2017 _skel.scss
+-rw-r--r-- 1 root root 1.1K May  7  2017 _vars.scss
+
+/var/www/html/dompdf:
+total 96K
+drwxrwxr-x 4 root root 4.0K Nov  6 02:33 .
+drwxr-xr-x 7 root root 4.0K Nov  6 08:36 ..
+-rw-rw-r-- 1 root root 3.2K Jan 26  2014 CONTRIBUTING.md
+-rw-rw-r-- 1 root root  24K May 24  2013 LICENSE.LGPL
+-rw-rw-r-- 1 root root 4.8K Feb  7  2014 README.md
+-rw-rw-r-- 1 root root    5 Feb  7  2014 VERSION
+-rw-rw-r-- 1 root root  559 Feb  2  2014 composer.json
+-rw-rw-r-- 1 root root 6.9K May 24  2013 dompdf.php
+-rw-rw-r-- 1 root root 1.2K Nov  7  2013 dompdf_config.custom.inc.php
+-rw-rw-r-- 1 root root  13K Nov  6 02:21 dompdf_config.inc.php
+drwxrwxr-x 2 root root 4.0K Feb  8  2014 include
+drwxrwxr-x 6 root root 4.0K Feb  8  2014 lib
+-rw-rw-r-- 1 root root 5.3K May 24  2013 load_font.php
+
+/var/www/html/dompdf/include:
+total 772K
+drwxrwxr-x 2 root root 4.0K Feb  8  2014 .
+drwxrwxr-x 4 root root 4.0K Nov  6 02:33 ..
+-rw-rw-r-- 1 root root 3.2K Oct  3  2013 absolute_positioner.cls.php
+-rw-rw-r-- 1 root root  23K May 24  2013 abstract_renderer.cls.php
+-rw-rw-r-- 1 root root  15K May 24  2013 attribute_translator.cls.php
+-rw-rw-r-- 1 root root 2.5K May 24  2013 autoload.inc.php
+-rw-rw-r-- 1 root root 6.0K May 24  2013 block_frame_decorator.cls.php
+-rw-rw-r-- 1 root root  24K May 24  2013 block_frame_reflower.cls.php
+-rw-rw-r-- 1 root root 1.5K May 24  2013 block_positioner.cls.php
+-rw-rw-r-- 1 root root 6.7K May 24  2013 block_renderer.cls.php
+-rw-rw-r-- 1 root root 5.7K May 24  2013 cached_pdf_decorator.cls.php
+-rw-rw-r-- 1 root root 9.2K May 24  2013 canvas.cls.php
+-rw-rw-r-- 1 root root 1.5K May 24  2013 canvas_factory.cls.php
+-rw-rw-r-- 1 root root  20K May 24  2013 cellmap.cls.php
+-rw-rw-r-- 1 root root  25K Aug 18  2013 cpdf_adapter.cls.php
+-rw-rw-r-- 1 root root 7.8K Dec 21  2013 css_color.cls.php
+-rw-rw-r-- 1 root root  31K Jan 23  2014 dompdf.cls.php
+-rw-rw-r-- 1 root root  551 May 24  2013 dompdf_exception.cls.php
+-rw-rw-r-- 1 root root  553 May 24  2013 dompdf_image_exception.cls.php
+-rw-rw-r-- 1 root root  228 May 24  2013 file.skel
+-rw-rw-r-- 1 root root 2.8K May 24  2013 fixed_positioner.cls.php
+-rw-rw-r-- 1 root root  11K Nov  7  2013 font_metrics.cls.php
+-rw-rw-r-- 1 root root  28K Nov 16  2013 frame.cls.php
+-rw-rw-r-- 1 root root  16K Dec  4  2013 frame_decorator.cls.php
+-rw-rw-r-- 1 root root 6.6K May 24  2013 frame_factory.cls.php
+-rw-rw-r-- 1 root root  13K Jan  9  2014 frame_reflower.cls.php
+-rw-rw-r-- 1 root root 5.9K Jan 12  2014 frame_tree.cls.php
+-rw-rw-r-- 1 root root  27K Jan  9  2014 functions.inc.php
+-rw-rw-r-- 1 root root  20K May 24  2013 gd_adapter.cls.php
+-rw-rw-r-- 1 root root 5.6K May 24  2013 image_cache.cls.php
+-rw-rw-r-- 1 root root 2.0K May 24  2013 image_frame_decorator.cls.php
+-rw-rw-r-- 1 root root 6.3K May 24  2013 image_frame_reflower.cls.php
+-rw-rw-r-- 1 root root 3.4K May 24  2013 image_renderer.cls.php
+-rw-rw-r-- 1 root root 2.3K May 24  2013 inline_frame_decorator.cls.php
+-rw-rw-r-- 1 root root 1.9K May 24  2013 inline_frame_reflower.cls.php
+-rw-rw-r-- 1 root root 1.9K May 24  2013 inline_positioner.cls.php
+-rw-rw-r-- 1 root root 7.3K May 24  2013 inline_renderer.cls.php
+-rw-rw-r-- 1 root root  732 May 24  2013 javascript_embedder.cls.php
+-rw-rw-r-- 1 root root 5.0K May 24  2013 line_box.cls.php
+-rw-rw-r-- 1 root root 2.1K May 24  2013 list_bullet_frame_decorator.cls.php
+-rw-rw-r-- 1 root root  845 May 24  2013 list_bullet_frame_reflower.cls.php
+-rw-rw-r-- 1 root root 4.5K May 24  2013 list_bullet_image_frame_decorator.cls.php
+-rw-rw-r-- 1 root root 2.6K May 24  2013 list_bullet_positioner.cls.php
+-rw-rw-r-- 1 root root 6.3K Aug 18  2013 list_bullet_renderer.cls.php
+-rw-rw-r-- 1 root root  576 May 24  2013 null_frame_decorator.cls.php
+-rw-rw-r-- 1 root root  475 May 24  2013 null_frame_reflower.cls.php
+-rw-rw-r-- 1 root root  452 May 24  2013 null_positioner.cls.php
+-rw-rw-r-- 1 root root 3.8K May 24  2013 page_cache.cls.php
+-rw-rw-r-- 1 root root  17K May 24  2013 page_frame_decorator.cls.php
+-rw-rw-r-- 1 root root 5.4K May 24  2013 page_frame_reflower.cls.php
+-rw-rw-r-- 1 root root  28K May 24  2013 pdflib_adapter.cls.php
+-rw-rw-r-- 1 root root 1.1K May 24  2013 php_evaluator.cls.php
+-rw-rw-r-- 1 root root 1.1K May 24  2013 positioner.cls.php
+-rw-rw-r-- 1 root root 7.1K May 24  2013 renderer.cls.php
+-rw-rw-r-- 1 root root  71K Dec  3  2013 style.cls.php
+-rw-rw-r-- 1 root root  40K Jan 12  2014 stylesheet.cls.php
+-rw-rw-r-- 1 root root 2.8K May 24  2013 table_cell_frame_decorator.cls.php
+-rw-rw-r-- 1 root root 3.7K May 24  2013 table_cell_frame_reflower.cls.php
+-rw-rw-r-- 1 root root  716 May 24  2013 table_cell_positioner.cls.php
+-rw-rw-r-- 1 root root 5.0K May 24  2013 table_cell_renderer.cls.php
+-rw-rw-r-- 1 root root 8.4K May 24  2013 table_frame_decorator.cls.php
+-rw-rw-r-- 1 root root  17K May 24  2013 table_frame_reflower.cls.php
+-rw-rw-r-- 1 root root 1.2K May 24  2013 table_row_frame_decorator.cls.php
+-rw-rw-r-- 1 root root 1.5K May 24  2013 table_row_frame_reflower.cls.php
+-rw-rw-r-- 1 root root 1.6K May 24  2013 table_row_group_frame_decorator.cls.php
+-rw-rw-r-- 1 root root 1.6K May 24  2013 table_row_group_frame_reflower.cls.php
+-rw-rw-r-- 1 root root 1.2K May 24  2013 table_row_group_renderer.cls.php
+-rw-rw-r-- 1 root root  780 May 24  2013 table_row_positioner.cls.php
+-rw-rw-r-- 1 root root  15K May 24  2013 tcpdf_adapter.cls.php
+-rw-rw-r-- 1 root root 5.6K Dec  4  2013 text_frame_decorator.cls.php
+-rw-rw-r-- 1 root root  14K May 24  2013 text_frame_reflower.cls.php
+-rw-rw-r-- 1 root root 4.9K May 24  2013 text_renderer.cls.php
+
+/var/www/html/dompdf/lib:
+total 168K
+drwxrwxr-x 6 root root 4.0K Feb  8  2014 .
+drwxrwxr-x 4 root root 4.0K Nov  6 02:33 ..
+-rw-rw-r-- 1 root root 142K Jan 29  2014 class.pdf.php
+drwxrwxr-x 2 root root 4.0K Feb  8  2014 fonts
+drwxrwxr-x 2 root root 4.0K Feb  8  2014 html5lib
+drwxrwxr-x 4 root root 4.0K Feb  8  2014 php-font-lib
+drwxrwxr-x 2 root root 4.0K Feb  8  2014 res
+
+/var/www/html/dompdf/lib/fonts:
+total 12M
+drwxrwxr-x 2 root root 4.0K Feb  8  2014 .
+drwxrwxr-x 6 root root 4.0K Feb  8  2014 ..
+-rw-rw-r-- 1 root root  16K May 24  2013 Courier-Bold.afm
+-rw-rw-r-- 1 root root  16K May 24  2013 Courier-BoldOblique.afm
+-rw-rw-r-- 1 root root  16K May 24  2013 Courier-Oblique.afm
+-rw-rw-r-- 1 root root  16K May 24  2013 Courier.afm
+-rw-rw-r-- 1 root root 620K May 24  2013 DejaVuSans-Bold.ttf
+-rw-rw-r-- 1 root root 197K May 24  2013 DejaVuSans-Bold.ufm
+-rw-rw-r-- 1 root root 562K May 24  2013 DejaVuSans-BoldOblique.ttf
+-rw-rw-r-- 1 root root 183K May 24  2013 DejaVuSans-BoldOblique.ufm
+-rw-rw-r-- 1 root root 331K May 24  2013 DejaVuSans-ExtraLight.ttf
+-rw-rw-r-- 1 root root 197K May 24  2013 DejaVuSans-ExtraLight.ufm
+-rw-rw-r-- 1 root root 561K May 24  2013 DejaVuSans-Oblique.ttf
+-rw-rw-r-- 1 root root 176K May 24  2013 DejaVuSans-Oblique.ufm
+-rw-rw-r-- 1 root root 668K May 24  2013 DejaVuSans.ttf
+-rw-rw-r-- 1 root root 214K May 24  2013 DejaVuSans.ufm
+-rw-rw-r-- 1 root root 582K May 24  2013 DejaVuSansCondensed-Bold.ttf
+-rw-rw-r-- 1 root root 196K May 24  2013 DejaVuSansCondensed-Bold.ufm
+-rw-rw-r-- 1 root root 531K May 24  2013 DejaVuSansCondensed-BoldOblique.ttf
+-rw-rw-r-- 1 root root 183K May 24  2013 DejaVuSansCondensed-BoldOblique.ufm
+-rw-rw-r-- 1 root root 527K May 24  2013 DejaVuSansCondensed-Oblique.ttf
+-rw-rw-r-- 1 root root 176K May 24  2013 DejaVuSansCondensed-Oblique.ufm
+-rw-rw-r-- 1 root root 592K May 24  2013 DejaVuSansCondensed.ttf
+-rw-rw-r-- 1 root root 214K May 24  2013 DejaVuSansCondensed.ufm
+-rw-rw-r-- 1 root root 297K May 24  2013 DejaVuSansMono-Bold.ttf
+-rw-rw-r-- 1 root root 106K May 24  2013 DejaVuSansMono-Bold.ufm
+-rw-rw-r-- 1 root root 220K May 24  2013 DejaVuSansMono-BoldOblique.ttf
+-rw-rw-r-- 1 root root  85K May 24  2013 DejaVuSansMono-BoldOblique.ufm
+-rw-rw-r-- 1 root root 226K May 24  2013 DejaVuSansMono-Oblique.ttf
+-rw-rw-r-- 1 root root  90K May 24  2013 DejaVuSansMono-Oblique.ufm
+-rw-rw-r-- 1 root root 316K May 24  2013 DejaVuSansMono.ttf
+-rw-rw-r-- 1 root root 111K May 24  2013 DejaVuSansMono.ufm
+-rw-rw-r-- 1 root root 308K May 24  2013 DejaVuSerif-Bold.ttf
+-rw-rw-r-- 1 root root 120K May 24  2013 DejaVuSerif-Bold.ufm
+-rw-rw-r-- 1 root root 296K May 24  2013 DejaVuSerif-BoldItalic.ttf
+-rw-rw-r-- 1 root root 117K May 24  2013 DejaVuSerif-BoldItalic.ufm
+-rw-rw-r-- 1 root root 304K May 24  2013 DejaVuSerif-Italic.ttf
+-rw-rw-r-- 1 root root 122K May 24  2013 DejaVuSerif-Italic.ufm
+-rw-rw-r-- 1 root root 330K May 24  2013 DejaVuSerif.ttf
+-rw-rw-r-- 1 root root 125K May 24  2013 DejaVuSerif.ufm
+-rw-rw-r-- 1 root root 284K May 24  2013 DejaVuSerifCondensed-Bold.ttf
+-rw-rw-r-- 1 root root 120K May 24  2013 DejaVuSerifCondensed-Bold.ufm
+-rw-rw-r-- 1 root root 296K May 24  2013 DejaVuSerifCondensed-BoldItalic.ttf
+-rw-rw-r-- 1 root root 117K May 24  2013 DejaVuSerifCondensed-BoldItalic.ufm
+-rw-rw-r-- 1 root root 303K May 24  2013 DejaVuSerifCondensed-Italic.ttf
+-rw-rw-r-- 1 root root 122K May 24  2013 DejaVuSerifCondensed-Italic.ufm
+-rw-rw-r-- 1 root root 298K May 24  2013 DejaVuSerifCondensed.ttf
+-rw-rw-r-- 1 root root 125K May 24  2013 DejaVuSerifCondensed.ufm
+-rw-rw-r-- 1 root root  71K May 24  2013 Helvetica-Bold.afm
+-rw-rw-r-- 1 root root  71K May 24  2013 Helvetica-BoldOblique.afm
+-rw-rw-r-- 1 root root  76K May 24  2013 Helvetica-Oblique.afm
+-rw-rw-r-- 1 root root  76K May 24  2013 Helvetica.afm
+-rw-rw-r-- 1 root root 9.8K May 24  2013 Symbol.afm
+-rw-rw-r-- 1 root root  66K May 24  2013 Times-Bold.afm
+-rw-rw-r-- 1 root root  61K May 24  2013 Times-BoldItalic.afm
+-rw-rw-r-- 1 root root  68K May 24  2013 Times-Italic.afm
+-rw-rw-r-- 1 root root  62K May 24  2013 Times-Roman.afm
+-rw-rw-r-- 1 root root 9.6K May 24  2013 ZapfDingbats.afm
+-rw-rw-r-- 1 root root 4.2K Nov  7  2013 dompdf_font_family_cache.dist.php
+-rw-rw-r-- 1 root root 1.1K May 24  2013 mustRead.html
+
+/var/www/html/dompdf/lib/html5lib:
+total 500K
+drwxrwxr-x 2 root root 4.0K Feb  8  2014 .
+drwxrwxr-x 6 root root 4.0K Feb  8  2014 ..
+-rw-rw-r-- 1 root root 4.3K May 24  2013 Data.php
+-rw-rw-r-- 1 root root  11K May 24  2013 InputStream.php
+-rw-rw-r-- 1 root root 1.2K May 24  2013 Parser.php
+-rw-rw-r-- 1 root root 113K May 24  2013 Tokenizer.php
+-rw-rw-r-- 1 root root 169K May 24  2013 TreeBuilder.php
+-rw-rw-r-- 1 root root 178K May 24  2013 named-character-references.ser
+
+/var/www/html/dompdf/lib/php-font-lib:
+total 32K
+drwxrwxr-x 4 root root 4.0K Feb  8  2014 .
+drwxrwxr-x 6 root root 4.0K Feb  8  2014 ..
+-rw-rw-r-- 1 root root   14 May 24  2013 .htaccess
+-rw-rw-r-- 1 root root  470 Jan  9  2014 README.md
+drwxrwxr-x 2 root root 4.0K Feb  8  2014 classes
+-rw-rw-r-- 1 root root  435 May 24  2013 composer.json
+-rw-rw-r-- 1 root root   40 Feb  8  2014 index.php
+drwxrwxr-x 2 root root 4.0K Feb  8  2014 maps
+
+/var/www/html/dompdf/lib/php-font-lib/classes:
+total 188K
+drwxrwxr-x 2 root root 4.0K Feb  8  2014 .
+drwxrwxr-x 4 root root 4.0K Feb  8  2014 ..
+-rw-rw-r-- 1 root root 5.9K Jan  9  2014 Adobe_Font_Metrics.php
+-rw-rw-r-- 1 root root  831 Jan  9  2014 Encoding_Map.php
+-rw-rw-r-- 1 root root 1.7K Jan  9  2014 Font.php
+-rw-rw-r-- 1 root root 8.5K Jan  9  2014 Font_Binary_Stream.php
+-rw-rw-r-- 1 root root 3.4K Jan  9  2014 Font_EOT.php
+-rw-rw-r-- 1 root root 3.2K Jan  9  2014 Font_EOT_Header.php
+-rw-rw-r-- 1 root root 2.4K Jan 25  2014 Font_Glyph_Outline.php
+-rw-rw-r-- 1 root root  692 Jan  9  2014 Font_Glyph_Outline_Component.php
+-rw-rw-r-- 1 root root 6.5K Jan  9  2014 Font_Glyph_Outline_Composite.php
+-rw-rw-r-- 1 root root 8.3K Jan  9  2014 Font_Glyph_Outline_Simple.php
+-rw-rw-r-- 1 root root  713 Jan  9  2014 Font_Header.php
+-rw-rw-r-- 1 root root  500 Jan  9  2014 Font_OpenType.php
+-rw-rw-r-- 1 root root  503 Jan  9  2014 Font_OpenType_Table_Directory_Entry.php
+-rw-rw-r-- 1 root root 1.8K Jan  9  2014 Font_Table.php
+-rw-rw-r-- 1 root root 2.5K Jan  9  2014 Font_Table_Directory_Entry.php
+-rw-rw-r-- 1 root root 7.1K Jan  9  2014 Font_Table_cmap.php
+-rw-rw-r-- 1 root root 4.0K Jan  9  2014 Font_Table_glyf.php
+-rw-rw-r-- 1 root root 1.3K Jan  9  2014 Font_Table_head.php
+-rw-rw-r-- 1 root root 1.3K Jan  9  2014 Font_Table_hhea.php
+-rw-rw-r-- 1 root root 1.3K Jan  9  2014 Font_Table_hmtx.php
+-rw-rw-r-- 1 root root 1.7K Jan  9  2014 Font_Table_kern.php
+-rw-rw-r-- 1 root root 1.7K Jan  9  2014 Font_Table_loca.php
+-rw-rw-r-- 1 root root 1.2K Jan  9  2014 Font_Table_maxp.php
+-rw-rw-r-- 1 root root 4.8K Jan  9  2014 Font_Table_name.php
+-rw-rw-r-- 1 root root 1.1K Jan  9  2014 Font_Table_name_Record.php
+-rw-rw-r-- 1 root root 1.6K Jan  9  2014 Font_Table_os2.php
+-rw-rw-r-- 1 root root 3.2K Jan  9  2014 Font_Table_post.php
+-rw-rw-r-- 1 root root  12K Jan  9  2014 Font_TrueType.php
+-rw-rw-r-- 1 root root 2.0K Jan  9  2014 Font_TrueType_Collection.php
+-rw-rw-r-- 1 root root  783 Jan  9  2014 Font_TrueType_Header.php
+-rw-rw-r-- 1 root root  773 Jan  9  2014 Font_TrueType_Table_Directory_Entry.php
+-rw-rw-r-- 1 root root 2.2K Jan  9  2014 Font_WOFF.php
+-rw-rw-r-- 1 root root  937 Jan  9  2014 Font_WOFF_Header.php
+-rw-rw-r-- 1 root root  814 Jan  9  2014 Font_WOFF_Table_Directory_Entry.php
+-rw-rw-r-- 1 root root  101 Jan  9  2014 font.cls.php
+
+/var/www/html/dompdf/lib/php-font-lib/maps:
+total 176K
+drwxrwxr-x 2 root root 4.0K Feb  8  2014 .
+drwxrwxr-x 4 root root 4.0K Feb  8  2014 ..
+-rw-rw-r-- 1 root root 7.7K May 24  2013 adobe-standard-encoding.map
+-rw-rw-r-- 1 root root 4.7K May 24  2013 cp1250.map
+-rw-rw-r-- 1 root root 5.0K May 24  2013 cp1251.map
+-rw-rw-r-- 1 root root 4.7K May 24  2013 cp1252.map
+-rw-rw-r-- 1 root root 4.4K May 24  2013 cp1253.map
+-rw-rw-r-- 1 root root 4.7K May 24  2013 cp1254.map
+-rw-rw-r-- 1 root root 4.5K May 24  2013 cp1255.map
+-rw-rw-r-- 1 root root 4.6K May 24  2013 cp1257.map
+-rw-rw-r-- 1 root root 4.7K May 24  2013 cp1258.map
+-rw-rw-r-- 1 root root 4.4K May 24  2013 cp874.map
+-rw-rw-r-- 1 root root 4.8K May 24  2013 iso-8859-1.map
+-rw-rw-r-- 1 root root 4.9K May 24  2013 iso-8859-11.map
+-rw-rw-r-- 1 root root 4.8K May 24  2013 iso-8859-15.map
+-rw-rw-r-- 1 root root 4.8K May 24  2013 iso-8859-16.map
+-rw-rw-r-- 1 root root 4.8K May 24  2013 iso-8859-2.map
+-rw-rw-r-- 1 root root 4.8K May 24  2013 iso-8859-4.map
+-rw-rw-r-- 1 root root 4.9K May 24  2013 iso-8859-5.map
+-rw-rw-r-- 1 root root 4.6K May 24  2013 iso-8859-7.map
+-rw-rw-r-- 1 root root 4.8K May 24  2013 iso-8859-9.map
+-rw-rw-r-- 1 root root 4.9K May 24  2013 koi8-r.map
+-rw-rw-r-- 1 root root 4.9K May 24  2013 koi8-u.map
+
+/var/www/html/dompdf/lib/res:
+total 20K
+drwxrwxr-x 2 root root 4.0K Feb  8  2014 .
+drwxrwxr-x 6 root root 4.0K Feb  8  2014 ..
+-rw-rw-r-- 1 root root  618 May 24  2013 broken_image.png
+-rw-rw-r-- 1 root root 7.8K May 24  2013 html.css
+
+/var/www/html/images:
+total 424K
+drwxr-xr-x 2 root root 4.0K May  7  2017 .
+drwxr-xr-x 7 root root 4.0K Nov  6 08:36 ..
+-rw-r--r-- 1 root root 186K May  7  2017 bg01.jpg
+-rw-r--r-- 1 root root 113K May  7  2017 bg02.jpg
+-rw-r--r-- 1 root root 109K May  7  2017 bg03.jpg
+
+/var/www/html/webdav_test_inception:
+total 80K
+drwxr-xr-x 3 www-data www-data 4.0K Mar 30 17:45 .
+drwxr-xr-x 7 root     root     4.0K Nov  6 08:36 ..
+drwxr-xr-x 2 www-data www-data 4.0K Mar 30 17:29 .DAV
+-rw-r--r-- 1 www-data www-data 1.5K Mar 30 17:45 3767.php
+-rw-r--r-- 1 www-data www-data  38K Mar 30 17:29 LinEnum.sh
+-rw-r--r-- 1 www-data www-data  11K Mar 30 17:14 phpbash.php
+-rwxrwxrwx 1 www-data www-data  207 Mar 30 17:17 shell.elf
+-rw-r--r-- 1 www-data www-data 1.5K Mar 30 13:50 shell.php
+-rw-r----- 1 root     www-data   52 Nov  8 08:31 webdav.passwd
+
+/var/www/html/webdav_test_inception/.DAV:
+total 8.0K
+drwxr-xr-x 2 www-data www-data 4.0K Mar 30 17:29 .
+drwxr-xr-x 3 www-data www-data 4.0K Mar 30 17:45 ..
+
+/var/www/html/wordpress_4.8.3:
+total 200K
+drwxr-xr-x  5 root root 4.0K Nov  6 03:57 .
+drwxr-xr-x  7 root root 4.0K Nov  6 08:36 ..
+-rw-r--r--  1 root root  418 Sep 25  2013 index.php
+-rw-r--r--  1 root root  20K Jan  2  2017 license.txt
+-rw-r--r--  1 root root 7.3K Dec 12  2016 readme.html
+-rw-r--r--  1 root root 5.4K Sep 27  2016 wp-activate.php
+drwxr-xr-x  9 root root 4.0K Oct 31 13:12 wp-admin
+-rw-r--r--  1 root root  364 Dec 19  2015 wp-blog-header.php
+-rw-r--r--  1 root root 1.6K Aug 29  2016 wp-comments-post.php
+-rw-r--r--  1 root root 2.8K Dec 16  2015 wp-config-sample.php
+-rw-r--r--  1 root root 2.8K Nov  6 03:57 wp-config.php
+drwxr-xr-x  4 root root 4.0K Oct 31 13:12 wp-content
+-rw-r--r--  1 root root 3.3K May 24  2015 wp-cron.php
+drwxr-xr-x 18 root root  12K Oct 31 13:12 wp-includes
+-rw-r--r--  1 root root 2.4K Nov 21  2016 wp-links-opml.php
+-rw-r--r--  1 root root 3.3K Oct 25  2016 wp-load.php
+-rw-r--r--  1 root root  34K May 12  2017 wp-login.php
+-rw-r--r--  1 root root 7.9K Jan 11  2017 wp-mail.php
+-rw-r--r--  1 root root  16K Apr  6  2017 wp-settings.php
+-rw-r--r--  1 root root  30K Jan 24  2017 wp-signup.php
+-rw-r--r--  1 root root 4.5K Oct 14  2016 wp-trackback.php
+-rw-r--r--  1 root root 3.0K Aug 31  2016 xmlrpc.php
+
+/var/www/html/wordpress_4.8.3/wp-admin:
+total 932K
+drwxr-xr-x 9 root root 4.0K Oct 31 13:12 .
+drwxr-xr-x 5 root root 4.0K Nov  6 03:57 ..
+-rw-r--r-- 1 root root  16K Oct 31 13:07 about.php
+-rw-r--r-- 1 root root 3.8K May 10  2017 admin-ajax.php
+-rw-r--r-- 1 root root 2.6K Jan  9  2017 admin-footer.php
+-rw-r--r-- 1 root root  405 Jul  6  2016 admin-functions.php
+-rw-r--r-- 1 root root 7.2K Nov 21  2016 admin-header.php
+-rw-r--r-- 1 root root 1.7K Feb 25  2016 admin-post.php
+-rw-r--r-- 1 root root  11K Jan 22  2017 admin.php
+-rw-r--r-- 1 root root 4.2K Jan 10  2017 async-upload.php
+-rw-r--r-- 1 root root  11K Oct  4  2016 comment.php
+-rw-r--r-- 1 root root 4.7K Jun  1  2017 credits.php
+drwxr-xr-x 3 root root 4.0K Oct 31 13:12 css
+-rw-r--r-- 1 root root  20K Oct 26  2016 custom-background.php
+-rw-r--r-- 1 root root  45K May 19  2017 custom-header.php
+-rw-r--r-- 1 root root 7.3K May 16  2017 customize.php
+-rw-r--r-- 1 root root  14K Dec 14  2016 edit-comments.php
+-rw-r--r-- 1 root root  32K May  7  2017 edit-form-advanced.php
+-rw-r--r-- 1 root root 7.2K Sep 17  2016 edit-form-comment.php
+-rw-r--r-- 1 root root 5.9K Dec  7  2016 edit-link-form.php
+-rw-r--r-- 1 root root 9.2K Sep 19  2017 edit-tag-form.php
+-rw-r--r-- 1 root root  20K May 12  2017 edit-tags.php
+-rw-r--r-- 1 root root  16K Jan 21  2017 edit.php
+-rw-r--r-- 1 root root  11K Oct  4  2016 export.php
+-rw-r--r-- 1 root root 3.4K Jun  1  2017 freedoms.php
+drwxr-xr-x 2 root root 4.0K Oct 31 13:12 images
+-rw-r--r-- 1 root root 7.1K Oct  4  2016 import.php
+drwxr-xr-x 2 root root 4.0K Oct 31 13:12 includes
+-rw-r--r-- 1 root root 6.1K May 18  2017 index.php
+-rw-r--r-- 1 root root 5.7K Oct 14  2015 install-helper.php
+-rw-r--r-- 1 root root  16K Sep  4  2017 install.php
+drwxr-xr-x 3 root root 4.0K Oct 31 13:12 js
+-rw-r--r-- 1 root root  700 Jun 29  2016 link-add.php
+-rw-r--r-- 1 root root 3.9K Dec  7  2016 link-manager.php
+-rw-r--r-- 1 root root 2.4K Oct 24  2016 link-parse-opml.php
+-rw-r--r-- 1 root root 2.6K Jul 10  2016 link.php
+-rw-r--r-- 1 root root 2.2K Aug 31  2016 load-scripts.php
+-rw-r--r-- 1 root root 2.9K Aug 31  2016 load-styles.php
+drwxr-xr-x 2 root root 4.0K Oct 31 13:12 maint
+-rw-r--r-- 1 root root 3.1K Oct  4  2016 media-new.php
+-rw-r--r-- 1 root root 3.3K Aug 22  2016 media-upload.php
+-rw-r--r-- 1 root root 5.2K Dec  7  2016 media.php
+-rw-r--r-- 1 root root 9.1K Nov  4  2016 menu-header.php
+-rw-r--r-- 1 root root  13K Apr  7  2017 menu.php
+-rw-r--r-- 1 root root  320 Sep 25  2013 moderation.php
+-rw-r--r-- 1 root root  211 Sep 25  2013 ms-admin.php
+-rw-r--r-- 1 root root 3.9K Oct 26  2016 ms-delete-site.php
+-rw-r--r-- 1 root root  231 Sep 25  2013 ms-edit.php
+-rw-r--r-- 1 root root  236 Sep 25  2013 ms-options.php
+-rw-r--r-- 1 root root  228 Sep 25  2013 ms-sites.php
+-rw-r--r-- 1 root root  230 Sep 25  2013 ms-themes.php
+-rw-r--r-- 1 root root  232 Sep 25  2013 ms-upgrade-network.php
+-rw-r--r-- 1 root root  228 Sep 25  2013 ms-users.php
+-rw-r--r-- 1 root root 4.4K Dec  9  2016 my-sites.php
+-rw-r--r-- 1 root root  40K Mar 22  2017 nav-menus.php
+drwxr-xr-x 2 root root 4.0K Oct 31 13:12 network
+-rw-r--r-- 1 root root 5.2K Apr  7  2017 network.php
+-rw-r--r-- 1 root root  15K May 18  2017 options-discussion.php
+-rw-r--r-- 1 root root  15K May 23  2017 options-general.php
+-rw-r--r-- 1 root root  488 May 13  2016 options-head.php
+-rw-r--r-- 1 root root 5.8K May 23  2017 options-media.php
+-rw-r--r-- 1 root root  15K Oct  4  2016 options-permalink.php
+-rw-r--r-- 1 root root 8.2K Apr 23  2017 options-reading.php
+-rw-r--r-- 1 root root 8.0K Oct  4  2016 options-writing.php
+-rw-r--r-- 1 root root  12K Jan 20  2017 options.php
+-rw-r--r-- 1 root root  13K Sep 19  2017 plugin-editor.php
+-rw-r--r-- 1 root root 6.1K Dec  7  2016 plugin-install.php
+-rw-r--r-- 1 root root  22K Sep 19  2017 plugins.php
+-rw-r--r-- 1 root root 2.7K Jul 17  2016 post-new.php
+-rw-r--r-- 1 root root 8.0K Jan 10  2017 post.php
+-rw-r--r-- 1 root root  635 Aug 31  2016 press-this.php
+-rw-r--r-- 1 root root  296 Sep 25  2013 profile.php
+-rw-r--r-- 1 root root 5.0K Nov 21  2016 revision.php
+-rw-r--r-- 1 root root  15K Sep  4  2017 setup-config.php
+-rw-r--r-- 1 root root 2.1K May 12  2017 term.php
+-rw-r--r-- 1 root root  12K Sep 19  2017 theme-editor.php
+-rw-r--r-- 1 root root  15K May 11  2017 theme-install.php
+-rw-r--r-- 1 root root  21K May  8  2017 themes.php
+-rw-r--r-- 1 root root 5.4K Oct  4  2016 tools.php
+-rw-r--r-- 1 root root  31K Jan 11  2017 update-core.php
+-rw-r--r-- 1 root root  11K Aug 31  2016 update.php
+-rw-r--r-- 1 root root  340 Jul  6  2016 upgrade-functions.php
+-rw-r--r-- 1 root root 4.5K Dec  8  2015 upgrade.php
+-rw-r--r-- 1 root root  13K Mar 31  2017 upload.php
+drwxr-xr-x 2 root root 4.0K Oct 31 13:12 user
+-rw-r--r-- 1 root root  27K Sep 19  2017 user-edit.php
+-rw-r--r-- 1 root root  21K Jan 24  2017 user-new.php
+-rw-r--r-- 1 root root  18K Jan 24  2017 users.php
+-rw-r--r-- 1 root root  18K Mar 22  2017 widgets.php
+
+/var/www/html/wordpress_4.8.3/wp-admin/css:
+total 1.9M
+drwxr-xr-x 3 root root 4.0K Oct 31 13:12 .
+drwxr-xr-x 9 root root 4.0K Oct 31 13:12 ..
+-rw-r--r-- 1 root root 8.9K Jun  8  2017 about-rtl.css
+-rw-r--r-- 1 root root 6.4K Jun  8  2017 about-rtl.min.css
+-rw-r--r-- 1 root root 8.9K Jun  8  2017 about.css
+-rw-r--r-- 1 root root 6.4K Jun  8  2017 about.min.css
+-rw-r--r-- 1 root root  20K Nov  4  2016 admin-menu-rtl.css
+-rw-r--r-- 1 root root  16K Nov  4  2016 admin-menu-rtl.min.css
+-rw-r--r-- 1 root root  20K Nov  4  2016 admin-menu.css
+-rw-r--r-- 1 root root  16K Nov  4  2016 admin-menu.min.css
+-rw-r--r-- 1 root root 2.7K Apr 18  2017 color-picker-rtl.css
+-rw-r--r-- 1 root root 2.3K Apr 18  2017 color-picker-rtl.min.css
+-rw-r--r-- 1 root root 2.7K Apr 18  2017 color-picker.css
+-rw-r--r-- 1 root root 2.3K Apr 18  2017 color-picker.min.css
+drwxr-xr-x 9 root root 4.0K Oct 31 13:12 colors
+-rw-r--r-- 1 root root  68K May 25  2017 common-rtl.css
+-rw-r--r-- 1 root root  52K May 25  2017 common-rtl.min.css
+-rw-r--r-- 1 root root  68K May 25  2017 common.css
+-rw-r--r-- 1 root root  52K May 25  2017 common.min.css
+-rw-r--r-- 1 root root  44K May 15  2017 customize-controls-rtl.css
+-rw-r--r-- 1 root root  37K May 15  2017 customize-controls-rtl.min.css
+-rw-r--r-- 1 root root  44K May 15  2017 customize-controls.css
+-rw-r--r-- 1 root root  37K May 15  2017 customize-controls.min.css
+-rw-r--r-- 1 root root  22K Apr 19  2017 customize-nav-menus-rtl.css
+-rw-r--r-- 1 root root  18K Apr 19  2017 customize-nav-menus-rtl.min.css
+-rw-r--r-- 1 root root  22K Apr 19  2017 customize-nav-menus.css
+-rw-r--r-- 1 root root  18K Apr 19  2017 customize-nav-menus.min.css
+-rw-r--r-- 1 root root  13K May 11  2017 customize-widgets-rtl.css
+-rw-r--r-- 1 root root 9.7K May 11  2017 customize-widgets-rtl.min.css
+-rw-r--r-- 1 root root  13K May 11  2017 customize-widgets.css
+-rw-r--r-- 1 root root 9.7K May 11  2017 customize-widgets.min.css
+-rw-r--r-- 1 root root  24K May 19  2017 dashboard-rtl.css
+-rw-r--r-- 1 root root  19K May 19  2017 dashboard-rtl.min.css
+-rw-r--r-- 1 root root  24K May 19  2017 dashboard.css
+-rw-r--r-- 1 root root  19K May 19  2017 dashboard.min.css
+-rw-r--r-- 1 root root 6.4K Jun 17  2016 deprecated-media-rtl.css
+-rw-r--r-- 1 root root 5.2K Jun 17  2016 deprecated-media-rtl.min.css
+-rw-r--r-- 1 root root 6.4K Jun 17  2016 deprecated-media.css
+-rw-r--r-- 1 root root 5.2K Jun 17  2016 deprecated-media.min.css
+-rw-r--r-- 1 root root  28K Jun  5  2017 edit-rtl.css
+-rw-r--r-- 1 root root  22K Jun  5  2017 edit-rtl.min.css
+-rw-r--r-- 1 root root  28K May 12  2017 edit.css
+-rw-r--r-- 1 root root  22K May 12  2017 edit.min.css
+-rw-r--r-- 1 root root  612 Nov 17  2013 farbtastic-rtl.css
+-rw-r--r-- 1 root root  503 Jan 18  2016 farbtastic-rtl.min.css
+-rw-r--r-- 1 root root  611 Nov 17  2013 farbtastic.css
+-rw-r--r-- 1 root root  502 Jan 18  2016 farbtastic.min.css
+-rw-r--r-- 1 root root  26K May 23  2017 forms-rtl.css
+-rw-r--r-- 1 root root  20K Jun  5  2017 forms-rtl.min.css
+-rw-r--r-- 1 root root  26K May 23  2017 forms.css
+-rw-r--r-- 1 root root  20K Jun  5  2017 forms.min.css
+-rw-r--r-- 1 root root  12K Oct 23  2016 ie-rtl.css
+-rw-r--r-- 1 root root  10K Oct 23  2016 ie-rtl.min.css
+-rw-r--r-- 1 root root  12K Oct 23  2016 ie.css
+-rw-r--r-- 1 root root  10K Oct 23  2016 ie.min.css
+-rw-r--r-- 1 root root 7.3K Sep 28  2016 install-rtl.css
+-rw-r--r-- 1 root root 5.9K Sep 28  2016 install-rtl.min.css
+-rw-r--r-- 1 root root 7.3K Sep 28  2016 install.css
+-rw-r--r-- 1 root root 5.9K Sep 28  2016 install.min.css
+-rw-r--r-- 1 root root 3.7K Jun 17  2016 l10n-rtl.css
+-rw-r--r-- 1 root root 2.4K Jun 17  2016 l10n-rtl.min.css
+-rw-r--r-- 1 root root 3.7K Jun 17  2016 l10n.css
+-rw-r--r-- 1 root root 2.4K Jun 17  2016 l10n.min.css
+-rw-r--r-- 1 root root  40K Oct 26  2016 list-tables-rtl.css
+-rw-r--r-- 1 root root  32K Oct 26  2016 list-tables-rtl.min.css
+-rw-r--r-- 1 root root  40K Oct 26  2016 list-tables.css
+-rw-r--r-- 1 root root  32K Oct 26  2016 list-tables.min.css
+-rw-r--r-- 1 root root 4.1K May 18  2017 login-rtl.css
+-rw-r--r-- 1 root root  25K Jun  5  2017 login-rtl.min.css
+-rw-r--r-- 1 root root 4.1K May 18  2017 login.css
+-rw-r--r-- 1 root root  25K Jun  5  2017 login.min.css
+-rw-r--r-- 1 root root  24K May  4  2017 media-rtl.css
+-rw-r--r-- 1 root root  20K May  4  2017 media-rtl.min.css
+-rw-r--r-- 1 root root  24K May  4  2017 media.css
+-rw-r--r-- 1 root root  20K May  4  2017 media.min.css
+-rw-r--r-- 1 root root  16K Feb  9  2017 nav-menus-rtl.css
+-rw-r--r-- 1 root root  12K Feb  9  2017 nav-menus-rtl.min.css
+-rw-r--r-- 1 root root  16K Feb  9  2017 nav-menus.css
+-rw-r--r-- 1 root root  12K Feb  9  2017 nav-menus.min.css
+-rw-r--r-- 1 root root 1.4K Jul 26  2016 press-this-editor-rtl.css
+-rw-r--r-- 1 root root  783 May  5  2016 press-this-editor-rtl.min.css
+-rw-r--r-- 1 root root 1.4K Jul 26  2016 press-this-editor.css
+-rw-r--r-- 1 root root  782 May  4  2016 press-this-editor.min.css
+-rw-r--r-- 1 root root  35K Mar 31  2017 press-this-rtl.css
+-rw-r--r-- 1 root root  28K Mar 31  2017 press-this-rtl.min.css
+-rw-r--r-- 1 root root  35K Mar 31  2017 press-this.css
+-rw-r--r-- 1 root root  28K Mar 31  2017 press-this.min.css
+-rw-r--r-- 1 root root  11K Jun 17  2016 revisions-rtl.css
+-rw-r--r-- 1 root root 8.5K Jun 17  2016 revisions-rtl.min.css
+-rw-r--r-- 1 root root  11K Jun 17  2016 revisions.css
+-rw-r--r-- 1 root root 8.5K Jun 17  2016 revisions.min.css
+-rw-r--r-- 1 root root 1.1K Jul  5  2016 site-icon-rtl.css
+-rw-r--r-- 1 root root  738 Jul  5  2016 site-icon-rtl.min.css
+-rw-r--r-- 1 root root 1.1K Jul  5  2016 site-icon.css
+-rw-r--r-- 1 root root  736 Jul  5  2016 site-icon.min.css
+-rw-r--r-- 1 root root  42K Jul 14  2017 themes-rtl.css
+-rw-r--r-- 1 root root  33K Jul 14  2017 themes-rtl.min.css
+-rw-r--r-- 1 root root  42K Jul 14  2017 themes.css
+-rw-r--r-- 1 root root  33K Jul 14  2017 themes.min.css
+-rw-r--r-- 1 root root  14K Jul 14  2017 widgets-rtl.css
+-rw-r--r-- 1 root root  11K Jul 14  2017 widgets-rtl.min.css
+-rw-r--r-- 1 root root  14K Jul 14  2017 widgets.css
+-rw-r--r-- 1 root root  11K Jul 14  2017 widgets.min.css
+-rw-r--r-- 1 root root  421 Jun 29  2015 wp-admin-rtl.css
+-rw-r--r-- 1 root root  477 Jan 18  2016 wp-admin-rtl.min.css
+-rw-r--r-- 1 root root  365 Jun 29  2015 wp-admin.css
+-rw-r--r-- 1 root root  421 Jan 18  2016 wp-admin.min.css
+
+/var/www/html/wordpress_4.8.3/wp-admin/css/colors:
+total 56K
+drwxr-xr-x 9 root root 4.0K Oct 31 13:12 .
+drwxr-xr-x 3 root root 4.0K Oct 31 13:12 ..
+-rw-r--r-- 1 root root  12K May  6  2017 _admin.scss
+-rw-r--r-- 1 root root 1.5K Sep  1  2016 _mixins.scss
+-rw-r--r-- 1 root root 1.9K Apr  5  2015 _variables.scss
+drwxr-xr-x 2 root root 4.0K Oct 31 13:12 blue
+drwxr-xr-x 2 root root 4.0K Oct 31 13:12 coffee
+drwxr-xr-x 2 root root 4.0K Oct 31 13:12 ectoplasm
+drwxr-xr-x 2 root root 4.0K Oct 31 13:12 light
+drwxr-xr-x 2 root root 4.0K Oct 31 13:12 midnight
+drwxr-xr-x 2 root root 4.0K Oct 31 13:12 ocean
+drwxr-xr-x 2 root root 4.0K Oct 31 13:12 sunrise
+
+/var/www/html/wordpress_4.8.3/wp-admin/css/colors/blue:
+total 68K
+drwxr-xr-x 2 root root 4.0K Oct 31 13:12 .
+drwxr-xr-x 9 root root 4.0K Oct 31 13:12 ..
+-rw-r--r-- 1 root root  13K May  6  2017 colors-rtl.css
+-rw-r--r-- 1 root root  12K Nov 15  2016 colors-rtl.min.css
+-rw-r--r-- 1 root root  13K May  6  2017 colors.css
+-rw-r--r-- 1 root root  12K Nov 15  2016 colors.min.css
+-rw-r--r-- 1 root root  249 Feb  6  2014 colors.scss
+
+/var/www/html/wordpress_4.8.3/wp-admin/css/colors/coffee:
+total 68K
+drwxr-xr-x 2 root root 4.0K Oct 31 13:12 .
+drwxr-xr-x 9 root root 4.0K Oct 31 13:12 ..
+-rw-r--r-- 1 root root  13K May  6  2017 colors-rtl.css
+-rw-r--r-- 1 root root  12K Nov 15  2016 colors-rtl.min.css
+-rw-r--r-- 1 root root  13K May  6  2017 colors.css
+-rw-r--r-- 1 root root  12K Nov 15  2016 colors.min.css
+-rw-r--r-- 1 root root  135 Feb  6  2014 colors.scss
+
+/var/www/html/wordpress_4.8.3/wp-admin/css/colors/ectoplasm:
+total 68K
+drwxr-xr-x 2 root root 4.0K Oct 31 13:12 .
+drwxr-xr-x 9 root root 4.0K Oct 31 13:12 ..
+-rw-r--r-- 1 root root  13K May  6  2017 colors-rtl.css
+-rw-r--r-- 1 root root  12K Nov 15  2016 colors-rtl.min.css
+-rw-r--r-- 1 root root  13K May  6  2017 colors.css
+-rw-r--r-- 1 root root  12K Nov 15  2016 colors.min.css
+-rw-r--r-- 1 root root  157 Feb  6  2014 colors.scss
+
+/var/www/html/wordpress_4.8.3/wp-admin/css/colors/light:
+total 68K
+drwxr-xr-x 2 root root 4.0K Oct 31 13:12 .
+drwxr-xr-x 9 root root 4.0K Oct 31 13:12 ..
+-rw-r--r-- 1 root root  14K May  6  2017 colors-rtl.css
+-rw-r--r-- 1 root root  12K Jun  5  2017 colors-rtl.min.css
+-rw-r--r-- 1 root root  14K May  6  2017 colors.css
+-rw-r--r-- 1 root root  12K Jun  5  2017 colors.min.css
+-rw-r--r-- 1 root root 1.1K Jul 15  2015 colors.scss
+
+/var/www/html/wordpress_4.8.3/wp-admin/css/colors/midnight:
+total 68K
+drwxr-xr-x 2 root root 4.0K Oct 31 13:12 .
+drwxr-xr-x 9 root root 4.0K Oct 31 13:12 ..
+-rw-r--r-- 1 root root  13K May  6  2017 colors-rtl.css
+-rw-r--r-- 1 root root  12K Nov 15  2016 colors-rtl.min.css
+-rw-r--r-- 1 root root  13K May  6  2017 colors.css
+-rw-r--r-- 1 root root  12K Nov 15  2016 colors.min.css
+-rw-r--r-- 1 root root  106 Feb  6  2014 colors.scss
+
+/var/www/html/wordpress_4.8.3/wp-admin/css/colors/ocean:
+total 68K
+drwxr-xr-x 2 root root 4.0K Oct 31 13:12 .
+drwxr-xr-x 9 root root 4.0K Oct 31 13:12 ..
+-rw-r--r-- 1 root root  13K May  6  2017 colors-rtl.css
+-rw-r--r-- 1 root root  12K Nov 15  2016 colors-rtl.min.css
+-rw-r--r-- 1 root root  13K May  6  2017 colors.css
+-rw-r--r-- 1 root root  12K Nov 15  2016 colors.min.css
+-rw-r--r-- 1 root root  157 Feb  6  2014 colors.scss
+
+/var/www/html/wordpress_4.8.3/wp-admin/css/colors/sunrise:
+total 68K
+drwxr-xr-x 2 root root 4.0K Oct 31 13:12 .
+drwxr-xr-x 9 root root 4.0K Oct 31 13:12 ..
+-rw-r--r-- 1 root root  13K May  6  2017 colors-rtl.css
+-rw-r--r-- 1 root root  12K Nov 15  2016 colors-rtl.min.css
+-rw-r--r-- 1 root root  13K May  6  2017 colors.css
+-rw-r--r-- 1 root root  12K Nov 15  2016 colors.min.css
+-rw-r--r-- 1 root root  166 Feb  6  2014 colors.scss
+
+/var/www/html/wordpress_4.8.3/wp-admin/images:
+total 468K
+drwxr-xr-x 2 root root 4.0K Oct 31 13:12 .
+drwxr-xr-x 9 root root 4.0K Oct 31 13:12 ..
+-rw-r--r-- 1 root root  147 Sep 27  2012 align-center-2x.png
+-rw-r--r-- 1 root root  546 Sep 24  2012 align-center.png
+-rw-r--r-- 1 root root  143 Sep 27  2012 align-left-2x.png
+-rw-r--r-- 1 root root  554 Sep 24  2012 align-left.png
+-rw-r--r-- 1 root root  121 Sep 27  2012 align-none-2x.png
+-rw-r--r-- 1 root root  417 Sep 24  2012 align-none.png
+-rw-r--r-- 1 root root  142 Sep 27  2012 align-right-2x.png
+-rw-r--r-- 1 root root  509 Sep 24  2012 align-right.png
+-rw-r--r-- 1 root root  863 Sep 27  2012 arrows-2x.png
+-rw-r--r-- 1 root root  243 Nov  7  2012 arrows.png
+-rw-r--r-- 1 root root  40K Jul  5  2016 browser-rtl.png
+-rw-r--r-- 1 root root  40K Jun 30  2015 browser.png
+-rw-r--r-- 1 root root  507 Feb 13  2014 bubble_bg-2x.gif
+-rw-r--r-- 1 root root  398 Oct 28  2014 bubble_bg.gif
+-rw-r--r-- 1 root root  258 Feb 13  2014 comment-grey-bubble-2x.png
+-rw-r--r-- 1 root root  114 Nov  7  2012 comment-grey-bubble.png
+-rw-r--r-- 1 root root  996 Oct 28  2014 date-button-2x.gif
+-rw-r--r-- 1 root root  400 Oct 28  2014 date-button.gif
+-rw-r--r-- 1 root root  719 Nov  7  2012 generic.png
+-rw-r--r-- 1 root root  22K Oct 28  2014 icons32-2x.png
+-rw-r--r-- 1 root root  21K Nov 25  2014 icons32-vs-2x.png
+-rw-r--r-- 1 root root 7.9K Oct 28  2014 icons32-vs.png
+-rw-r--r-- 1 root root 7.9K Oct 28  2014 icons32.png
+-rw-r--r-- 1 root root 7.5K Oct 28  2014 imgedit-icons-2x.png
+-rw-r--r-- 1 root root 4.0K Nov 25  2014 imgedit-icons.png
+-rw-r--r-- 1 root root 1.5K Nov  7  2012 list-2x.png
+-rw-r--r-- 1 root root 1003 Nov  7  2012 list.png
+-rw-r--r-- 1 root root 2.3K Oct 28  2014 loading.gif
+-rw-r--r-- 1 root root  360 Feb 13  2014 marker.png
+-rw-r--r-- 1 root root 2.0K Sep 24  2012 mask.png
+-rw-r--r-- 1 root root  850 Nov  7  2012 media-button-2x.png
+-rw-r--r-- 1 root root  200 Oct 28  2014 media-button-image.gif
+-rw-r--r-- 1 root root  206 Oct 28  2014 media-button-music.gif
+-rw-r--r-- 1 root root  248 Oct 28  2014 media-button-other.gif
+-rw-r--r-- 1 root root  133 Oct 28  2014 media-button-video.gif
+-rw-r--r-- 1 root root  323 Nov  7  2012 media-button.png
+-rw-r--r-- 1 root root  13K Oct 28  2014 menu-2x.png
+-rw-r--r-- 1 root root  13K Oct 28  2014 menu-vs-2x.png
+-rw-r--r-- 1 root root 5.0K Oct 28  2014 menu-vs.png
+-rw-r--r-- 1 root root 5.0K Oct 28  2014 menu.png
+-rw-r--r-- 1 root root  755 Nov  7  2012 no.png
+-rw-r--r-- 1 root root 2.4K Oct 28  2014 post-formats-vs.png
+-rw-r--r-- 1 root root 2.2K Feb 13  2014 post-formats.png
+-rw-r--r-- 1 root root 5.0K Oct 28  2014 post-formats32-vs.png
+-rw-r--r-- 1 root root 5.1K Oct 28  2014 post-formats32.png
+-rw-r--r-- 1 root root  234 Feb 13  2014 resize-2x.gif
+-rw-r--r-- 1 root root  233 Oct 28  2014 resize-rtl-2x.gif
+-rw-r--r-- 1 root root  149 Oct 28  2014 resize-rtl.gif
+-rw-r--r-- 1 root root   70 Oct 28  2014 resize.gif
+-rw-r--r-- 1 root root  120 Nov  7  2012 se.png
+-rw-r--r-- 1 root root   97 Oct 28  2014 sort-2x.gif
+-rw-r--r-- 1 root root   55 Oct 28  2014 sort.gif
+-rw-r--r-- 1 root root 8.4K Oct 28  2014 spinner-2x.gif
+-rw-r--r-- 1 root root 4.1K Oct 28  2014 spinner.gif
+-rw-r--r-- 1 root root 1.3K Nov  9  2012 stars-2x.png
+-rw-r--r-- 1 root root  924 Nov  7  2012 stars.png
+-rw-r--r-- 1 root root 3.1K Feb 13  2014 w-logo-blue.png
+-rw-r--r-- 1 root root 5.3K Mar 10  2016 w-logo-white.png
+-rw-r--r-- 1 root root 6.0K Oct 28  2014 wheel.png
+-rw-r--r-- 1 root root 1.7K Mar  9  2016 wordpress-logo-white.svg
+-rw-r--r-- 1 root root 2.5K Nov  7  2012 wordpress-logo.png
+-rw-r--r-- 1 root root 1.5K Apr  5  2015 wordpress-logo.svg
+-rw-r--r-- 1 root root 9.0K Oct 28  2014 wpspin_light-2x.gif
+-rw-r--r-- 1 root root 2.2K Oct 28  2014 wpspin_light.gif
+-rw-r--r-- 1 root root  825 Oct 28  2014 xit-2x.gif
+-rw-r--r-- 1 root root  181 Oct 28  2014 xit.gif
+-rw-r--r-- 1 root root  539 Sep 24  2012 yes.png
+
+/var/www/html/wordpress_4.8.3/wp-admin/includes:
+total 2.3M
+drwxr-xr-x 2 root root 4.0K Oct 31 13:12 .
+drwxr-xr-x 9 root root 4.0K Oct 31 13:12 ..
+-rw-r--r-- 1 root root 5.1K Jul 31  2016 admin-filters.php
+-rw-r--r-- 1 root root 2.9K Aug 31  2016 admin.php
+-rw-r--r-- 1 root root 112K May 19  2017 ajax-actions.php
+-rw-r--r-- 1 root root 8.9K Jun 29  2016 bookmark.php
+-rw-r--r-- 1 root root 3.1K Jul 22  2016 class-automatic-upgrader-skin.php
+-rw-r--r-- 1 root root 1.9K Jul  9  2016 class-bulk-plugin-upgrader-skin.php
+-rw-r--r-- 1 root root 2.0K Jul  9  2016 class-bulk-theme-upgrader-skin.php
+-rw-r--r-- 1 root root 5.3K May 11  2017 class-bulk-upgrader-skin.php
+-rw-r--r-- 1 root root  14K Jul  8  2016 class-core-upgrader.php
+-rw-r--r-- 1 root root 3.3K Sep  6  2016 class-file-upload-upgrader.php
+-rw-r--r-- 1 root root 5.3K Aug 26  2016 class-ftp-pure.php
+-rw-r--r-- 1 root root 8.3K Aug 26  2016 class-ftp-sockets.php
+-rw-r--r-- 1 root root  27K Aug 31  2016 class-ftp.php
+-rw-r--r-- 1 root root 2.2K Jul  9  2016 class-language-pack-upgrader-skin.php
+-rw-r--r-- 1 root root  11K Aug 28  2016 class-language-pack-upgrader.php
+-rw-r--r-- 1 root root 192K Jul 19  2016 class-pclzip.php
+-rw-r--r-- 1 root root 3.9K Sep 17  2016 class-plugin-installer-skin.php
+-rw-r--r-- 1 root root 2.6K Jul  9  2016 class-plugin-upgrader-skin.php
+-rw-r--r-- 1 root root  15K May  6  2017 class-plugin-upgrader.php
+-rw-r--r-- 1 root root 3.8K Jul  9  2016 class-theme-installer-skin.php
+-rw-r--r-- 1 root root 3.2K Jul  9  2016 class-theme-upgrader-skin.php
+-rw-r--r-- 1 root root  20K Nov 13  2016 class-theme-upgrader.php
+-rw-r--r-- 1 root root 4.1K Mar 29  2017 class-walker-category-checklist.php
+-rw-r--r-- 1 root root 4.9K Oct 15  2015 class-walker-nav-menu-checklist.php
+-rw-r--r-- 1 root root  11K Oct 10  2016 class-walker-nav-menu-edit.php
+-rw-r--r-- 1 root root 3.2K Aug  4  2016 class-wp-ajax-upgrader-skin.php
+-rw-r--r-- 1 root root  34K May 11  2017 class-wp-automatic-updater.php
+-rw-r--r-- 1 root root  26K Jul 10  2017 class-wp-comments-list-table.php
+-rw-r--r-- 1 root root  16K May 19  2017 class-wp-community-events.php
+-rw-r--r-- 1 root root  23K Jul  6  2016 class-wp-filesystem-base.php
+-rw-r--r-- 1 root root  12K Sep 10  2015 class-wp-filesystem-direct.php
+-rw-r--r-- 1 root root  14K Jul 18  2016 class-wp-filesystem-ftpext.php
+-rw-r--r-- 1 root root  11K Dec 28  2016 class-wp-filesystem-ftpsockets.php
+-rw-r--r-- 1 root root  16K Apr 21  2016 class-wp-filesystem-ssh2.php
+-rw-r--r-- 1 root root 7.2K Oct 19  2016 class-wp-importer.php
+-rw-r--r-- 1 root root 4.3K Sep 22  2015 class-wp-internal-pointers.php
+-rw-r--r-- 1 root root 7.7K Sep 28  2016 class-wp-links-list-table.php
+-rw-r--r-- 1 root root 1.1K Aug 26  2016 class-wp-list-table-compat.php
+-rw-r--r-- 1 root root  38K Dec 14  2016 class-wp-list-table.php
+-rw-r--r-- 1 root root  23K May 23  2017 class-wp-media-list-table.php
+-rw-r--r-- 1 root root  16K May 23  2017 class-wp-ms-sites-list-table.php
+-rw-r--r-- 1 root root  20K Oct 19  2016 class-wp-ms-themes-list-table.php
+-rw-r--r-- 1 root root  13K Mar 22  2017 class-wp-ms-users-list-table.php
+-rw-r--r-- 1 root root  18K Oct  5  2016 class-wp-plugin-install-list-table.php
+-rw-r--r-- 1 root root  32K Sep 19  2017 class-wp-plugins-list-table.php
+-rw-r--r-- 1 root root 1.5K Oct 17  2015 class-wp-post-comments-list-table.php
+-rw-r--r-- 1 root root  52K May 23  2017 class-wp-posts-list-table.php
+-rw-r--r-- 1 root root  49K Mar  6  2017 class-wp-press-this.php
+-rw-r--r-- 1 root root  34K May 19  2017 class-wp-screen.php
+-rw-r--r-- 1 root root 6.1K Aug 25  2016 class-wp-site-icon.php
+-rw-r--r-- 1 root root  18K Sep 30  2016 class-wp-terms-list-table.php
+-rw-r--r-- 1 root root  15K Nov  8  2016 class-wp-theme-install-list-table.php
+-rw-r--r-- 1 root root 9.2K Aug 31  2016 class-wp-themes-list-table.php
+-rw-r--r-- 1 root root 5.2K Jul 22  2016 class-wp-upgrader-skin.php
+-rw-r--r-- 1 root root 1.5K Dec  3  2016 class-wp-upgrader-skins.php
+-rw-r--r-- 1 root root  33K Sep 18  2016 class-wp-upgrader.php
+-rw-r--r-- 1 root root  16K May 23  2017 class-wp-users-list-table.php
+-rw-r--r-- 1 root root 5.6K Jun 29  2016 comment.php
+-rw-r--r-- 1 root root  20K May 24  2016 continents-cities.php
+-rw-r--r-- 1 root root 1.9K Oct  3  2016 credits.php
+-rw-r--r-- 1 root root  56K Jun  1  2017 dashboard.php
+-rw-r--r-- 1 root root  38K May 10  2017 deprecated.php
+-rw-r--r-- 1 root root 1.4K May 22  2016 edit-tag-messages.php
+-rw-r--r-- 1 root root  23K Oct 25  2016 export.php
+-rw-r--r-- 1 root root  52K Sep 19  2017 file.php
+-rw-r--r-- 1 root root  33K Nov 19  2016 image-edit.php
+-rw-r--r-- 1 root root  22K Feb 27  2017 image.php
+-rw-r--r-- 1 root root 6.1K Oct  3  2016 import.php
+-rw-r--r-- 1 root root 2.6K Aug 31  2016 list-table.php
+-rw-r--r-- 1 root root 102K May  9  2017 media.php
+-rw-r--r-- 1 root root 8.6K Jun 29  2016 menu.php
+-rw-r--r-- 1 root root  50K May 11  2017 meta-boxes.php
+-rw-r--r-- 1 root root  26K Oct 25  2016 misc.php
+-rw-r--r-- 1 root root 1.3K Feb  7  2016 ms-admin-filters.php
+-rw-r--r-- 1 root root 2.9K Jul  6  2016 ms-deprecated.php
+-rw-r--r-- 1 root root  39K May 11  2017 ms.php
+-rw-r--r-- 1 root root  42K Oct 27  2016 nav-menu.php
+-rw-r--r-- 1 root root  24K Aug 23  2016 network.php
+-rw-r--r-- 1 root root 1.2K Jan 25  2017 noop.php
+-rw-r--r-- 1 root root 4.2K Jul 10  2017 options.php
+-rw-r--r-- 1 root root  31K May 11  2017 plugin-install.php
+-rw-r--r-- 1 root root  65K Jan 12  2017 plugin.php
+-rw-r--r-- 1 root root  59K Apr 13  2017 post.php
+-rw-r--r-- 1 root root  15K Aug 28  2016 revision.php
+-rw-r--r-- 1 root root  37K Apr 10  2017 schema.php
+-rw-r--r-- 1 root root 6.1K Jul  7  2016 screen.php
+-rw-r--r-- 1 root root 7.6K May 26  2016 taxonomy.php
+-rw-r--r-- 1 root root  77K Sep 19  2017 template.php
+-rw-r--r-- 1 root root 6.2K Sep 28  2016 theme-install.php
+-rw-r--r-- 1 root root  27K Mar 22  2017 theme.php
+-rw-r--r-- 1 root root 8.4K May 11  2017 translation-install.php
+-rw-r--r-- 1 root root  52K Jun  7  2017 update-core.php
+-rw-r--r-- 1 root root  26K May  6  2017 update.php
+-rw-r--r-- 1 root root  93K Jun  1  2017 upgrade.php
+-rw-r--r-- 1 root root  18K Feb 26  2017 user.php
+-rw-r--r-- 1 root root 9.6K Apr 19  2017 widgets.php
+
+/var/www/html/wordpress_4.8.3/wp-admin/js:
+total 1.5M
+drwxr-xr-x 3 root root 4.0K Oct 31 13:12 .
+drwxr-xr-x 9 root root 4.0K Oct 31 13:12 ..
+-rw-r--r-- 1 root root 2.9K Jul 29  2015 accordion.js
+-rw-r--r-- 1 root root  835 Apr 15  2016 accordion.min.js
+-rw-r--r-- 1 root root 3.9K Jun 18  2015 bookmarklet.js
+-rw-r--r-- 1 root root 2.1K Oct 23  2016 bookmarklet.min.js
+-rw-r--r-- 1 root root 5.4K Oct 25  2016 color-picker.js
+-rw-r--r-- 1 root root 3.1K Oct 25  2016 color-picker.min.js
+-rw-r--r-- 1 root root 2.0K Jul 26  2015 comment.js
+-rw-r--r-- 1 root root 1.3K Jul 26  2015 comment.min.js
+-rw-r--r-- 1 root root  28K May 12  2017 common.js
+-rw-r--r-- 1 root root  14K May 11  2017 common.min.js
+-rw-r--r-- 1 root root 2.2K Oct 26  2016 custom-background.js
+-rw-r--r-- 1 root root 1.2K Oct 26  2016 custom-background.min.js
+-rw-r--r-- 1 root root 1.5K Nov 14  2013 custom-header.js
+-rw-r--r-- 1 root root 163K Jul 18  2017 customize-controls.js
+-rw-r--r-- 1 root root  64K Jul 18  2017 customize-controls.min.js
+-rw-r--r-- 1 root root  97K Jul 14  2017 customize-nav-menus.js
+-rw-r--r-- 1 root root  43K Jul 14  2017 customize-nav-menus.min.js
+-rw-r--r-- 1 root root  69K Apr 19  2017 customize-widgets.js
+-rw-r--r-- 1 root root  28K Apr 19  2017 customize-widgets.min.js
+-rw-r--r-- 1 root root  17K May 19  2017 dashboard.js
+-rw-r--r-- 1 root root 6.9K May 19  2017 dashboard.min.js
+-rw-r--r-- 1 root root  28K Mar 17  2017 edit-comments.js
+-rw-r--r-- 1 root root  15K Mar 17  2017 edit-comments.min.js
+-rw-r--r-- 1 root root  33K Oct 25  2016 editor-expand.js
+-rw-r--r-- 1 root root  14K Nov  3  2016 editor-expand.min.js
+-rw-r--r-- 1 root root  20K May 18  2017 editor.js
+-rw-r--r-- 1 root root 8.1K May 18  2017 editor.min.js
+-rw-r--r-- 1 root root 7.6K Nov 11  2010 farbtastic.js
+-rw-r--r-- 1 root root 5.5K Oct  9  2015 gallery.js
+-rw-r--r-- 1 root root 3.8K Oct  9  2015 gallery.min.js
+-rw-r--r-- 1 root root  28K Jan 27  2017 image-edit.js
+-rw-r--r-- 1 root root 9.6K Jan 27  2017 image-edit.min.js
+-rw-r--r-- 1 root root  16K May 19  2017 inline-edit-post.js
+-rw-r--r-- 1 root root 7.1K Mar 31  2017 inline-edit-post.min.js
+-rw-r--r-- 1 root root 7.4K Sep 22  2016 inline-edit-tax.js
+-rw-r--r-- 1 root root 2.7K Nov  3  2016 inline-edit-tax.min.js
+-rw-r--r-- 1 root root  24K Oct 25  2016 iris.min.js
+-rw-r--r-- 1 root root  625 Aug  4  2014 language-chooser.js
+-rw-r--r-- 1 root root  374 Aug  4  2014 language-chooser.min.js
+-rw-r--r-- 1 root root 2.2K Nov 15  2013 link.js
+-rw-r--r-- 1 root root 1.7K Nov 13  2013 link.min.js
+-rw-r--r-- 1 root root 1.2K Aug 20  2016 media-gallery.js
+-rw-r--r-- 1 root root  537 Nov 13  2013 media-gallery.min.js
+-rw-r--r-- 1 root root 2.0K Jan 13  2016 media-upload.js
+-rw-r--r-- 1 root root 1.2K Nov  3  2016 media-upload.min.js
+-rw-r--r-- 1 root root 3.0K Jun 26  2016 media.js
+-rw-r--r-- 1 root root 1.9K Nov  3  2016 media.min.js
+-rw-r--r-- 1 root root  42K Jan 20  2017 nav-menu.js
+-rw-r--r-- 1 root root  21K Jan 20  2017 nav-menu.min.js
+-rw-r--r-- 1 root root 2.4K Jul  1  2016 password-strength-meter.js
+-rw-r--r-- 1 root root  784 Nov  3  2016 password-strength-meter.min.js
+-rw-r--r-- 1 root root 6.2K Jul 31  2016 plugin-install.js
+-rw-r--r-- 1 root root 2.3K Nov  3  2016 plugin-install.min.js
+-rw-r--r-- 1 root root  37K Oct 25  2016 post.js
+-rw-r--r-- 1 root root  18K Nov  3  2016 post.min.js
+-rw-r--r-- 1 root root  12K Sep 22  2016 postbox.js
+-rw-r--r-- 1 root root 4.1K Jun  8  2016 postbox.min.js
+-rw-r--r-- 1 root root  26K Nov  7  2015 press-this.js
+-rw-r--r-- 1 root root  12K Nov  3  2016 press-this.min.js
+-rw-r--r-- 1 root root  33K Feb 17  2017 revisions.js
+-rw-r--r-- 1 root root  18K Feb 17  2017 revisions.min.js
+-rw-r--r-- 1 root root  777 Jun  1  2015 set-post-thumbnail.js
+-rw-r--r-- 1 root root  525 Jun  1  2015 set-post-thumbnail.min.js
+-rw-r--r-- 1 root root 5.4K Dec  5  2013 svg-painter.js
+-rw-r--r-- 1 root root 2.4K Nov  3  2016 svg-painter.min.js
+-rw-r--r-- 1 root root 6.7K Mar  6  2017 tags-box.js
+-rw-r--r-- 1 root root 3.1K Mar  6  2017 tags-box.min.js
+-rw-r--r-- 1 root root 5.1K Mar 31  2017 tags-suggest.js
+-rw-r--r-- 1 root root 2.2K Mar 31  2017 tags-suggest.min.js
+-rw-r--r-- 1 root root 2.8K May 12  2017 tags.js
+-rw-r--r-- 1 root root 1.7K May 12  2017 tags.min.js
+-rw-r--r-- 1 root root  52K May 23  2017 theme.js
+-rw-r--r-- 1 root root  26K May 23  2017 theme.min.js
+-rw-r--r-- 1 root root  78K May 16  2017 updates.js
+-rw-r--r-- 1 root root  34K May 16  2017 updates.min.js
+-rw-r--r-- 1 root root  13K May 12  2017 user-profile.js
+-rw-r--r-- 1 root root 6.3K May 12  2017 user-profile.min.js
+-rw-r--r-- 1 root root 1.1K Jan 27  2014 user-suggest.js
+-rw-r--r-- 1 root root  679 Jan 27  2014 user-suggest.min.js
+drwxr-xr-x 2 root root 4.0K Oct 31 13:12 widgets
+-rw-r--r-- 1 root root  18K Apr 19  2017 widgets.js
+-rw-r--r-- 1 root root  11K Apr 19  2017 widgets.min.js
+-rw-r--r-- 1 root root 7.6K Jan  6  2017 word-count.js
+-rw-r--r-- 1 root root 1.5K Jul 27  2015 word-count.min.js
+-rw-r--r-- 1 root root  684 May 13  2016 wp-fullscreen-stub.js
+-rw-r--r-- 1 root root  331 Jun  1  2015 wp-fullscreen-stub.min.js
+-rw-r--r-- 1 root root  628 Nov 14  2013 xfn.js
+-rw-r--r-- 1 root root  441 Nov 14  2013 xfn.min.js
+
+/var/www/html/wordpress_4.8.3/wp-admin/js/widgets:
+total 124K
+drwxr-xr-x 2 root root 4.0K Oct 31 13:12 .
+drwxr-xr-x 3 root root 4.0K Oct 31 13:12 ..
+-rw-r--r-- 1 root root 3.8K May 22  2017 media-audio-widget.js
+-rw-r--r-- 1 root root 1.5K May 11  2017 media-audio-widget.min.js
+-rw-r--r-- 1 root root 4.3K May 15  2017 media-image-widget.js
+-rw-r--r-- 1 root root 1.6K May 15  2017 media-image-widget.min.js
+-rw-r--r-- 1 root root 6.3K May 22  2017 media-video-widget.js
+-rw-r--r-- 1 root root 2.6K May 20  2017 media-video-widget.min.js
+-rw-r--r-- 1 root root  39K Jul 14  2017 media-widgets.js
+-rw-r--r-- 1 root root  13K Jul 14  2017 media-widgets.min.js
+-rw-r--r-- 1 root root  17K Sep 19  2017 text-widgets.js
+-rw-r--r-- 1 root root 5.6K Sep 19  2017 text-widgets.min.js
+
+/var/www/html/wordpress_4.8.3/wp-admin/maint:
+total 16K
+drwxr-xr-x 2 root root 4.0K Oct 31 13:12 .
+drwxr-xr-x 9 root root 4.0K Oct 31 13:12 ..
+-rw-r--r-- 1 root root 7.1K Jul  4  2016 repair.php
+
+/var/www/html/wordpress_4.8.3/wp-admin/network:
+total 208K
+drwxr-xr-x 2 root root 4.0K Oct 31 13:12 .
+drwxr-xr-x 9 root root 4.0K Oct 31 13:12 ..
+-rw-r--r-- 1 root root  263 Sep 27  2016 about.php
+-rw-r--r-- 1 root root 1.1K Sep 27  2016 admin.php
+-rw-r--r-- 1 root root  267 Sep 27  2016 credits.php
+-rw-r--r-- 1 root root  855 Sep 27  2016 edit.php
+-rw-r--r-- 1 root root  269 Sep 27  2016 freedoms.php
+-rw-r--r-- 1 root root 2.8K May 18  2017 index.php
+-rw-r--r-- 1 root root 4.1K Apr 10  2017 menu.php
+-rw-r--r-- 1 root root  279 Sep 27  2016 plugin-editor.php
+-rw-r--r-- 1 root root  390 Sep 27  2016 plugin-install.php
+-rw-r--r-- 1 root root  267 Sep 27  2016 plugins.php
+-rw-r--r-- 1 root root  272 Sep 27  2016 profile.php
+-rw-r--r-- 1 root root  19K Oct 19  2016 settings.php
+-rw-r--r-- 1 root root  265 Sep 27  2016 setup.php
+-rw-r--r-- 1 root root 8.6K Jan 20  2017 site-info.php
+-rw-r--r-- 1 root root 8.8K Apr 15  2017 site-new.php
+-rw-r--r-- 1 root root 7.1K Oct 19  2016 site-settings.php
+-rw-r--r-- 1 root root 8.0K Dec 14  2016 site-themes.php
+-rw-r--r-- 1 root root  13K May 18  2017 site-users.php
+-rw-r--r-- 1 root root  11K Dec  9  2016 sites.php
+-rw-r--r-- 1 root root  277 Sep 27  2016 theme-editor.php
+-rw-r--r-- 1 root root  387 Sep 27  2016 theme-install.php
+-rw-r--r-- 1 root root  12K Dec  9  2016 themes.php
+-rw-r--r-- 1 root root  271 Sep 27  2016 update-core.php
+-rw-r--r-- 1 root root  458 Sep 27  2016 update.php
+-rw-r--r-- 1 root root 4.6K Apr 10  2017 upgrade.php
+-rw-r--r-- 1 root root  271 Sep 27  2016 user-edit.php
+-rw-r--r-- 1 root root 4.7K Oct  4  2016 user-new.php
+-rw-r--r-- 1 root root 8.6K Dec  9  2016 users.php
+
+/var/www/html/wordpress_4.8.3/wp-admin/user:
+total 40K
+drwxr-xr-x 2 root root 4.0K Oct 31 13:12 .
+drwxr-xr-x 9 root root 4.0K Oct 31 13:12 ..
+-rw-r--r-- 1 root root  275 Sep 25  2013 about.php
+-rw-r--r-- 1 root root  842 May 22  2016 admin.php
+-rw-r--r-- 1 root root  279 Sep 25  2013 credits.php
+-rw-r--r-- 1 root root  281 Sep 25  2013 freedoms.php
+-rw-r--r-- 1 root root  269 Nov  4  2014 index.php
+-rw-r--r-- 1 root root  700 May  6  2014 menu.php
+-rw-r--r-- 1 root root  270 Nov  4  2014 profile.php
+-rw-r--r-- 1 root root  268 Nov  4  2014 user-edit.php
+
+/var/www/html/wordpress_4.8.3/wp-content:
+total 20K
+drwxr-xr-x 4 root root 4.0K Oct 31 13:12 .
+drwxr-xr-x 5 root root 4.0K Nov  6 03:57 ..
+-rw-r--r-- 1 root root   28 Jan  8  2012 index.php
+drwxr-xr-x 3 root root 4.0K Oct 31 13:12 plugins
+drwxr-xr-x 5 root root 4.0K Oct 31 13:12 themes
+
+/var/www/html/wordpress_4.8.3/wp-content/plugins:
+total 20K
+drwxr-xr-x 3 root root 4.0K Oct 31 13:12 .
+drwxr-xr-x 4 root root 4.0K Oct 31 13:12 ..
+drwxr-xr-x 4 root root 4.0K Oct 31 13:12 akismet
+-rw-r--r-- 1 root root 2.3K May 22  2013 hello.php
+-rw-r--r-- 1 root root   28 Jun  5  2014 index.php
+
+/var/www/html/wordpress_4.8.3/wp-content/plugins/akismet:
+total 184K
+drwxr-xr-x 4 root root 4.0K Oct 31 13:12 .
+drwxr-xr-x 3 root root 4.0K Oct 31 13:12 ..
+-rw-r--r-- 1 root root  629 May  9  2016 .htaccess
+-rw-r--r-- 1 root root  18K Aug 24  2015 LICENSE.txt
+drwxr-xr-x 3 root root 4.0K Oct 31 13:12 _inc
+-rw-r--r-- 1 root root 2.5K Sep 19  2017 akismet.php
+-rw-r--r-- 1 root root  42K Sep 19  2017 class.akismet-admin.php
+-rw-r--r-- 1 root root 2.7K Jun  6  2016 class.akismet-cli.php
+-rw-r--r-- 1 root root 7.8K Sep 19  2017 class.akismet-rest-api.php
+-rw-r--r-- 1 root root 2.8K Jul 13  2017 class.akismet-widget.php
+-rw-r--r-- 1 root root  48K Aug 15  2017 class.akismet.php
+-rw-r--r-- 1 root root   26 Mar 10  2014 index.php
+-rw-r--r-- 1 root root  17K Sep 19  2017 readme.txt
+drwxr-xr-x 2 root root 4.0K Oct 31 13:12 views
+-rw-r--r-- 1 root root 6.3K Sep 23  2016 wrapper.php
+
+/var/www/html/wordpress_4.8.3/wp-content/plugins/akismet/_inc:
+total 40K
+drwxr-xr-x 3 root root 4.0K Oct 31 13:12 .
+drwxr-xr-x 4 root root 4.0K Oct 31 13:12 ..
+-rw-r--r-- 1 root root  12K Apr 25  2017 akismet.css
+-rw-r--r-- 1 root root 9.4K Sep 19  2017 akismet.js
+-rw-r--r-- 1 root root  700 Jul  2  2014 form.js
+drwxr-xr-x 2 root root 4.0K Oct 31 13:12 img
+
+/var/www/html/wordpress_4.8.3/wp-content/plugins/akismet/_inc/img:
+total 16K
+drwxr-xr-x 2 root root 4.0K Oct 31 13:12 .
+drwxr-xr-x 3 root root 4.0K Oct 31 13:12 ..
+-rw-r--r-- 1 root root 5.0K May  1  2017 logo-full-2x.png
+
+/var/www/html/wordpress_4.8.3/wp-content/plugins/akismet/views:
+total 48K
+drwxr-xr-x 2 root root 4.0K Oct 31 13:12 .
+drwxr-xr-x 4 root root 4.0K Oct 31 13:12 ..
+-rw-r--r-- 1 root root  11K Aug 11  2017 config.php
+-rw-r--r-- 1 root root  608 Jan 31  2017 get.php
+-rw-r--r-- 1 root root 9.0K Jul 31  2017 notice.php
+-rw-r--r-- 1 root root 7.2K Jul  6  2017 start.php
+-rw-r--r-- 1 root root  744 Dec 15  2016 stats.php
+
+/var/www/html/wordpress_4.8.3/wp-content/themes:
+total 24K
+drwxr-xr-x 5 root root 4.0K Oct 31 13:12 .
+drwxr-xr-x 4 root root 4.0K Oct 31 13:12 ..
+-rw-r--r-- 1 root root   28 Jun  5  2014 index.php
+drwxr-xr-x 6 root root 4.0K Oct 31 13:12 twentyfifteen
+drwxr-xr-x 5 root root 4.0K Oct 31 13:12 twentyseventeen
+drwxr-xr-x 7 root root 4.0K Oct 31 13:12 twentysixteen
+
+/var/www/html/wordpress_4.8.3/wp-content/themes/twentyfifteen:
+total 788K
+drwxr-xr-x 6 root root 4.0K Oct 31 13:12 .
+drwxr-xr-x 5 root root 4.0K Oct 31 13:12 ..
+-rw-r--r-- 1 root root  809 Dec 16  2014 404.php
+-rw-r--r-- 1 root root 1.9K Dec 11  2014 archive.php
+-rw-r--r-- 1 root root 1.2K Dec 16  2014 author-bio.php
+-rw-r--r-- 1 root root 1.5K Dec 16  2014 comments.php
+-rw-r--r-- 1 root root 1.8K Dec 16  2014 content-link.php
+-rw-r--r-- 1 root root 1.2K Dec 16  2014 content-none.php
+-rw-r--r-- 1 root root 1.1K Dec 16  2014 content-page.php
+-rw-r--r-- 1 root root 1.1K Dec 16  2014 content-search.php
+-rw-r--r-- 1 root root 1.7K Dec 16  2014 content.php
+drwxr-xr-x 2 root root 4.0K Oct 31 13:12 css
+-rw-r--r-- 1 root root  823 Dec 16  2014 footer.php
+-rw-r--r-- 1 root root  14K Oct 23  2016 functions.php
+drwxr-xr-x 2 root root 4.0K Oct 31 13:12 genericons
+-rw-r--r-- 1 root root 1.9K Mar  9  2016 header.php
+-rw-r--r-- 1 root root 2.9K Dec 16  2014 image.php
+drwxr-xr-x 2 root root 4.0K Oct 31 13:12 inc
+-rw-r--r-- 1 root root 1.8K Dec 11  2014 index.php
+drwxr-xr-x 2 root root 4.0K Oct 31 13:12 js
+-rw-r--r-- 1 root root  902 Nov 19  2014 page.php
+-rw-r--r-- 1 root root 3.5K Jun  8  2017 readme.txt
+-rw-r--r-- 1 root root  13K May 25  2017 rtl.css
+-rw-r--r-- 1 root root 563K Mar 18  2016 screenshot.png
+-rw-r--r-- 1 root root 1.4K Dec 16  2014 search.php
+-rw-r--r-- 1 root root 1.3K Nov 19  2014 sidebar.php
+-rw-r--r-- 1 root root 1.5K Dec 12  2014 single.php
+-rw-r--r-- 1 root root  96K Jun  8  2017 style.css
+
+/var/www/html/wordpress_4.8.3/wp-content/themes/twentyfifteen/css:
+total 36K
+drwxr-xr-x 2 root root 4.0K Oct 31 13:12 .
+drwxr-xr-x 6 root root 4.0K Oct 31 13:12 ..
+-rw-r--r-- 1 root root 5.7K Dec 23  2015 editor-style.css
+-rw-r--r-- 1 root root  14K Jan 15  2015 ie.css
+-rw-r--r-- 1 root root 1.2K Dec 10  2014 ie7.css
+
+/var/www/html/wordpress_4.8.3/wp-content/themes/twentyfifteen/genericons:
+total 212K
+drwxr-xr-x 2 root root 4.0K Oct 31 13:12 .
+drwxr-xr-x 6 root root 4.0K Oct 31 13:12 ..
+-rw-r--r-- 1 root root 1.4K Oct 14  2014 COPYING.txt
+-rw-r--r-- 1 root root  23K Oct 14  2014 Genericons.eot
+-rw-r--r-- 1 root root  78K Oct 14  2014 Genericons.svg
+-rw-r--r-- 1 root root  23K Oct 14  2014 Genericons.ttf
+-rw-r--r-- 1 root root  15K Oct 14  2014 Genericons.woff
+-rw-r--r-- 1 root root  18K Oct 14  2014 LICENSE.txt
+-rw-r--r-- 1 root root 6.5K Oct 14  2014 README.md
+-rw-r--r-- 1 root root  27K Dec 10  2014 genericons.css
+
+/var/www/html/wordpress_4.8.3/wp-content/themes/twentyfifteen/inc:
+total 60K
+drwxr-xr-x 2 root root 4.0K Oct 31 13:12 .
+drwxr-xr-x 6 root root 4.0K Oct 31 13:12 ..
+-rw-r--r-- 1 root root 2.2K Nov 25  2014 back-compat.php
+-rw-r--r-- 1 root root 9.3K Jul  6  2015 custom-header.php
+-rw-r--r-- 1 root root  21K Mar  1  2016 customizer.php
+-rw-r--r-- 1 root root 8.2K Jan 27  2017 template-tags.php
+
+/var/www/html/wordpress_4.8.3/wp-content/themes/twentyfifteen/js:
+total 36K
+drwxr-xr-x 2 root root 4.0K Oct 31 13:12 .
+drwxr-xr-x 6 root root 4.0K Oct 31 13:12 ..
+-rw-r--r-- 1 root root 2.9K Dec 16  2014 color-scheme-control.js
+-rw-r--r-- 1 root root  832 Dec 16  2014 customize-preview.js
+-rw-r--r-- 1 root root 5.8K Mar 15  2016 functions.js
+-rw-r--r-- 1 root root 2.4K Oct 14  2014 html5.js
+-rw-r--r-- 1 root root  487 Dec 10  2014 keyboard-image-navigation.js
+-rw-r--r-- 1 root root  727 Oct 15  2014 skip-link-focus-fix.js
+
+/var/www/html/wordpress_4.8.3/wp-content/themes/twentyseventeen:
+total 544K
+drwxr-xr-x 5 root root 4.0K Oct 31 13:12 .
+drwxr-xr-x 5 root root 4.0K Oct 31 13:12 ..
+-rw-r--r-- 1 root root  909 Oct 20  2016 404.php
+-rw-r--r-- 1 root root 3.2K Jun  8  2017 README.txt
+-rw-r--r-- 1 root root 1.8K Nov  1  2016 archive.php
+drwxr-xr-x 5 root root 4.0K Oct 31 13:12 assets
+-rw-r--r-- 1 root root 2.3K Dec 16  2016 comments.php
+-rw-r--r-- 1 root root 1.3K Apr 18  2017 footer.php
+-rw-r--r-- 1 root root 1.6K Jan  6  2017 front-page.php
+-rw-r--r-- 1 root root  18K Mar 23  2017 functions.php
+-rw-r--r-- 1 root root 1.8K Dec 20  2016 header.php
+drwxr-xr-x 2 root root 4.0K Oct 31 13:12 inc
+-rw-r--r-- 1 root root 2.1K Nov  1  2016 index.php
+-rw-r--r-- 1 root root  965 Oct 23  2016 page.php
+-rw-r--r-- 1 root root 9.5K May 25  2017 rtl.css
+-rw-r--r-- 1 root root 356K Oct 20  2016 screenshot.png
+-rw-r--r-- 1 root root 2.0K Nov  1  2016 search.php
+-rw-r--r-- 1 root root  948 Dec 16  2016 searchform.php
+-rw-r--r-- 1 root root  434 Oct 20  2016 sidebar.php
+-rw-r--r-- 1 root root 1.6K Dec 16  2016 single.php
+-rw-r--r-- 1 root root  81K Jun  8  2017 style.css
+drwxr-xr-x 7 root root 4.0K Oct 31 13:12 template-parts
+
+/var/www/html/wordpress_4.8.3/wp-content/themes/twentyseventeen/assets:
+total 20K
+drwxr-xr-x 5 root root 4.0K Oct 31 13:12 .
+drwxr-xr-x 5 root root 4.0K Oct 31 13:12 ..
+drwxr-xr-x 2 root root 4.0K Oct 31 13:12 css
+drwxr-xr-x 2 root root 4.0K Oct 31 13:12 images
+drwxr-xr-x 2 root root 4.0K Oct 31 13:12 js
+
+/var/www/html/wordpress_4.8.3/wp-content/themes/twentyseventeen/assets/css:
+total 48K
+drwxr-xr-x 2 root root 4.0K Oct 31 13:12 .
+drwxr-xr-x 5 root root 4.0K Oct 31 13:12 ..
+-rw-r--r-- 1 root root  18K Dec  2  2016 colors-dark.css
+-rw-r--r-- 1 root root 8.9K Oct 26  2016 editor-style.css
+-rw-r--r-- 1 root root 3.6K Dec  2  2016 ie8.css
+-rw-r--r-- 1 root root 1.3K Dec  2  2016 ie9.css
+
+/var/www/html/wordpress_4.8.3/wp-content/themes/twentyseventeen/assets/images:
+total 544K
+drwxr-xr-x 2 root root 4.0K Oct 31 13:12 .
+drwxr-xr-x 5 root root 4.0K Oct 31 13:12 ..
+-rw-r--r-- 1 root root 115K Nov 23  2016 coffee.jpg
+-rw-r--r-- 1 root root  92K Nov 23  2016 espresso.jpg
+-rw-r--r-- 1 root root 113K Nov 17  2016 header.jpg
+-rw-r--r-- 1 root root 168K Nov 23  2016 sandwich.jpg
+-rw-r--r-- 1 root root  41K Nov 16  2016 svg-icons.svg
+
+/var/www/html/wordpress_4.8.3/wp-content/themes/twentyseventeen/assets/js:
+total 56K
+drwxr-xr-x 2 root root 4.0K Oct 31 13:12 .
+drwxr-xr-x 5 root root 4.0K Oct 31 13:12 ..
+-rw-r--r-- 1 root root 1.2K Dec 20  2016 customize-controls.js
+-rw-r--r-- 1 root root 4.4K Dec  2  2016 customize-preview.js
+-rw-r--r-- 1 root root 7.6K Dec  2  2016 global.js
+-rw-r--r-- 1 root root  11K Oct 20  2016 html5.js
+-rw-r--r-- 1 root root 5.7K Oct 20  2016 jquery.scrollTo.js
+-rw-r--r-- 1 root root 3.7K Dec  3  2016 navigation.js
+-rw-r--r-- 1 root root  683 Nov 14  2016 skip-link-focus-fix.js
+
+/var/www/html/wordpress_4.8.3/wp-content/themes/twentyseventeen/inc:
+total 72K
+drwxr-xr-x 2 root root 4.0K Oct 31 13:12 .
+drwxr-xr-x 5 root root 4.0K Oct 31 13:12 ..
+-rw-r--r-- 1 root root 2.4K Oct 20  2016 back-compat.php
+-rw-r--r-- 1 root root  22K Jan 13  2017 color-patterns.php
+-rw-r--r-- 1 root root 4.3K Dec 16  2016 custom-header.php
+-rw-r--r-- 1 root root 6.6K Mar 10  2017 customizer.php
+-rw-r--r-- 1 root root 6.9K Jan  6  2017 icon-functions.php
+-rw-r--r-- 1 root root 2.5K Jan  6  2017 template-functions.php
+-rw-r--r-- 1 root root 6.5K May 19  2017 template-tags.php
+
+/var/www/html/wordpress_4.8.3/wp-content/themes/twentyseventeen/template-parts:
+total 28K
+drwxr-xr-x 7 root root 4.0K Oct 31 13:12 .
+drwxr-xr-x 5 root root 4.0K Oct 31 13:12 ..
+drwxr-xr-x 2 root root 4.0K Oct 31 13:12 footer
+drwxr-xr-x 2 root root 4.0K Oct 31 13:12 header
+drwxr-xr-x 2 root root 4.0K Oct 31 13:12 navigation
+drwxr-xr-x 2 root root 4.0K Oct 31 13:12 page
+drwxr-xr-x 2 root root 4.0K Oct 31 13:12 post
+
+/var/www/html/wordpress_4.8.3/wp-content/themes/twentyseventeen/template-parts/footer:
+total 16K
+drwxr-xr-x 2 root root 4.0K Oct 31 13:12 .
+drwxr-xr-x 7 root root 4.0K Oct 31 13:12 ..
+-rw-r--r-- 1 root root  662 Oct 23  2016 footer-widgets.php
+-rw-r--r-- 1 root root  357 Oct 23  2016 site-info.php
+
+/var/www/html/wordpress_4.8.3/wp-content/themes/twentyseventeen/template-parts/header:
+total 16K
+drwxr-xr-x 2 root root 4.0K Oct 31 13:12 .
+drwxr-xr-x 7 root root 4.0K Oct 31 13:12 ..
+-rw-r--r-- 1 root root  349 Dec  2  2016 header-image.php
+-rw-r--r-- 1 root root 1.3K Dec 16  2016 site-branding.php
+
+/var/www/html/wordpress_4.8.3/wp-content/themes/twentyseventeen/template-parts/navigation:
+total 12K
+drwxr-xr-x 2 root root 4.0K Oct 31 13:12 .
+drwxr-xr-x 7 root root 4.0K Oct 31 13:12 ..
+-rw-r--r-- 1 root root 1014 Apr 18  2017 navigation-top.php
+
+/var/www/html/wordpress_4.8.3/wp-content/themes/twentyseventeen/template-parts/page:
+total 20K
+drwxr-xr-x 2 root root 4.0K Oct 31 13:12 .
+drwxr-xr-x 7 root root 4.0K Oct 31 13:12 ..
+-rw-r--r-- 1 root root 2.2K Nov 18  2016 content-front-page-panels.php
+-rw-r--r-- 1 root root 1.6K Oct 23  2016 content-front-page.php
+-rw-r--r-- 1 root root  722 Oct 23  2016 content-page.php
+
+/var/www/html/wordpress_4.8.3/wp-content/themes/twentyseventeen/template-parts/post:
+total 36K
+drwxr-xr-x 2 root root 4.0K Oct 31 13:12 .
+drwxr-xr-x 7 root root 4.0K Oct 31 13:12 ..
+-rw-r--r-- 1 root root 2.6K Apr 18  2017 content-audio.php
+-rw-r--r-- 1 root root 1.4K Apr 18  2017 content-excerpt.php
+-rw-r--r-- 1 root root 2.3K Apr 18  2017 content-gallery.php
+-rw-r--r-- 1 root root 2.1K Apr 18  2017 content-image.php
+-rw-r--r-- 1 root root  924 Oct 23  2016 content-none.php
+-rw-r--r-- 1 root root 2.6K Apr 18  2017 content-video.php
+-rw-r--r-- 1 root root 2.0K Apr 18  2017 content.php
+
+/var/www/html/wordpress_4.8.3/wp-content/themes/twentysixteen:
+total 648K
+drwxr-xr-x 7 root root 4.0K Oct 31 13:12 .
+drwxr-xr-x 5 root root 4.0K Oct 31 13:12 ..
+-rw-r--r-- 1 root root  879 May 30  2017 404.php
+-rw-r--r-- 1 root root 2.0K May 30  2017 archive.php
+-rw-r--r-- 1 root root 2.0K May 30  2017 comments.php
+drwxr-xr-x 2 root root 4.0K Oct 31 13:12 css
+-rw-r--r-- 1 root root 1.9K May 30  2017 footer.php
+-rw-r--r-- 1 root root  15K May 30  2017 functions.php
+drwxr-xr-x 2 root root 4.0K Oct 31 13:12 genericons
+-rw-r--r-- 1 root root 4.1K May 30  2017 header.php
+-rw-r--r-- 1 root root 3.5K May 30  2017 image.php
+drwxr-xr-x 2 root root 4.0K Oct 31 13:12 inc
+-rw-r--r-- 1 root root 1.8K May 30  2017 index.php
+drwxr-xr-x 2 root root 4.0K Oct 31 13:12 js
+-rw-r--r-- 1 root root  980 May 30  2017 page.php
+-rw-r--r-- 1 root root 3.2K May 30  2017 readme.txt
+-rw-r--r-- 1 root root  13K May 30  2017 rtl.css
+-rw-r--r-- 1 root root 453K May 30  2017 screenshot.png
+-rw-r--r-- 1 root root 1.5K May 30  2017 search.php
+-rw-r--r-- 1 root root  744 May 30  2017 searchform.php
+-rw-r--r-- 1 root root  794 May 30  2017 sidebar-content-bottom.php
+-rw-r--r-- 1 root root  390 May 30  2017 sidebar.php
+-rw-r--r-- 1 root root 1.7K May 30  2017 single.php
+-rw-r--r-- 1 root root  69K May 30  2017 style.css
+drwxr-xr-x 2 root root 4.0K Oct 31 13:12 template-parts
+
+/var/www/html/wordpress_4.8.3/wp-content/themes/twentysixteen/css:
+total 28K
+drwxr-xr-x 2 root root 4.0K Oct 31 13:12 .
+drwxr-xr-x 7 root root 4.0K Oct 31 13:12 ..
+-rw-r--r-- 1 root root 6.5K May 30  2017 editor-style.css
+-rw-r--r-- 1 root root  748 May 30  2017 ie.css
+-rw-r--r-- 1 root root 2.6K May 30  2017 ie7.css
+-rw-r--r-- 1 root root 3.4K May 30  2017 ie8.css
+
+/var/www/html/wordpress_4.8.3/wp-content/themes/twentysixteen/genericons:
+total 212K
+drwxr-xr-x 2 root root 4.0K Oct 31 13:12 .
+drwxr-xr-x 7 root root 4.0K Oct 31 13:12 ..
+-rw-r--r-- 1 root root 1.4K May 30  2017 COPYING.txt
+-rw-r--r-- 1 root root  22K May 30  2017 Genericons.eot
+-rw-r--r-- 1 root root  76K May 30  2017 Genericons.svg
+-rw-r--r-- 1 root root  22K May 30  2017 Genericons.ttf
+-rw-r--r-- 1 root root  14K May 30  2017 Genericons.woff
+-rw-r--r-- 1 root root  18K May 30  2017 LICENSE.txt
+-rw-r--r-- 1 root root  11K May 30  2017 README.md
+-rw-r--r-- 1 root root  28K May 30  2017 genericons.css
+
+/var/www/html/wordpress_4.8.3/wp-content/themes/twentysixteen/inc:
+total 52K
+drwxr-xr-x 2 root root 4.0K Oct 31 13:12 .
+drwxr-xr-x 7 root root 4.0K Oct 31 13:12 ..
+-rw-r--r-- 1 root root 2.3K May 30  2017 back-compat.php
+-rw-r--r-- 1 root root  31K May 30  2017 customizer.php
+-rw-r--r-- 1 root root 8.0K May 30  2017 template-tags.php
+
+/var/www/html/wordpress_4.8.3/wp-content/themes/twentysixteen/js:
+total 44K
+drwxr-xr-x 2 root root 4.0K Oct 31 13:12 .
+drwxr-xr-x 7 root root 4.0K Oct 31 13:12 ..
+-rw-r--r-- 1 root root 2.9K May 30  2017 color-scheme-control.js
+-rw-r--r-- 1 root root 1.1K May 30  2017 customize-preview.js
+-rw-r--r-- 1 root root 6.7K May 30  2017 functions.js
+-rw-r--r-- 1 root root  11K May 30  2017 html5.js
+-rw-r--r-- 1 root root  527 May 30  2017 keyboard-image-navigation.js
+-rw-r--r-- 1 root root 1.1K May 30  2017 skip-link-focus-fix.js
+
+/var/www/html/wordpress_4.8.3/wp-content/themes/twentysixteen/template-parts:
+total 32K
+drwxr-xr-x 2 root root 4.0K Oct 31 13:12 .
+drwxr-xr-x 7 root root 4.0K Oct 31 13:12 ..
+-rw-r--r-- 1 root root 1.2K May 30  2017 biography.php
+-rw-r--r-- 1 root root 1.1K May 30  2017 content-none.php
+-rw-r--r-- 1 root root 1.2K May 30  2017 content-page.php
+-rw-r--r-- 1 root root 1.3K May 30  2017 content-search.php
+-rw-r--r-- 1 root root 1.5K May 30  2017 content-single.php
+-rw-r--r-- 1 root root 1.7K May 30  2017 content.php
+
+/var/www/html/wordpress_4.8.3/wp-includes:
+total 5.3M
+drwxr-xr-x 18 root root  12K Oct 31 13:12 .
+drwxr-xr-x  5 root root 4.0K Nov  6 03:57 ..
+drwxr-xr-x  2 root root 4.0K Oct 31 13:12 ID3
+drwxr-xr-x  2 root root 4.0K Oct 31 13:12 IXR
+drwxr-xr-x  9 root root 4.0K Oct 31 13:12 Requests
+drwxr-xr-x  9 root root 4.0K Oct 31 13:12 SimplePie
+drwxr-xr-x  3 root root 4.0K Oct 31 13:12 Text
+-rw-r--r--  1 root root  28K May 12  2017 admin-bar.php
+-rw-r--r--  1 root root  12K Dec 13  2016 atomlib.php
+-rw-r--r--  1 root root  16K Mar 25  2017 author-template.php
+-rw-r--r--  1 root root  12K May 22  2016 bookmark-template.php
+-rw-r--r--  1 root root  14K Dec 14  2016 bookmark.php
+-rw-r--r--  1 root root  22K Oct 31  2016 cache.php
+-rw-r--r--  1 root root  27K May 12  2017 canonical.php
+-rw-r--r--  1 root root  24K May 11  2017 capabilities.php
+-rw-r--r--  1 root root  51K May 22  2017 category-template.php
+-rw-r--r--  1 root root  12K Jan 29  2017 category.php
+drwxr-xr-x  2 root root 4.0K Oct 31 13:12 certificates
+-rw-r--r--  1 root root 2.6K Aug 31  2016 class-IXR.php
+-rw-r--r--  1 root root  522 Dec  3  2016 class-feed.php
+-rw-r--r--  1 root root  36K May 16  2017 class-http.php
+-rw-r--r--  1 root root  40K Dec  6  2015 class-json.php
+-rw-r--r--  1 root root  30K Jul 10  2017 class-oembed.php
+-rw-r--r--  1 root root 7.2K Oct  6  2015 class-phpass.php
+-rw-r--r--  1 root root 144K Jan 11  2017 class-phpmailer.php
+-rw-r--r--  1 root root  21K Oct 31  2016 class-pop3.php
+-rw-r--r--  1 root root  30K Oct  5  2016 class-requests.php
+-rw-r--r--  1 root root  88K Jun  6  2016 class-simplepie.php
+-rw-r--r--  1 root root  39K Jan 11  2017 class-smtp.php
+-rw-r--r--  1 root root  37K Jul  6  2016 class-snoopy.php
+-rw-r--r--  1 root root 2.2K Mar 22  2016 class-walker-category-dropdown.php
+-rw-r--r--  1 root root 6.6K May 22  2016 class-walker-category.php
+-rw-r--r--  1 root root  12K Aug 23  2016 class-walker-comment.php
+-rw-r--r--  1 root root 8.3K May 14  2017 class-walker-nav-menu.php
+-rw-r--r--  1 root root 2.3K May 22  2016 class-walker-page-dropdown.php
+-rw-r--r--  1 root root 6.7K May  1  2017 class-walker-page.php
+-rw-r--r--  1 root root  17K Nov  5  2016 class-wp-admin-bar.php
+-rw-r--r--  1 root root 5.0K Aug 23  2016 class-wp-ajax-response.php
+-rw-r--r--  1 root root  41K Dec  7  2016 class-wp-comment-query.php
+-rw-r--r--  1 root root 9.3K Jan 26  2017 class-wp-comment.php
+-rw-r--r--  1 root root  23K May 19  2017 class-wp-customize-control.php
+-rw-r--r--  1 root root 146K Sep 19  2017 class-wp-customize-manager.php
+-rw-r--r--  1 root root  49K Jan 26  2017 class-wp-customize-nav-menus.php
+-rw-r--r--  1 root root 9.7K Apr  7  2017 class-wp-customize-panel.php
+-rw-r--r--  1 root root  10K Oct 19  2016 class-wp-customize-section.php
+-rw-r--r--  1 root root  28K May 19  2017 class-wp-customize-setting.php
+-rw-r--r--  1 root root  66K Jul 14  2017 class-wp-customize-widgets.php
+-rw-r--r--  1 root root 1.7K Aug 26  2016 class-wp-dependency.php
+-rw-r--r--  1 root root  59K Jul 18  2017 class-wp-editor.php
+-rw-r--r--  1 root root  12K Aug 26  2016 class-wp-embed.php
+-rw-r--r--  1 root root 4.6K Aug 26  2016 class-wp-error.php
+-rw-r--r--  1 root root 2.7K Aug 25  2016 class-wp-feed-cache-transient.php
+-rw-r--r--  1 root root  764 Aug 25  2016 class-wp-feed-cache.php
+-rw-r--r--  1 root root  15K Dec  2  2016 class-wp-hook.php
+-rw-r--r--  1 root root 6.4K Jul 27  2016 class-wp-http-cookie.php
+-rw-r--r--  1 root root  12K May 22  2016 class-wp-http-curl.php
+-rw-r--r--  1 root root 6.3K Jun 10  2016 class-wp-http-encoding.php
+-rw-r--r--  1 root root 3.2K May 22  2016 class-wp-http-ixr-client.php
+-rw-r--r--  1 root root 5.9K May 22  2016 class-wp-http-proxy.php
+-rw-r--r--  1 root root 1.9K Feb 17  2017 class-wp-http-requests-hooks.php
+-rw-r--r--  1 root root 4.5K Oct  5  2016 class-wp-http-requests-response.php
+-rw-r--r--  1 root root 3.1K Aug 22  2016 class-wp-http-response.php
+-rw-r--r--  1 root root  15K May 22  2016 class-wp-http-streams.php
+-rw-r--r--  1 root root  13K Jul  8  2016 class-wp-image-editor-gd.php
+-rw-r--r--  1 root root  22K Feb 27  2017 class-wp-image-editor-imagick.php
+-rw-r--r--  1 root root  12K Aug 20  2016 class-wp-image-editor.php
+-rw-r--r--  1 root root 6.4K Oct 25  2016 class-wp-list-util.php
+-rw-r--r--  1 root root 5.1K Nov 21  2016 class-wp-locale-switcher.php
+-rw-r--r--  1 root root  15K Jan  6  2017 class-wp-locale.php
+-rw-r--r--  1 root root 1.9K Aug 26  2016 class-wp-matchesmapregex.php
+-rw-r--r--  1 root root  23K Oct 10  2016 class-wp-meta-query.php
+-rw-r--r--  1 root root 5.4K May 23  2016 class-wp-metadata-lazyloader.php
+-rw-r--r--  1 root root  17K Oct 21  2016 class-wp-network-query.php
+-rw-r--r--  1 root root  11K Feb 22  2017 class-wp-network.php
+-rw-r--r--  1 root root 5.6K Jul 14  2017 class-wp-oembed-controller.php
+-rw-r--r--  1 root root  19K Mar 18  2017 class-wp-post-type.php
+-rw-r--r--  1 root root 5.8K Jan 26  2017 class-wp-post.php
+-rw-r--r--  1 root root 120K Feb 23  2017 class-wp-query.php
+-rw-r--r--  1 root root  59K Oct  7  2016 class-wp-rewrite.php
+-rw-r--r--  1 root root 2.7K May 22  2016 class-wp-role.php
+-rw-r--r--  1 root root 6.5K Nov  2  2016 class-wp-roles.php
+-rw-r--r--  1 root root 7.5K Jan  4  2017 class-wp-session-tokens.php
+-rw-r--r--  1 root root 2.3K Aug 25  2016 class-wp-simplepie-file.php
+-rw-r--r--  1 root root 1.8K Aug 25  2016 class-wp-simplepie-sanitize-kses.php
+-rw-r--r--  1 root root  23K Mar 27  2017 class-wp-site-query.php
+-rw-r--r--  1 root root 7.5K Apr 19  2017 class-wp-site.php
+-rw-r--r--  1 root root  20K Jan  2  2017 class-wp-tax-query.php
+-rw-r--r--  1 root root  11K Mar 18  2017 class-wp-taxonomy.php
+-rw-r--r--  1 root root  33K Mar 16  2017 class-wp-term-query.php
+-rw-r--r--  1 root root 5.3K Jan 26  2017 class-wp-term.php
+-rw-r--r--  1 root root  712 Aug 25  2016 class-wp-text-diff-renderer-inline.php
+-rw-r--r--  1 root root  14K Aug 25  2016 class-wp-text-diff-renderer-table.php
+-rw-r--r--  1 root root  47K Mar 18  2017 class-wp-theme.php
+-rw-r--r--  1 root root 3.0K Aug 25  2016 class-wp-user-meta-session-tokens.php
+-rw-r--r--  1 root root  30K Jan 16  2017 class-wp-user-query.php
+-rw-r--r--  1 root root  20K Jan  6  2017 class-wp-user.php
+-rw-r--r--  1 root root  13K Jan  6  2017 class-wp-walker.php
+-rw-r--r--  1 root root 3.9K Jul 20  2016 class-wp-widget-factory.php
+-rw-r--r--  1 root root  18K Oct 31  2016 class-wp-widget.php
+-rw-r--r--  1 root root 195K May 16  2017 class-wp-xmlrpc-server.php
+-rw-r--r--  1 root root  24K Oct 25  2016 class-wp.php
+-rw-r--r--  1 root root  12K Aug 26  2016 class.wp-dependencies.php
+-rw-r--r--  1 root root  15K Jul  6  2016 class.wp-scripts.php
+-rw-r--r--  1 root root  10K May 22  2016 class.wp-styles.php
+-rw-r--r--  1 root root  86K May 14  2017 comment-template.php
+-rw-r--r--  1 root root 100K May 14  2017 comment.php
+-rw-r--r--  1 root root  17K Aug 10  2016 compat.php
+-rw-r--r--  1 root root  16K Aug 26  2016 cron.php
+drwxr-xr-x  2 root root 4.0K Oct 31 13:12 css
+drwxr-xr-x  2 root root 4.0K Oct 31 13:12 customize
+-rw-r--r--  1 root root  35K Jan  4  2017 date.php
+-rw-r--r--  1 root root 9.3K Mar 23  2017 default-constants.php
+-rw-r--r--  1 root root  26K Jul 18  2017 default-filters.php
+-rw-r--r--  1 root root 7.3K Jul 24  2017 default-widgets.php
+-rw-r--r--  1 root root 109K Jan 10  2017 deprecated.php
+-rw-r--r--  1 root root  344 Jul  6  2016 embed-template.php
+-rw-r--r--  1 root root  43K Sep 19  2017 embed.php
+-rw-r--r--  1 root root 5.3K Dec 16  2016 feed-atom-comments.php
+-rw-r--r--  1 root root 3.1K Dec 16  2016 feed-atom.php
+-rw-r--r--  1 root root 2.7K Oct 25  2016 feed-rdf.php
+-rw-r--r--  1 root root 1.3K Oct 25  2016 feed-rss.php
+-rw-r--r--  1 root root 4.0K Dec 16  2016 feed-rss2-comments.php
+-rw-r--r--  1 root root 3.7K Dec 16  2016 feed-rss2.php
+-rw-r--r--  1 root root  20K Jan  5  2017 feed.php
+drwxr-xr-x  2 root root 4.0K Oct 31 13:12 fonts
+-rw-r--r--  1 root root 187K Oct 31 12:23 formatting.php
+-rw-r--r--  1 root root 171K Apr  9  2017 functions.php
+-rw-r--r--  1 root root  12K Oct 18  2016 functions.wp-scripts.php
+-rw-r--r--  1 root root 7.9K Sep  4  2016 functions.wp-styles.php
+-rw-r--r--  1 root root 124K May 25  2017 general-template.php
+-rw-r--r--  1 root root  22K Mar 17  2017 http.php
+drwxr-xr-x  6 root root 4.0K Oct 31 13:12 images
+drwxr-xr-x 11 root root 4.0K Oct 31 13:12 js
+-rw-r--r--  1 root root  50K May 11  2017 kses.php
+-rw-r--r--  1 root root  43K Apr  1  2017 l10n.php
+-rw-r--r--  1 root root 132K Dec 27  2016 link-template.php
+-rw-r--r--  1 root root  32K May 11  2017 load.php
+-rw-r--r--  1 root root  141 Dec  3  2016 locale.php
+-rw-r--r--  1 root root  46K May 11  2017 media-template.php
+-rw-r--r--  1 root root 135K Jul 14  2017 media.php
+-rw-r--r--  1 root root  37K May 10  2017 meta.php
+-rw-r--r--  1 root root  38K Mar 30  2017 ms-blogs.php
+-rw-r--r--  1 root root 4.7K Oct 19  2016 ms-default-constants.php
+-rw-r--r--  1 root root 4.5K May  9  2017 ms-default-filters.php
+-rw-r--r--  1 root root  15K Apr  5  2017 ms-deprecated.php
+-rw-r--r--  1 root root 2.6K Sep 27  2016 ms-files.php
+-rw-r--r--  1 root root  81K May 10  2017 ms-functions.php
+-rw-r--r--  1 root root  20K Oct 26  2016 ms-load.php
+-rw-r--r--  1 root root 3.4K Aug 31  2016 ms-settings.php
+-rw-r--r--  1 root root  21K May 12  2017 nav-menu-template.php
+-rw-r--r--  1 root root  33K May 16  2017 nav-menu.php
+-rw-r--r--  1 root root  64K May 10  2017 option.php
+-rw-r--r--  1 root root 6.2K Jul  6  2016 pluggable-deprecated.php
+-rw-r--r--  1 root root  86K May  7  2017 pluggable.php
+-rw-r--r--  1 root root  31K Sep 12  2016 plugin.php
+drwxr-xr-x  2 root root 4.0K Oct 31 13:12 pomo
+-rw-r--r--  1 root root 6.8K Aug 25  2015 post-formats.php
+-rw-r--r--  1 root root  58K Apr  6  2017 post-template.php
+-rw-r--r--  1 root root 8.0K Jun 29  2016 post-thumbnail-template.php
+-rw-r--r--  1 root root 207K Oct 31 12:23 post.php
+-rw-r--r--  1 root root  23K Feb 23  2017 query.php
+drwxr-xr-x  2 root root 4.0K Oct 31 13:12 random_compat
+-rw-r--r--  1 root root  178 Jul  6  2016 registration-functions.php
+-rw-r--r--  1 root root  178 Jul  6  2016 registration.php
+drwxr-xr-x  4 root root 4.0K Oct 31 13:12 rest-api
+-rw-r--r--  1 root root  36K Jul 25  2017 rest-api.php
+-rw-r--r--  1 root root  21K Nov  9  2016 revision.php
+-rw-r--r--  1 root root  17K May 23  2016 rewrite.php
+-rw-r--r--  1 root root  191 Jul  6  2016 rss-functions.php
+-rw-r--r--  1 root root  23K Oct 31  2016 rss.php
+-rw-r--r--  1 root root  69K Sep 19  2017 script-loader.php
+-rw-r--r--  1 root root  242 Dec  3  2016 session.php
+-rw-r--r--  1 root root  21K Jan  3  2017 shortcodes.php
+-rw-r--r--  1 root root 143K Jul 13  2017 taxonomy.php
+-rw-r--r--  1 root root 2.9K Oct  7  2016 template-loader.php
+-rw-r--r--  1 root root  20K Feb 12  2017 template.php
+drwxr-xr-x  2 root root 4.0K Oct 31 13:12 theme-compat
+-rw-r--r--  1 root root  96K Jul 24  2017 theme.php
+-rw-r--r--  1 root root  23K May  6  2017 update.php
+-rw-r--r--  1 root root  84K Apr 30  2017 user.php
+-rw-r--r--  1 root root 5.3K Dec 27  2016 vars.php
+-rw-r--r--  1 root root  619 Oct 31 13:07 version.php
+drwxr-xr-x  2 root root 4.0K Oct 31 13:12 widgets
+-rw-r--r--  1 root root  48K Jul 14  2017 widgets.php
+-rw-r--r--  1 root root 1.1K Dec 11  2013 wlwmanifest.xml
+-rw-r--r--  1 root root  98K Oct 31 12:23 wp-db.php
+-rw-r--r--  1 root root  661 Aug 31  2016 wp-diff.php
+
+/var/www/html/wordpress_4.8.3/wp-includes/ID3:
+total 1.1M
+drwxr-xr-x  2 root root 4.0K Oct 31 13:12 .
+drwxr-xr-x 18 root root  12K Oct 31 13:12 ..
+-rw-r--r--  1 root root  44K Jun 28  2015 getid3.lib.php
+-rw-r--r--  1 root root  63K Jun 28  2015 getid3.php
+-rw-r--r--  1 root root 1.3K Jun 28  2015 license.commercial.txt
+-rw-r--r--  1 root root 1.4K Jun 28  2015 license.txt
+-rw-r--r--  1 root root 125K Jun 28  2015 module.audio-video.asf.php
+-rw-r--r--  1 root root  25K Jun 28  2015 module.audio-video.flv.php
+-rw-r--r--  1 root root 102K Jun 28  2015 module.audio-video.matroska.php
+-rw-r--r--  1 root root 116K Jun 28  2015 module.audio-video.quicktime.php
+-rw-r--r--  1 root root 117K Sep 11  2014 module.audio-video.riff.php
+-rw-r--r--  1 root root  19K Jun 28  2015 module.audio.ac3.php
+-rw-r--r--  1 root root  11K Jun 28  2015 module.audio.dts.php
+-rw-r--r--  1 root root  19K Jun 28  2015 module.audio.flac.php
+-rw-r--r--  1 root root  97K Jun 28  2015 module.audio.mp3.php
+-rw-r--r--  1 root root  40K Jun 28  2015 module.audio.ogg.php
+-rw-r--r--  1 root root  18K Jun 28  2015 module.tag.apetag.php
+-rw-r--r--  1 root root  12K Jun 28  2015 module.tag.id3v1.php
+-rw-r--r--  1 root root 142K Jun 28  2015 module.tag.id3v2.php
+-rw-r--r--  1 root root  11K Jun 28  2015 module.tag.lyrics3.php
+-rw-r--r--  1 root root  25K Sep 11  2014 readme.txt
+
+/var/www/html/wordpress_4.8.3/wp-includes/IXR:
+total 72K
+drwxr-xr-x  2 root root 4.0K Oct 31 13:12 .
+drwxr-xr-x 18 root root  12K Oct 31 13:12 ..
+-rw-r--r--  1 root root  414 Aug 26  2016 class-IXR-base64.php
+-rw-r--r--  1 root root 4.6K Aug 26  2016 class-IXR-client.php
+-rw-r--r--  1 root root  963 Aug 26  2016 class-IXR-clientmulticall.php
+-rw-r--r--  1 root root 1.7K Aug 26  2016 class-IXR-date.php
+-rw-r--r--  1 root root  854 Aug 26  2016 class-IXR-error.php
+-rw-r--r--  1 root root 5.2K Aug 26  2016 class-IXR-introspectionserver.php
+-rw-r--r--  1 root root 7.9K Oct 29  2016 class-IXR-message.php
+-rw-r--r--  1 root root  927 Aug 26  2016 class-IXR-request.php
+-rw-r--r--  1 root root 6.8K Aug 26  2016 class-IXR-server.php
+-rw-r--r--  1 root root 3.8K Aug 26  2016 class-IXR-value.php
+
+/var/www/html/wordpress_4.8.3/wp-includes/Requests:
+total 148K
+drwxr-xr-x  9 root root 4.0K Oct 31 13:12 .
+drwxr-xr-x 18 root root  12K Oct 31 13:12 ..
+drwxr-xr-x  2 root root 4.0K Oct 31 13:12 Auth
+-rw-r--r--  1 root root  810 May 13  2016 Auth.php
+drwxr-xr-x  2 root root 4.0K Oct 31 13:12 Cookie
+-rw-r--r--  1 root root  13K May 13  2016 Cookie.php
+drwxr-xr-x  4 root root 4.0K Oct 31 13:12 Exception
+-rw-r--r--  1 root root 1.1K May 13  2016 Exception.php
+-rw-r--r--  1 root root  708 May 13  2016 Hooker.php
+-rw-r--r--  1 root root 1.4K May 13  2016 Hooks.php
+-rw-r--r--  1 root root  12K Jun 10  2016 IDNAEncoder.php
+-rw-r--r--  1 root root 4.9K May 13  2016 IPv6.php
+-rw-r--r--  1 root root  28K Oct  5  2016 IRI.php
+drwxr-xr-x  2 root root 4.0K Oct 31 13:12 Proxy
+-rw-r--r--  1 root root  813 May 13  2016 Proxy.php
+drwxr-xr-x  2 root root 4.0K Oct 31 13:12 Response
+-rw-r--r--  1 root root 2.5K May 13  2016 Response.php
+-rw-r--r--  1 root root 4.0K Jun 10  2016 SSL.php
+-rw-r--r--  1 root root 7.0K Jun 10  2016 Session.php
+drwxr-xr-x  2 root root 4.0K Oct 31 13:12 Transport
+-rw-r--r--  1 root root 1.2K May 13  2016 Transport.php
+drwxr-xr-x  2 root root 4.0K Oct 31 13:12 Utility
+
+/var/www/html/wordpress_4.8.3/wp-includes/Requests/Auth:
+total 12K
+drwxr-xr-x 2 root root 4.0K Oct 31 13:12 .
+drwxr-xr-x 9 root root 4.0K Oct 31 13:12 ..
+-rw-r--r-- 1 root root 1.9K May 13  2016 Basic.php
+
+/var/www/html/wordpress_4.8.3/wp-includes/Requests/Cookie:
+total 12K
+drwxr-xr-x 2 root root 4.0K Oct 31 13:12 .
+drwxr-xr-x 9 root root 4.0K Oct 31 13:12 ..
+-rw-r--r-- 1 root root 3.8K May 13  2016 Jar.php
+
+/var/www/html/wordpress_4.8.3/wp-includes/Requests/Exception:
+total 24K
+drwxr-xr-x 4 root root 4.0K Oct 31 13:12 .
+drwxr-xr-x 9 root root 4.0K Oct 31 13:12 ..
+drwxr-xr-x 2 root root 4.0K Oct 31 13:12 HTTP
+-rw-r--r-- 1 root root 1.4K May 13  2016 HTTP.php
+drwxr-xr-x 2 root root 4.0K Oct 31 13:12 Transport
+-rw-r--r-- 1 root root   74 May 13  2016 Transport.php
+
+/var/www/html/wordpress_4.8.3/wp-includes/Requests/Exception/HTTP:
+total 140K
+drwxr-xr-x 2 root root 4.0K Oct 31 13:12 .
+drwxr-xr-x 4 root root 4.0K Oct 31 13:12 ..
+-rw-r--r-- 1 root root  390 May 13  2016 304.php
+-rw-r--r-- 1 root root  382 May 13  2016 305.php
+-rw-r--r-- 1 root root  391 May 13  2016 306.php
+-rw-r--r-- 1 root root  387 May 13  2016 400.php
+-rw-r--r-- 1 root root  390 May 13  2016 401.php
+-rw-r--r-- 1 root root  402 May 13  2016 402.php
+-rw-r--r-- 1 root root  381 May 13  2016 403.php
+-rw-r--r-- 1 root root  381 May 13  2016 404.php
+-rw-r--r-- 1 root root  408 May 13  2016 405.php
+-rw-r--r-- 1 root root  396 May 13  2016 406.php
+-rw-r--r-- 1 root root  441 May 13  2016 407.php
+-rw-r--r-- 1 root root  399 May 13  2016 408.php
+-rw-r--r-- 1 root root  378 May 13  2016 409.php
+-rw-r--r-- 1 root root  366 May 13  2016 410.php
+-rw-r--r-- 1 root root  399 May 13  2016 411.php
+-rw-r--r-- 1 root root  411 May 13  2016 412.php
+-rw-r--r-- 1 root root  426 May 13  2016 413.php
+-rw-r--r-- 1 root root  417 May 13  2016 414.php
+-rw-r--r-- 1 root root  420 May 13  2016 415.php
+-rw-r--r-- 1 root root  447 May 13  2016 416.php
+-rw-r--r-- 1 root root  408 May 13  2016 417.php
+-rw-r--r-- 1 root root  478 Jun 10  2016 418.php
+-rw-r--r-- 1 root root  505 Jun 10  2016 428.php
+-rw-r--r-- 1 root root  549 Jun 10  2016 429.php
+-rw-r--r-- 1 root root  535 Jun 10  2016 431.php
+-rw-r--r-- 1 root root  417 May 13  2016 500.php
+-rw-r--r-- 1 root root  399 May 13  2016 501.php
+-rw-r--r-- 1 root root  387 May 13  2016 502.php
+-rw-r--r-- 1 root root  411 May 13  2016 503.php
+-rw-r--r-- 1 root root  399 May 13  2016 504.php
+-rw-r--r-- 1 root root  432 May 13  2016 505.php
+-rw-r--r-- 1 root root  535 Jun 10  2016 511.php
+-rw-r--r-- 1 root root  867 May 13  2016 Unknown.php
+
+/var/www/html/wordpress_4.8.3/wp-includes/Requests/Exception/Transport:
+total 12K
+drwxr-xr-x 2 root root 4.0K Oct 31 13:12 .
+drwxr-xr-x 4 root root 4.0K Oct 31 13:12 ..
+-rw-r--r-- 1 root root  918 May 13  2016 cURL.php
+
+/var/www/html/wordpress_4.8.3/wp-includes/Requests/Proxy:
+total 12K
+drwxr-xr-x 2 root root 4.0K Oct 31 13:12 .
+drwxr-xr-x 9 root root 4.0K Oct 31 13:12 ..
+-rw-r--r-- 1 root root 3.4K May 13  2016 HTTP.php
+
+/var/www/html/wordpress_4.8.3/wp-includes/Requests/Response:
+total 12K
+drwxr-xr-x 2 root root 4.0K Oct 31 13:12 .
+drwxr-xr-x 9 root root 4.0K Oct 31 13:12 ..
+-rw-r--r-- 1 root root 2.1K May 13  2016 Headers.php
+
+/var/www/html/wordpress_4.8.3/wp-includes/Requests/Transport:
+total 40K
+drwxr-xr-x 2 root root 4.0K Oct 31 13:12 .
+drwxr-xr-x 9 root root 4.0K Oct 31 13:12 ..
+-rw-r--r-- 1 root root  15K Oct  5  2016 cURL.php
+-rw-r--r-- 1 root root  13K Oct  5  2016 fsockopen.php
+
+/var/www/html/wordpress_4.8.3/wp-includes/Requests/Utility:
+total 16K
+drwxr-xr-x 2 root root 4.0K Oct 31 13:12 .
+drwxr-xr-x 9 root root 4.0K Oct 31 13:12 ..
+-rw-r--r-- 1 root root 2.0K May 13  2016 CaseInsensitiveDictionary.php
+-rw-r--r-- 1 root root  829 May 13  2016 FilteredIterator.php
+
+/var/www/html/wordpress_4.8.3/wp-includes/SimplePie:
+total 392K
+drwxr-xr-x  9 root root 4.0K Oct 31 13:12 .
+drwxr-xr-x 18 root root  12K Oct 31 13:12 ..
+-rw-r--r--  1 root root 3.6K Nov 21  2012 Author.php
+drwxr-xr-x  2 root root 4.0K Oct 31 13:12 Cache
+-rw-r--r--  1 root root 4.2K Nov 21  2012 Cache.php
+-rw-r--r--  1 root root 4.5K Nov 21  2012 Caption.php
+-rw-r--r--  1 root root 3.7K Nov 21  2012 Category.php
+drwxr-xr-x  3 root root 4.0K Oct 31 13:12 Content
+-rw-r--r--  1 root root 3.3K Nov 21  2012 Copyright.php
+-rw-r--r--  1 root root 2.3K Nov 21  2012 Core.php
+-rw-r--r--  1 root root 3.7K Nov 21  2012 Credit.php
+drwxr-xr-x  3 root root 4.0K Oct 31 13:12 Decode
+-rw-r--r--  1 root root  27K Nov 21  2012 Enclosure.php
+-rw-r--r--  1 root root 2.2K Nov  8  2012 Exception.php
+-rw-r--r--  1 root root 9.5K Nov 21  2012 File.php
+drwxr-xr-x  2 root root 4.0K Oct 31 13:12 HTTP
+-rw-r--r--  1 root root  28K Nov 21  2012 IRI.php
+-rw-r--r--  1 root root  96K Nov 21  2012 Item.php
+-rw-r--r--  1 root root  11K Nov 21  2012 Locator.php
+-rw-r--r--  1 root root  51K Jul  8  2013 Misc.php
+drwxr-xr-x  2 root root 4.0K Oct 31 13:12 Net
+drwxr-xr-x  2 root root 4.0K Oct 31 13:12 Parse
+-rw-r--r--  1 root root  12K Nov 21  2012 Parser.php
+-rw-r--r--  1 root root 3.4K Nov 21  2012 Rating.php
+-rw-r--r--  1 root root 5.9K Nov 21  2012 Registry.php
+-rw-r--r--  1 root root 3.8K Nov 21  2012 Restriction.php
+-rw-r--r--  1 root root  16K Sep 11  2013 Sanitize.php
+-rw-r--r--  1 root root  21K Nov 21  2012 Source.php
+drwxr-xr-x  3 root root 4.0K Oct 31 13:12 XML
+-rw-r--r--  1 root root 8.4K Nov 21  2012 gzdecode.php
+
+/var/www/html/wordpress_4.8.3/wp-includes/SimplePie/Cache:
+total 48K
+drwxr-xr-x 2 root root 4.0K Oct 31 13:12 .
+drwxr-xr-x 9 root root 4.0K Oct 31 13:12 ..
+-rw-r--r-- 1 root root 3.4K Nov 21  2012 Base.php
+-rw-r--r-- 1 root root 4.7K Nov 21  2012 DB.php
+-rw-r--r-- 1 root root 4.4K Nov 21  2012 File.php
+-rw-r--r-- 1 root root 5.1K Nov 21  2012 Memcache.php
+-rw-r--r-- 1 root root  12K Nov 21  2012 MySQL.php
+
+/var/www/html/wordpress_4.8.3/wp-includes/SimplePie/Content:
+total 12K
+drwxr-xr-x 3 root root 4.0K Oct 31 13:12 .
+drwxr-xr-x 9 root root 4.0K Oct 31 13:12 ..
+drwxr-xr-x 2 root root 4.0K Oct 31 13:12 Type
+
+/var/www/html/wordpress_4.8.3/wp-includes/SimplePie/Content/Type:
+total 16K
+drwxr-xr-x 2 root root 4.0K Oct 31 13:12 .
+drwxr-xr-x 3 root root 4.0K Oct 31 13:12 ..
+-rw-r--r-- 1 root root 8.0K Nov 21  2012 Sniffer.php
+
+/var/www/html/wordpress_4.8.3/wp-includes/SimplePie/Decode:
+total 12K
+drwxr-xr-x 3 root root 4.0K Oct 31 13:12 .
+drwxr-xr-x 9 root root 4.0K Oct 31 13:12 ..
+drwxr-xr-x 2 root root 4.0K Oct 31 13:12 HTML
+
+/var/www/html/wordpress_4.8.3/wp-includes/SimplePie/Decode/HTML:
+total 28K
+drwxr-xr-x 2 root root 4.0K Oct 31 13:12 .
+drwxr-xr-x 3 root root 4.0K Oct 31 13:12 ..
+-rw-r--r-- 1 root root  17K Nov 21  2012 Entities.php
+
+/var/www/html/wordpress_4.8.3/wp-includes/SimplePie/HTTP:
+total 20K
+drwxr-xr-x 2 root root 4.0K Oct 31 13:12 .
+drwxr-xr-x 9 root root 4.0K Oct 31 13:12 ..
+-rw-r--r-- 1 root root  11K Nov 21  2012 Parser.php
+
+/var/www/html/wordpress_4.8.3/wp-includes/SimplePie/Net:
+total 16K
+drwxr-xr-x 2 root root 4.0K Oct 31 13:12 .
+drwxr-xr-x 9 root root 4.0K Oct 31 13:12 ..
+-rw-r--r-- 1 root root 7.4K Nov 21  2012 IPv6.php
+
+/var/www/html/wordpress_4.8.3/wp-includes/SimplePie/Parse:
+total 28K
+drwxr-xr-x 2 root root 4.0K Oct 31 13:12 .
+drwxr-xr-x 9 root root 4.0K Oct 31 13:12 ..
+-rw-r--r-- 1 root root  20K Oct 20  2015 Date.php
+
+/var/www/html/wordpress_4.8.3/wp-includes/SimplePie/XML:
+total 12K
+drwxr-xr-x 3 root root 4.0K Oct 31 13:12 .
+drwxr-xr-x 9 root root 4.0K Oct 31 13:12 ..
+drwxr-xr-x 2 root root 4.0K Oct 31 13:12 Declaration
+
+/var/www/html/wordpress_4.8.3/wp-includes/SimplePie/XML/Declaration:
+total 16K
+drwxr-xr-x 2 root root 4.0K Oct 31 13:12 .
+drwxr-xr-x 3 root root 4.0K Oct 31 13:12 ..
+-rw-r--r-- 1 root root 7.0K Nov 21  2012 Parser.php
+
+/var/www/html/wordpress_4.8.3/wp-includes/Text:
+total 36K
+drwxr-xr-x  3 root root 4.0K Oct 31 13:12 .
+drwxr-xr-x 18 root root  12K Oct 31 13:12 ..
+drwxr-xr-x  4 root root 4.0K Oct 31 13:12 Diff
+-rw-r--r--  1 root root  13K Jun 28  2015 Diff.php
+
+/var/www/html/wordpress_4.8.3/wp-includes/Text/Diff:
+total 24K
+drwxr-xr-x 4 root root 4.0K Oct 31 13:12 .
+drwxr-xr-x 3 root root 4.0K Oct 31 13:12 ..
+drwxr-xr-x 2 root root 4.0K Oct 31 13:12 Engine
+drwxr-xr-x 2 root root 4.0K Oct 31 13:12 Renderer
+-rw-r--r-- 1 root root 6.7K Jun 28  2015 Renderer.php
+
+/var/www/html/wordpress_4.8.3/wp-includes/Text/Diff/Engine:
+total 48K
+drwxr-xr-x 2 root root 4.0K Oct 31 13:12 .
+drwxr-xr-x 4 root root 4.0K Oct 31 13:12 ..
+-rw-r--r-- 1 root root  16K May 25  2013 native.php
+-rw-r--r-- 1 root root 5.1K Feb 19  2010 shell.php
+-rw-r--r-- 1 root root 8.2K Oct 24  2015 string.php
+-rw-r--r-- 1 root root 2.2K May 25  2013 xdiff.php
+
+/var/www/html/wordpress_4.8.3/wp-includes/Text/Diff/Renderer:
+total 16K
+drwxr-xr-x 2 root root 4.0K Oct 31 13:12 .
+drwxr-xr-x 4 root root 4.0K Oct 31 13:12 ..
+-rw-r--r-- 1 root root 5.5K Feb 19  2010 inline.php
+
+/var/www/html/wordpress_4.8.3/wp-includes/certificates:
+total 292K
+drwxr-xr-x  2 root root 4.0K Oct 31 13:12 .
+drwxr-xr-x 18 root root  12K Oct 31 13:12 ..
+-rw-r--r--  1 root root 274K May 13  2016 ca-bundle.crt
+
+/var/www/html/wordpress_4.8.3/wp-includes/css:
+total 700K
+drwxr-xr-x  2 root root 4.0K Oct 31 13:12 .
+drwxr-xr-x 18 root root  12K Oct 31 13:12 ..
+-rw-r--r--  1 root root  25K Apr 12  2017 admin-bar-rtl.css
+-rw-r--r--  1 root root  21K Apr 12  2017 admin-bar-rtl.min.css
+-rw-r--r--  1 root root  25K Apr 12  2017 admin-bar.css
+-rw-r--r--  1 root root  21K Apr 12  2017 admin-bar.min.css
+-rw-r--r--  1 root root  11K Apr 19  2017 buttons-rtl.css
+-rw-r--r--  1 root root 7.0K Apr 19  2017 buttons-rtl.min.css
+-rw-r--r--  1 root root  11K Apr 19  2017 buttons.css
+-rw-r--r--  1 root root 7.0K Apr 19  2017 buttons.min.css
+-rw-r--r--  1 root root 6.4K Jan  5  2017 customize-preview-rtl.css
+-rw-r--r--  1 root root 5.1K Jan  5  2017 customize-preview-rtl.min.css
+-rw-r--r--  1 root root 6.4K Jan  5  2017 customize-preview.css
+-rw-r--r--  1 root root 5.1K Jan  5  2017 customize-preview.min.css
+-rw-r--r--  1 root root  48K May  5  2016 dashicons.css
+-rw-r--r--  1 root root  46K May  5  2016 dashicons.min.css
+-rw-r--r--  1 root root  34K Apr 19  2017 editor-rtl.css
+-rw-r--r--  1 root root  28K Jun  5  2017 editor-rtl.min.css
+-rw-r--r--  1 root root  34K Apr 19  2017 editor.css
+-rw-r--r--  1 root root  28K Jun  5  2017 editor.min.css
+-rw-r--r--  1 root root 6.1K May  5  2016 jquery-ui-dialog-rtl.css
+-rw-r--r--  1 root root 4.7K May  5  2016 jquery-ui-dialog-rtl.min.css
+-rw-r--r--  1 root root 6.1K Mar 24  2016 jquery-ui-dialog.css
+-rw-r--r--  1 root root 4.7K Mar 24  2016 jquery-ui-dialog.min.css
+-rw-r--r--  1 root root  50K May  4  2017 media-views-rtl.css
+-rw-r--r--  1 root root  42K May  4  2017 media-views-rtl.min.css
+-rw-r--r--  1 root root  50K May  4  2017 media-views.css
+-rw-r--r--  1 root root  42K May  4  2017 media-views.min.css
+-rw-r--r--  1 root root 2.6K Mar 31  2017 wp-auth-check-rtl.css
+-rw-r--r--  1 root root 2.0K Mar 31  2017 wp-auth-check-rtl.min.css
+-rw-r--r--  1 root root 2.6K Mar 31  2017 wp-auth-check.css
+-rw-r--r--  1 root root 2.0K Mar 31  2017 wp-auth-check.min.css
+-rw-r--r--  1 root root 1.5K Oct 31  2015 wp-embed-template-ie.css
+-rw-r--r--  1 root root 1.5K Oct 31  2015 wp-embed-template-ie.min.css
+-rw-r--r--  1 root root 8.2K Sep  1  2016 wp-embed-template.css
+-rw-r--r--  1 root root 7.1K Jun 17  2016 wp-embed-template.min.css
+-rw-r--r--  1 root root 3.8K May  4  2017 wp-pointer-rtl.css
+-rw-r--r--  1 root root 3.0K May  4  2017 wp-pointer-rtl.min.css
+-rw-r--r--  1 root root 3.8K May  4  2017 wp-pointer.css
+-rw-r--r--  1 root root 3.0K May  4  2017 wp-pointer.min.css
+
+/var/www/html/wordpress_4.8.3/wp-includes/customize:
+total 220K
+drwxr-xr-x  2 root root 4.0K Oct 31 13:12 .
+drwxr-xr-x 18 root root  12K Oct 31 13:12 ..
+-rw-r--r--  1 root root 1.2K Oct 26  2016 class-wp-customize-background-image-control.php
+-rw-r--r--  1 root root  508 Oct 24  2015 class-wp-customize-background-image-setting.php
+-rw-r--r--  1 root root 2.8K Oct 26  2016 class-wp-customize-background-position-control.php
+-rw-r--r--  1 root root 2.8K Apr 18  2017 class-wp-customize-color-control.php
+-rw-r--r--  1 root root 1.6K Oct 24  2015 class-wp-customize-cropped-image-control.php
+-rw-r--r--  1 root root  11K Feb 17  2017 class-wp-customize-custom-css-setting.php
+-rw-r--r--  1 root root  607 Feb 27  2016 class-wp-customize-filter-setting.php
+-rw-r--r--  1 root root 7.1K May 15  2017 class-wp-customize-header-image-control.php
+-rw-r--r--  1 root root 1.6K Dec  2  2016 class-wp-customize-header-image-setting.php
+-rw-r--r--  1 root root 1.7K Feb 29  2016 class-wp-customize-image-control.php
+-rw-r--r--  1 root root 7.3K May 15  2017 class-wp-customize-media-control.php
+-rw-r--r--  1 root root 1005 Jul 17  2016 class-wp-customize-nav-menu-auto-add-control.php
+-rw-r--r--  1 root root 2.8K Feb  9  2017 class-wp-customize-nav-menu-control.php
+-rw-r--r--  1 root root 6.5K Feb  9  2017 class-wp-customize-nav-menu-item-control.php
+-rw-r--r--  1 root root  27K Nov 30  2016 class-wp-customize-nav-menu-item-setting.php
+-rw-r--r--  1 root root 1.9K Aug  3  2016 class-wp-customize-nav-menu-location-control.php
+-rw-r--r--  1 root root  993 Oct 24  2015 class-wp-customize-nav-menu-name-control.php
+-rw-r--r--  1 root root  747 Jul  6  2016 class-wp-customize-nav-menu-section.php
+-rw-r--r--  1 root root  19K Oct 25  2016 class-wp-customize-nav-menu-setting.php
+-rw-r--r--  1 root root 2.9K Mar  9  2016 class-wp-customize-nav-menus-panel.php
+-rw-r--r--  1 root root  708 Oct 24  2015 class-wp-customize-new-menu-control.php
+-rw-r--r--  1 root root  965 Sep 28  2016 class-wp-customize-new-menu-section.php
+-rw-r--r--  1 root root 9.0K Jan  4  2017 class-wp-customize-partial.php
+-rw-r--r--  1 root root  16K May 19  2017 class-wp-customize-selective-refresh.php
+-rw-r--r--  1 root root 1.1K Oct 24  2015 class-wp-customize-sidebar-section.php
+-rw-r--r--  1 root root 3.3K May 15  2017 class-wp-customize-site-icon-control.php
+-rw-r--r--  1 root root 3.0K Nov 21  2016 class-wp-customize-theme-control.php
+-rw-r--r--  1 root root 2.8K Nov  4  2016 class-wp-customize-themes-section.php
+-rw-r--r--  1 root root  977 Oct 24  2015 class-wp-customize-upload-control.php
+-rw-r--r--  1 root root 1.7K Jan 20  2017 class-wp-widget-area-customize-control.php
+-rw-r--r--  1 root root 2.1K Jan  4  2017 class-wp-widget-form-customize-control.php
+
+/var/www/html/wordpress_4.8.3/wp-includes/fonts:
+total 208K
+drwxr-xr-x  2 root root 4.0K Oct 31 13:12 .
+drwxr-xr-x 18 root root  12K Oct 31 13:12 ..
+-rw-r--r--  1 root root  22K Mar 18  2016 dashicons.eot
+-rw-r--r--  1 root root  94K Mar 18  2016 dashicons.svg
+-rw-r--r--  1 root root  41K Mar 18  2016 dashicons.ttf
+-rw-r--r--  1 root root  26K Mar 18  2016 dashicons.woff
+
+/var/www/html/wordpress_4.8.3/wp-includes/images:
+total 164K
+drwxr-xr-x  6 root root 4.0K Oct 31 13:12 .
+drwxr-xr-x 18 root root  12K Oct 31 13:12 ..
+-rw-r--r--  1 root root 4.0K Oct 28  2014 admin-bar-sprite-2x.png
+-rw-r--r--  1 root root 2.5K Feb 13  2014 admin-bar-sprite.png
+-rw-r--r--  1 root root 1.7K Oct 28  2014 arrow-pointer-blue-2x.png
+-rw-r--r--  1 root root  793 Nov  7  2012 arrow-pointer-blue.png
+-rw-r--r--  1 root root   43 Nov 25  2014 blank.gif
+drwxr-xr-x  2 root root 4.0K Oct 31 13:12 crystal
+-rw-r--r--  1 root root   84 Oct 28  2014 down_arrow-2x.gif
+-rw-r--r--  1 root root   59 Oct 28  2014 down_arrow.gif
+-rw-r--r--  1 root root 1.4K Sep 27  2012 icon-pointer-flag-2x.png
+-rw-r--r--  1 root root  783 Dec  5  2011 icon-pointer-flag.png
+drwxr-xr-x  2 root root 4.0K Oct 31 13:12 media
+-rw-r--r--  1 root root 1.3K Nov  7  2012 rss-2x.png
+-rw-r--r--  1 root root  608 Nov  7  2012 rss.png
+drwxr-xr-x  2 root root 4.0K Oct 31 13:12 smilies
+-rw-r--r--  1 root root 8.4K Oct 28  2014 spinner-2x.gif
+-rw-r--r--  1 root root 4.1K Oct 28  2014 spinner.gif
+-rw-r--r--  1 root root  354 Nov  7  2012 toggle-arrow-2x.png
+-rw-r--r--  1 root root  289 Oct 28  2014 toggle-arrow.png
+-rw-r--r--  1 root root 3.5K Oct 28  2014 uploader-icons-2x.png
+-rw-r--r--  1 root root 1.6K Feb 13  2014 uploader-icons.png
+-rw-r--r--  1 root root 3.1K Feb 23  2016 w-logo-blue.png
+drwxr-xr-x  2 root root 4.0K Oct 31 13:12 wlw
+-rw-r--r--  1 root root  15K Nov 25  2014 wpicons-2x.png
+-rw-r--r--  1 root root 7.0K Nov 25  2014 wpicons.png
+-rw-r--r--  1 root root 9.0K Oct 28  2014 wpspin-2x.gif
+-rw-r--r--  1 root root 2.2K Oct 28  2014 wpspin.gif
+-rw-r--r--  1 root root  825 Oct 28  2014 xit-2x.gif
+-rw-r--r--  1 root root  181 Oct 28  2014 xit.gif
+
+/var/www/html/wordpress_4.8.3/wp-includes/images/crystal:
+total 48K
+drwxr-xr-x 2 root root 4.0K Oct 31 13:12 .
+drwxr-xr-x 6 root root 4.0K Oct 31 13:12 ..
+-rw-r--r-- 1 root root 2.4K Oct 28  2014 archive.png
+-rw-r--r-- 1 root root 2.2K Oct 28  2014 audio.png
+-rw-r--r-- 1 root root 1.6K Nov  7  2012 code.png
+-rw-r--r-- 1 root root  453 Feb 13  2014 default.png
+-rw-r--r-- 1 root root 2.1K Oct 28  2014 document.png
+-rw-r--r-- 1 root root 2.2K Oct 28  2014 interactive.png
+-rw-r--r-- 1 root root  149 Mar  3  2014 license.txt
+-rw-r--r-- 1 root root 2.4K Oct 28  2014 spreadsheet.png
+-rw-r--r-- 1 root root  670 Feb 13  2014 text.png
+-rw-r--r-- 1 root root 1.4K Nov  7  2012 video.png
+
+/var/www/html/wordpress_4.8.3/wp-includes/images/media:
+total 44K
+drwxr-xr-x 2 root root 4.0K Oct 31 13:12 .
+drwxr-xr-x 6 root root 4.0K Oct 31 13:12 ..
+-rw-r--r-- 1 root root  417 Mar 27  2014 archive.png
+-rw-r--r-- 1 root root  382 Mar 27  2014 audio.png
+-rw-r--r-- 1 root root  274 Mar 25  2014 code.png
+-rw-r--r-- 1 root root  168 Mar 25  2014 default.png
+-rw-r--r-- 1 root root  200 Mar 25  2014 document.png
+-rw-r--r-- 1 root root  319 Mar 25  2014 interactive.png
+-rw-r--r-- 1 root root  188 Mar 25  2014 spreadsheet.png
+-rw-r--r-- 1 root root  188 Mar 25  2014 text.png
+-rw-r--r-- 1 root root  283 Mar 25  2014 video.png
+
+/var/www/html/wordpress_4.8.3/wp-includes/images/smilies:
+total 112K
+drwxr-xr-x 2 root root 4.0K Oct 31 13:12 .
+drwxr-xr-x 6 root root 4.0K Oct 31 13:12 ..
+-rw-r--r-- 1 root root 1007 Apr 10  2015 frownie.png
+-rw-r--r-- 1 root root  169 Oct 28  2014 icon_arrow.gif
+-rw-r--r-- 1 root root  173 Oct 28  2014 icon_biggrin.gif
+-rw-r--r-- 1 root root  170 Oct 28  2014 icon_confused.gif
+-rw-r--r-- 1 root root  172 Oct 28  2014 icon_cool.gif
+-rw-r--r-- 1 root root  490 Oct 28  2014 icon_cry.gif
+-rw-r--r-- 1 root root  170 Oct 28  2014 icon_eek.gif
+-rw-r--r-- 1 root root  241 Oct 28  2014 icon_evil.gif
+-rw-r--r-- 1 root root  236 Oct 28  2014 icon_exclaim.gif
+-rw-r--r-- 1 root root  174 Oct 28  2014 icon_idea.gif
+-rw-r--r-- 1 root root  333 Oct 28  2014 icon_lol.gif
+-rw-r--r-- 1 root root  172 Oct 28  2014 icon_mad.gif
+-rw-r--r-- 1 root root  348 Oct 28  2014 icon_mrgreen.gif
+-rw-r--r-- 1 root root  167 Oct 28  2014 icon_neutral.gif
+-rw-r--r-- 1 root root  247 Oct 28  2014 icon_question.gif
+-rw-r--r-- 1 root root  175 Oct 28  2014 icon_razz.gif
+-rw-r--r-- 1 root root  650 Oct 28  2014 icon_redface.gif
+-rw-r--r-- 1 root root  489 Oct 28  2014 icon_rolleyes.gif
+-rw-r--r-- 1 root root  167 Oct 28  2014 icon_sad.gif
+-rw-r--r-- 1 root root  173 Oct 28  2014 icon_smile.gif
+-rw-r--r-- 1 root root  174 Oct 28  2014 icon_surprised.gif
+-rw-r--r-- 1 root root  241 Oct 28  2014 icon_twisted.gif
+-rw-r--r-- 1 root root  168 Oct 28  2014 icon_wink.gif
+-rw-r--r-- 1 root root 1.5K Apr 10  2015 mrgreen.png
+-rw-r--r-- 1 root root 1.3K Apr 10  2015 rolleyes.png
+-rw-r--r-- 1 root root 1008 Apr 10  2015 simple-smile.png
+
+/var/www/html/wordpress_4.8.3/wp-includes/images/wlw:
+total 20K
+drwxr-xr-x 2 root root 4.0K Oct 31 13:12 .
+drwxr-xr-x 6 root root 4.0K Oct 31 13:12 ..
+-rw-r--r-- 1 root root 1.4K Nov  7  2012 wp-comments.png
+-rw-r--r-- 1 root root  664 Nov  7  2012 wp-icon.png
+-rw-r--r-- 1 root root 2.4K Oct 28  2014 wp-watermark.png
+
+/var/www/html/wordpress_4.8.3/wp-includes/js:
+total 2.3M
+drwxr-xr-x 11 root root 4.0K Oct 31 13:12 .
+drwxr-xr-x 18 root root  12K Oct 31 13:12 ..
+-rw-r--r--  1 root root  12K Jul 20  2015 admin-bar.js
+-rw-r--r--  1 root root 7.1K Nov  3  2016 admin-bar.min.js
+-rw-r--r--  1 root root  17K Oct 27  2016 autosave.js
+-rw-r--r--  1 root root 5.6K Nov  3  2016 autosave.min.js
+-rw-r--r--  1 root root  23K Jun 16  2016 backbone.min.js
+-rw-r--r--  1 root root  29K Nov 17  2012 colorpicker.js
+-rw-r--r--  1 root root  17K Nov  3  2016 colorpicker.min.js
+-rw-r--r--  1 root root 2.7K Nov 18  2015 comment-reply.js
+-rw-r--r--  1 root root 1.1K Nov 18  2015 comment-reply.min.js
+drwxr-xr-x  2 root root 4.0K Oct 31 13:12 crop
+-rw-r--r--  1 root root  22K Apr  6  2017 customize-base.js
+-rw-r--r--  1 root root 7.4K Apr  6  2017 customize-base.min.js
+-rw-r--r--  1 root root 7.4K Oct 18  2016 customize-loader.js
+-rw-r--r--  1 root root 3.4K Nov  3  2016 customize-loader.min.js
+-rw-r--r--  1 root root 5.8K Jul 19  2015 customize-models.js
+-rw-r--r--  1 root root 3.4K Nov  3  2016 customize-models.min.js
+-rw-r--r--  1 root root  15K Dec 10  2016 customize-preview-nav-menus.js
+-rw-r--r--  1 root root 5.0K Dec 10  2016 customize-preview-nav-menus.min.js
+-rw-r--r--  1 root root  19K Oct 26  2016 customize-preview-widgets.js
+-rw-r--r--  1 root root 7.5K Nov  3  2016 customize-preview-widgets.min.js
+-rw-r--r--  1 root root  26K Apr  6  2017 customize-preview.js
+-rw-r--r--  1 root root  10K Apr  6  2017 customize-preview.min.js
+-rw-r--r--  1 root root  33K May 17  2017 customize-selective-refresh.js
+-rw-r--r--  1 root root  11K May 17  2017 customize-selective-refresh.min.js
+-rw-r--r--  1 root root 4.4K Feb 20  2017 customize-views.js
+-rw-r--r--  1 root root 2.4K Feb 20  2017 customize-views.min.js
+-rw-r--r--  1 root root  20K Oct 31  2016 heartbeat.js
+-rw-r--r--  1 root root 5.4K Nov  3  2016 heartbeat.min.js
+-rw-r--r--  1 root root 4.9K Mar 11  2015 hoverIntent.js
+-rw-r--r--  1 root root 1.1K Mar 11  2015 hoverIntent.min.js
+-rw-r--r--  1 root root 7.9K Nov  3  2016 imagesloaded.min.js
+drwxr-xr-x  2 root root 4.0K Oct 31 13:12 imgareaselect
+drwxr-xr-x  2 root root 4.0K Oct 31 13:12 jcrop
+drwxr-xr-x  3 root root 4.0K Oct 31 13:12 jquery
+-rw-r--r--  1 root root  18K Oct  6  2015 json2.js
+-rw-r--r--  1 root root 3.1K Nov  3  2016 json2.min.js
+-rw-r--r--  1 root root  29K Jun 28  2016 masonry.min.js
+-rw-r--r--  1 root root  25K Sep 19  2017 mce-view.js
+-rw-r--r--  1 root root 9.5K Sep 19  2017 mce-view.min.js
+-rw-r--r--  1 root root  22K Feb 17  2016 media-audiovideo.js
+-rw-r--r--  1 root root  13K Feb 17  2016 media-audiovideo.min.js
+-rw-r--r--  1 root root  30K Oct 19  2016 media-editor.js
+-rw-r--r--  1 root root  11K Oct 19  2016 media-editor.min.js
+-rw-r--r--  1 root root  24K Mar 31  2017 media-grid.js
+-rw-r--r--  1 root root  14K Mar 31  2017 media-grid.min.js
+-rw-r--r--  1 root root  41K Oct 31  2016 media-models.js
+-rw-r--r--  1 root root  14K Nov  3  2016 media-models.min.js
+-rw-r--r--  1 root root 227K Jul  6  2017 media-views.js
+-rw-r--r--  1 root root 103K Jul  6  2017 media-views.min.js
+drwxr-xr-x  2 root root 4.0K Oct 31 13:12 mediaelement
+drwxr-xr-x  2 root root 4.0K Oct 31 13:12 plupload
+-rw-r--r--  1 root root  22K May 11  2017 quicktags.js
+-rw-r--r--  1 root root  11K May 11  2017 quicktags.min.js
+-rw-r--r--  1 root root  11K Jul 20  2016 shortcode.js
+-rw-r--r--  1 root root 2.6K Nov  3  2016 shortcode.min.js
+-rw-r--r--  1 root root  10K Apr 17  2012 swfobject.js
+drwxr-xr-x  3 root root 4.0K Oct 31 13:12 swfupload
+drwxr-xr-x  2 root root 4.0K Oct 31 13:12 thickbox
+drwxr-xr-x  7 root root 4.0K Oct 31 13:12 tinymce
+-rw-r--r--  1 root root 4.9K Aug 23  2012 tw-sack.js
+-rw-r--r--  1 root root 3.3K Jun 28  2015 tw-sack.min.js
+-rw-r--r--  1 root root  26K Sep 19  2017 twemoji.js
+-rw-r--r--  1 root root 8.8K Sep 19  2017 twemoji.min.js
+-rw-r--r--  1 root root  17K Feb 17  2016 underscore.min.js
+-rw-r--r--  1 root root 4.5K Oct 31  2016 utils.js
+-rw-r--r--  1 root root 1.8K Nov  3  2016 utils.min.js
+-rw-r--r--  1 root root 2.5K Apr 19  2017 wp-a11y.js
+-rw-r--r--  1 root root  653 Apr 19  2017 wp-a11y.min.js
+-rw-r--r--  1 root root 3.1K Nov 15  2016 wp-ajax-response.js
+-rw-r--r--  1 root root 2.1K Nov 15  2016 wp-ajax-response.min.js
+-rw-r--r--  1 root root  43K Jul 24  2017 wp-api.js
+-rw-r--r--  1 root root  14K Jul 24  2017 wp-api.min.js
+-rw-r--r--  1 root root 3.3K Jan 13  2016 wp-auth-check.js
+-rw-r--r--  1 root root 1.8K Jan 13  2016 wp-auth-check.min.js
+-rw-r--r--  1 root root  11K Jan 15  2016 wp-backbone.js
+-rw-r--r--  1 root root 3.0K Jan 15  2016 wp-backbone.min.js
+-rw-r--r--  1 root root  10K Nov 17  2016 wp-custom-header.js
+-rw-r--r--  1 root root 4.4K Nov 16  2016 wp-custom-header.min.js
+-rw-r--r--  1 root root 6.1K Jul  5  2016 wp-embed-template.js
+-rw-r--r--  1 root root 3.1K Jul  5  2016 wp-embed-template.min.js
+-rw-r--r--  1 root root 3.1K Nov 23  2016 wp-embed.js
+-rw-r--r--  1 root root 1.4K Nov 23  2016 wp-embed.min.js
+-rw-r--r--  1 root root 5.2K Sep 19  2017 wp-emoji-loader.js
+-rw-r--r--  1 root root 2.0K Sep 19  2017 wp-emoji-loader.min.js
+-rw-r--r--  1 root root  12K Sep 19  2017 wp-emoji-release.min.js
+-rw-r--r--  1 root root 6.7K Aug  4  2016 wp-emoji.js
+-rw-r--r--  1 root root 2.8K Nov  3  2016 wp-emoji.min.js
+-rw-r--r--  1 root root  914 Nov 15  2013 wp-list-revisions.js
+-rw-r--r--  1 root root  569 Nov  3  2016 wp-list-revisions.min.js
+-rw-r--r--  1 root root  25K Oct  3  2016 wp-lists.js
+-rw-r--r--  1 root root 7.3K Nov  3  2016 wp-lists.min.js
+-rw-r--r--  1 root root 6.5K Nov 15  2013 wp-pointer.js
+-rw-r--r--  1 root root 3.6K Nov 13  2013 wp-pointer.min.js
+-rw-r--r--  1 root root 3.9K Jun 26  2016 wp-util.js
+-rw-r--r--  1 root root 1.1K Jun 26  2016 wp-util.min.js
+-rw-r--r--  1 root root  435 Dec 28  2013 wpdialog.js
+-rw-r--r--  1 root root  237 Dec 28  2013 wpdialog.min.js
+-rw-r--r--  1 root root  21K Sep 19  2017 wplink.js
+-rw-r--r--  1 root root  12K Sep 19  2017 wplink.min.js
+-rw-r--r--  1 root root  502 Nov 12  2013 zxcvbn-async.js
+-rw-r--r--  1 root root  324 Jan 29  2014 zxcvbn-async.min.js
+-rw-r--r--  1 root root 803K Dec 13  2016 zxcvbn.min.js
+
+/var/www/html/wordpress_4.8.3/wp-includes/js/crop:
+total 40K
+drwxr-xr-x  2 root root 4.0K Oct 31 13:12 .
+drwxr-xr-x 11 root root 4.0K Oct 31 13:12 ..
+-rw-r--r--  1 root root 2.9K Dec 20  2012 cropper.css
+-rw-r--r--  1 root root  17K May  4  2007 cropper.js
+-rw-r--r--  1 root root  277 Nov  7  2012 marqueeHoriz.gif
+-rw-r--r--  1 root root  293 Nov  7  2012 marqueeVert.gif
+
+/var/www/html/wordpress_4.8.3/wp-includes/js/imgareaselect:
+total 72K
+drwxr-xr-x  2 root root 4.0K Oct 31 13:12 .
+drwxr-xr-x 11 root root 4.0K Oct 31 13:12 ..
+-rw-r--r--  1 root root  178 Nov  7  2012 border-anim-h.gif
+-rw-r--r--  1 root root  178 Nov  7  2012 border-anim-v.gif
+-rw-r--r--  1 root root  790 Apr 25  2012 imgareaselect.css
+-rw-r--r--  1 root root  38K Jul 20  2015 jquery.imgareaselect.js
+-rw-r--r--  1 root root 9.7K Jul 20  2015 jquery.imgareaselect.min.js
+
+/var/www/html/wordpress_4.8.3/wp-includes/js/jcrop:
+total 32K
+drwxr-xr-x  2 root root 4.0K Oct 31 13:12 .
+drwxr-xr-x 11 root root 4.0K Oct 31 13:12 ..
+-rw-r--r--  1 root root  323 Nov  7  2012 Jcrop.gif
+-rw-r--r--  1 root root 2.1K Sep 21  2013 jquery.Jcrop.min.css
+-rw-r--r--  1 root root  16K Sep 21  2013 jquery.Jcrop.min.js
+
+/var/www/html/wordpress_4.8.3/wp-includes/js/jquery:
+total 268K
+drwxr-xr-x  3 root root 4.0K Oct 31 13:12 .
+drwxr-xr-x 11 root root 4.0K Oct 31 13:12 ..
+-rw-r--r--  1 root root  23K May 20  2016 jquery-migrate.js
+-rw-r--r--  1 root root 9.9K May 20  2016 jquery-migrate.min.js
+-rw-r--r--  1 root root 9.1K Apr 10  2013 jquery.color.min.js
+-rw-r--r--  1 root root  41K Sep 16  2013 jquery.form.js
+-rw-r--r--  1 root root  15K Sep 16  2013 jquery.form.min.js
+-rw-r--r--  1 root root 5.5K Jan  2  2014 jquery.hotkeys.js
+-rw-r--r--  1 root root 1.8K Aug 23  2012 jquery.hotkeys.min.js
+-rw-r--r--  1 root root  95K May 23  2016 jquery.js
+-rw-r--r--  1 root root 1.8K Aug 18  2016 jquery.masonry.min.js
+-rw-r--r--  1 root root 3.7K Jan 29  2013 jquery.query.js
+-rw-r--r--  1 root root 3.4K Jan 10  2008 jquery.schedule.js
+-rw-r--r--  1 root root  783 Jan 20  2011 jquery.serialize-object.js
+-rw-r--r--  1 root root 3.7K Nov 15  2013 jquery.table-hotkeys.js
+-rw-r--r--  1 root root 2.3K Aug 23  2012 jquery.table-hotkeys.min.js
+-rw-r--r--  1 root root 1.2K Apr 11  2012 jquery.ui.touch-punch.js
+-rw-r--r--  1 root root 6.9K Jan 13  2016 suggest.js
+-rw-r--r--  1 root root 3.0K Jan 13  2016 suggest.min.js
+drwxr-xr-x  2 root root 4.0K Oct 31 13:12 ui
+
+/var/www/html/wordpress_4.8.3/wp-includes/js/jquery/ui:
+total 340K
+drwxr-xr-x 2 root root 4.0K Oct 31 13:12 .
+drwxr-xr-x 3 root root 4.0K Oct 31 13:12 ..
+-rw-r--r-- 1 root root 8.4K Nov  3  2016 accordion.min.js
+-rw-r--r-- 1 root root 8.1K Nov  3  2016 autocomplete.min.js
+-rw-r--r-- 1 root root 7.1K Nov  3  2016 button.min.js
+-rw-r--r-- 1 root root 4.0K Nov  3  2016 core.min.js
+-rw-r--r-- 1 root root  36K Nov  3  2016 datepicker.min.js
+-rw-r--r-- 1 root root  12K Nov  3  2016 dialog.min.js
+-rw-r--r-- 1 root root  19K Nov  3  2016 draggable.min.js
+-rw-r--r-- 1 root root 6.2K Nov  3  2016 droppable.min.js
+-rw-r--r-- 1 root root 1.2K Nov  7  2015 effect-blind.min.js
+-rw-r--r-- 1 root root 1.3K Nov  3  2016 effect-bounce.min.js
+-rw-r--r-- 1 root root  918 Nov  7  2015 effect-clip.min.js
+-rw-r--r-- 1 root root  997 Nov  7  2015 effect-drop.min.js
+-rw-r--r-- 1 root root 1.2K Nov  3  2016 effect-explode.min.js
+-rw-r--r-- 1 root root  515 Nov  7  2015 effect-fade.min.js
+-rw-r--r-- 1 root root 1.1K Nov  7  2015 effect-fold.min.js
+-rw-r--r-- 1 root root  789 Nov  7  2015 effect-highlight.min.js
+-rw-r--r-- 1 root root  783 Nov  7  2015 effect-puff.min.js
+-rw-r--r-- 1 root root  798 Nov  3  2016 effect-pulsate.min.js
+-rw-r--r-- 1 root root 1.1K Nov  7  2015 effect-scale.min.js
+-rw-r--r-- 1 root root 1.1K Nov  3  2016 effect-shake.min.js
+-rw-r--r-- 1 root root 3.3K Apr 15  2016 effect-size.min.js
+-rw-r--r-- 1 root root  962 Nov  7  2015 effect-slide.min.js
+-rw-r--r-- 1 root root  857 Nov  7  2015 effect-transfer.min.js
+-rw-r--r-- 1 root root  14K Nov  3  2016 effect.min.js
+-rw-r--r-- 1 root root 9.4K Nov  3  2016 menu.min.js
+-rw-r--r-- 1 root root 3.1K Nov  3  2016 mouse.min.js
+-rw-r--r-- 1 root root 6.4K Nov  3  2016 position.min.js
+-rw-r--r-- 1 root root 2.5K Nov  3  2016 progressbar.min.js
+-rw-r--r-- 1 root root  18K Nov  3  2016 resizable.min.js
+-rw-r--r-- 1 root root 4.2K Nov  3  2016 selectable.min.js
+-rw-r--r-- 1 root root 8.2K Nov  7  2015 selectmenu.min.js
+-rw-r--r-- 1 root root  11K Nov  3  2016 slider.min.js
+-rw-r--r-- 1 root root  25K Nov  3  2016 sortable.min.js
+-rw-r--r-- 1 root root 7.0K Nov  3  2016 spinner.min.js
+-rw-r--r-- 1 root root  12K Nov  3  2016 tabs.min.js
+-rw-r--r-- 1 root root 5.6K Nov  3  2016 tooltip.min.js
+-rw-r--r-- 1 root root 6.8K Nov  3  2016 widget.min.js
+
+/var/www/html/wordpress_4.8.3/wp-includes/js/mediaelement:
+total 340K
+drwxr-xr-x  2 root root 4.0K Oct 31 13:12 .
+drwxr-xr-x 11 root root 4.0K Oct 31 13:12 ..
+-rw-r--r--  1 root root  166 Mar 16  2013 background.png
+-rw-r--r--  1 root root 3.0K Mar 16  2013 bigplay.png
+-rw-r--r--  1 root root 1.1K Sep 11  2015 bigplay.svg
+-rw-r--r--  1 root root 1.9K Mar 16  2013 controls.png
+-rw-r--r--  1 root root  11K Mar 16  2013 controls.svg
+-rw-r--r--  1 root root 128K Jul 18  2016 flashmediaelement.swf
+-rw-r--r--  1 root root 1.8K Jan  9  2015 froogaloop.min.js
+-rw-r--r--  1 root root 1.6K Sep 11  2015 jumpforward.png
+-rw-r--r--  1 root root 6.1K Mar 16  2013 loading.gif
+-rw-r--r--  1 root root  81K Jul 18  2016 mediaelement-and-player.min.js
+-rw-r--r--  1 root root  20K Jul 18  2016 mediaelementplayer.min.css
+-rw-r--r--  1 root root  13K Jun 28  2016 silverlightmediaelement.xap
+-rw-r--r--  1 root root 4.2K Nov 30  2014 skipback.png
+-rw-r--r--  1 root root 4.8K May 11  2017 wp-mediaelement.css
+-rw-r--r--  1 root root 1.5K May 12  2017 wp-mediaelement.js
+-rw-r--r--  1 root root 4.0K May 11  2017 wp-mediaelement.min.css
+-rw-r--r--  1 root root  795 May 12  2017 wp-mediaelement.min.js
+-rw-r--r--  1 root root 4.7K Feb 29  2016 wp-playlist.js
+-rw-r--r--  1 root root 3.3K Nov  3  2016 wp-playlist.min.js
+
+/var/www/html/wordpress_4.8.3/wp-includes/js/plupload:
+total 288K
+drwxr-xr-x  2 root root 4.0K Oct 31 13:12 .
+drwxr-xr-x 11 root root 4.0K Oct 31 13:12 ..
+-rw-r--r--  1 root root  16K May 16  2017 handlers.js
+-rw-r--r--  1 root root  11K May 16  2017 handlers.min.js
+-rw-r--r--  1 root root  18K Jul 29  2011 license.txt
+-rw-r--r--  1 root root  29K May  6  2016 plupload.flash.swf
+-rw-r--r--  1 root root 111K Oct 10  2015 plupload.full.min.js
+-rw-r--r--  1 root root  62K Oct 10  2015 plupload.silverlight.xap
+-rw-r--r--  1 root root  13K Jun 16  2016 wp-plupload.js
+-rw-r--r--  1 root root 4.9K Nov  3  2016 wp-plupload.min.js
+
+/var/www/html/wordpress_4.8.3/wp-includes/js/swfupload:
+total 100K
+drwxr-xr-x  3 root root 4.0K Oct 31 13:12 .
+drwxr-xr-x 11 root root 4.0K Oct 31 13:12 ..
+-rw-r--r--  1 root root  13K Apr 14  2017 handlers.js
+-rw-r--r--  1 root root 8.7K Jun 21  2013 handlers.min.js
+-rw-r--r--  1 root root 1.6K Jul 29  2011 license.txt
+drwxr-xr-x  2 root root 4.0K Oct 31 13:12 plugins
+-rw-r--r--  1 root root  37K Sep  3  2016 swfupload.js
+-rw-r--r--  1 root root  13K Jul 29  2013 swfupload.swf
+
+/var/www/html/wordpress_4.8.3/wp-includes/js/swfupload/plugins:
+total 32K
+drwxr-xr-x 2 root root 4.0K Oct 31 13:12 .
+drwxr-xr-x 3 root root 4.0K Oct 31 13:12 ..
+-rw-r--r-- 1 root root 1.6K Jul 29  2011 swfupload.cookies.js
+-rw-r--r-- 1 root root 3.4K Jul 29  2011 swfupload.queue.js
+-rw-r--r-- 1 root root  12K Jul 29  2011 swfupload.speed.js
+-rw-r--r-- 1 root root 3.9K Jul 29  2011 swfupload.swfobject.js
+
+/var/www/html/wordpress_4.8.3/wp-includes/js/thickbox:
+total 48K
+drwxr-xr-x  2 root root 4.0K Oct 31 13:12 .
+drwxr-xr-x 11 root root 4.0K Oct 31 13:12 ..
+-rw-r--r--  1 root root  15K Nov  5  2012 loadingAnimation.gif
+-rw-r--r--  1 root root   94 Nov  7  2012 macFFBgHack.png
+-rw-r--r--  1 root root 2.6K May 23  2016 thickbox.css
+-rw-r--r--  1 root root  13K May 23  2016 thickbox.js
+
+/var/www/html/wordpress_4.8.3/wp-includes/js/tinymce:
+total 724K
+drwxr-xr-x  7 root root 4.0K Oct 31 13:12 .
+drwxr-xr-x 11 root root 4.0K Oct 31 13:12 ..
+drwxr-xr-x  2 root root 4.0K Oct 31 13:12 langs
+-rw-r--r--  1 root root  26K May  8  2017 license.txt
+drwxr-xr-x 23 root root 4.0K Oct 31 13:12 plugins
+drwxr-xr-x  4 root root 4.0K Oct 31 13:12 skins
+drwxr-xr-x  4 root root 4.0K Oct 31 13:12 themes
+-rw-r--r--  1 root root  16K May  8  2017 tiny_mce_popup.js
+-rw-r--r--  1 root root 451K May 30  2017 tinymce.min.js
+drwxr-xr-x  2 root root 4.0K Oct 31 13:12 utils
+-rw-r--r--  1 root root 196K Sep 19  2017 wp-tinymce.js.gz
+-rw-r--r--  1 root root 1.1K Jan  3  2015 wp-tinymce.php
+
+/var/www/html/wordpress_4.8.3/wp-includes/js/tinymce/langs:
+total 24K
+drwxr-xr-x 2 root root 4.0K Oct 31 13:12 .
+drwxr-xr-x 7 root root 4.0K Oct 31 13:12 ..
+-rw-r--r-- 1 root root  16K Dec 16  2014 wp-langs-en.js
+
+/var/www/html/wordpress_4.8.3/wp-includes/js/tinymce/plugins:
+total 92K
+drwxr-xr-x 23 root root 4.0K Oct 31 13:12 .
+drwxr-xr-x  7 root root 4.0K Oct 31 13:12 ..
+drwxr-xr-x  2 root root 4.0K Oct 31 13:12 charmap
+drwxr-xr-x  2 root root 4.0K Oct 31 13:12 colorpicker
+drwxr-xr-x  3 root root 4.0K Oct 31 13:12 compat3x
+drwxr-xr-x  2 root root 4.0K Oct 31 13:12 directionality
+drwxr-xr-x  2 root root 4.0K Oct 31 13:12 fullscreen
+drwxr-xr-x  2 root root 4.0K Oct 31 13:12 hr
+drwxr-xr-x  2 root root 4.0K Oct 31 13:12 image
+drwxr-xr-x  2 root root 4.0K Oct 31 13:12 lists
+drwxr-xr-x  2 root root 4.0K Oct 31 13:12 media
+drwxr-xr-x  2 root root 4.0K Oct 31 13:12 paste
+drwxr-xr-x  2 root root 4.0K Oct 31 13:12 tabfocus
+drwxr-xr-x  2 root root 4.0K Oct 31 13:12 textcolor
+drwxr-xr-x  2 root root 4.0K Oct 31 13:12 wordpress
+drwxr-xr-x  2 root root 4.0K Oct 31 13:12 wpautoresize
+drwxr-xr-x  2 root root 4.0K Oct 31 13:12 wpdialogs
+drwxr-xr-x  2 root root 4.0K Oct 31 13:12 wpeditimage
+drwxr-xr-x  2 root root 4.0K Oct 31 13:12 wpemoji
+drwxr-xr-x  2 root root 4.0K Oct 31 13:12 wpgallery
+drwxr-xr-x  2 root root 4.0K Oct 31 13:12 wplink
+drwxr-xr-x  2 root root 4.0K Oct 31 13:12 wptextpattern
+drwxr-xr-x  2 root root 4.0K Oct 31 13:12 wpview
+
+/var/www/html/wordpress_4.8.3/wp-includes/js/tinymce/plugins/charmap:
+total 40K
+drwxr-xr-x  2 root root 4.0K Oct 31 13:12 .
+drwxr-xr-x 23 root root 4.0K Oct 31 13:12 ..
+-rw-r--r--  1 root root  18K May 30  2017 plugin.js
+-rw-r--r--  1 root root 9.0K May 30  2017 plugin.min.js
+
+/var/www/html/wordpress_4.8.3/wp-includes/js/tinymce/plugins/colorpicker:
+total 20K
+drwxr-xr-x  2 root root 4.0K Oct 31 13:12 .
+drwxr-xr-x 23 root root 4.0K Oct 31 13:12 ..
+-rw-r--r--  1 root root 6.7K May  8  2017 plugin.js
+-rw-r--r--  1 root root 2.1K May  8  2017 plugin.min.js
+
+/var/www/html/wordpress_4.8.3/wp-includes/js/tinymce/plugins/compat3x:
+total 32K
+drwxr-xr-x  3 root root 4.0K Oct 31 13:12 .
+drwxr-xr-x 23 root root 4.0K Oct 31 13:12 ..
+drwxr-xr-x  2 root root 4.0K Oct 31 13:12 css
+-rw-r--r--  1 root root 9.2K May  8  2017 plugin.js
+-rw-r--r--  1 root root 4.1K May  8  2017 plugin.min.js
+
+/var/www/html/wordpress_4.8.3/wp-includes/js/tinymce/plugins/compat3x/css:
+total 16K
+drwxr-xr-x 2 root root 4.0K Oct 31 13:12 .
+drwxr-xr-x 3 root root 4.0K Oct 31 13:12 ..
+-rw-r--r-- 1 root root 7.9K Jul 26  2016 dialog.css
+
+/var/www/html/wordpress_4.8.3/wp-includes/js/tinymce/plugins/directionality:
+total 20K
+drwxr-xr-x  2 root root 4.0K Oct 31 13:12 .
+drwxr-xr-x 23 root root 4.0K Oct 31 13:12 ..
+-rw-r--r--  1 root root 5.2K May  8  2017 plugin.js
+-rw-r--r--  1 root root 1.7K May  8  2017 plugin.min.js
+
+/var/www/html/wordpress_4.8.3/wp-includes/js/tinymce/plugins/fullscreen:
+total 20K
+drwxr-xr-x  2 root root 4.0K Oct 31 13:12 .
+drwxr-xr-x 23 root root 4.0K Oct 31 13:12 ..
+-rw-r--r--  1 root root 7.7K May  8  2017 plugin.js
+-rw-r--r--  1 root root 2.6K May  8  2017 plugin.min.js
+
+/var/www/html/wordpress_4.8.3/wp-includes/js/tinymce/plugins/hr:
+total 16K
+drwxr-xr-x  2 root root 4.0K Oct 31 13:12 .
+drwxr-xr-x 23 root root 4.0K Oct 31 13:12 ..
+-rw-r--r--  1 root root 3.7K May  8  2017 plugin.js
+-rw-r--r--  1 root root 1.2K May  8  2017 plugin.min.js
+
+/var/www/html/wordpress_4.8.3/wp-includes/js/tinymce/plugins/image:
+total 48K
+drwxr-xr-x  2 root root 4.0K Oct 31 13:12 .
+drwxr-xr-x 23 root root 4.0K Oct 31 13:12 ..
+-rw-r--r--  1 root root  25K May  8  2017 plugin.js
+-rw-r--r--  1 root root 9.1K May  8  2017 plugin.min.js
+
+/var/www/html/wordpress_4.8.3/wp-includes/js/tinymce/plugins/lists:
+total 68K
+drwxr-xr-x  2 root root 4.0K Oct 31 13:12 .
+drwxr-xr-x 23 root root 4.0K Oct 31 13:12 ..
+-rw-r--r--  1 root root  44K May 11  2017 plugin.js
+-rw-r--r--  1 root root  15K May 11  2017 plugin.min.js
+
+/var/www/html/wordpress_4.8.3/wp-includes/js/tinymce/plugins/media:
+total 76K
+drwxr-xr-x  2 root root 4.0K Oct 31 13:12 .
+drwxr-xr-x 23 root root 4.0K Oct 31 13:12 ..
+-rw-r--r--  1 root root  47K May  8  2017 plugin.js
+-rw-r--r--  1 root root  17K May  8  2017 plugin.min.js
+
+/var/www/html/wordpress_4.8.3/wp-includes/js/tinymce/plugins/paste:
+total 100K
+drwxr-xr-x  2 root root 4.0K Oct 31 13:12 .
+drwxr-xr-x 23 root root 4.0K Oct 31 13:12 ..
+-rw-r--r--  1 root root  72K May 25  2017 plugin.js
+-rw-r--r--  1 root root  20K May 25  2017 plugin.min.js
+
+/var/www/html/wordpress_4.8.3/wp-includes/js/tinymce/plugins/tabfocus:
+total 24K
+drwxr-xr-x  2 root root 4.0K Oct 31 13:12 .
+drwxr-xr-x 23 root root 4.0K Oct 31 13:12 ..
+-rw-r--r--  1 root root 8.2K May  8  2017 plugin.js
+-rw-r--r--  1 root root 2.4K May  8  2017 plugin.min.js
+
+/var/www/html/wordpress_4.8.3/wp-includes/js/tinymce/plugins/textcolor:
+total 32K
+drwxr-xr-x  2 root root 4.0K Oct 31 13:12 .
+drwxr-xr-x 23 root root 4.0K Oct 31 13:12 ..
+-rw-r--r--  1 root root  13K May  8  2017 plugin.js
+-rw-r--r--  1 root root 5.1K May  8  2017 plugin.min.js
+
+/var/www/html/wordpress_4.8.3/wp-includes/js/tinymce/plugins/wordpress:
+total 56K
+drwxr-xr-x  2 root root 4.0K Oct 31 13:12 .
+drwxr-xr-x 23 root root 4.0K Oct 31 13:12 ..
+-rw-r--r--  1 root root  29K Jul 18  2017 plugin.js
+-rw-r--r--  1 root root  15K Jul 18  2017 plugin.min.js
+
+/var/www/html/wordpress_4.8.3/wp-includes/js/tinymce/plugins/wpautoresize:
+total 20K
+drwxr-xr-x  2 root root 4.0K Oct 31 13:12 .
+drwxr-xr-x 23 root root 4.0K Oct 31 13:12 ..
+-rw-r--r--  1 root root 5.9K Apr  9  2015 plugin.js
+-rw-r--r--  1 root root 2.4K Nov  3  2016 plugin.min.js
+
+/var/www/html/wordpress_4.8.3/wp-includes/js/tinymce/plugins/wpdialogs:
+total 16K
+drwxr-xr-x  2 root root 4.0K Oct 31 13:12 .
+drwxr-xr-x 23 root root 4.0K Oct 31 13:12 ..
+-rw-r--r--  1 root root 2.4K Apr  8  2014 plugin.js
+-rw-r--r--  1 root root 1.4K Apr  8  2014 plugin.min.js
+
+/var/www/html/wordpress_4.8.3/wp-includes/js/tinymce/plugins/wpeditimage:
+total 56K
+drwxr-xr-x  2 root root 4.0K Oct 31 13:12 .
+drwxr-xr-x 23 root root 4.0K Oct 31 13:12 ..
+-rw-r--r--  1 root root  31K May 18  2017 plugin.js
+-rw-r--r--  1 root root  15K May 18  2017 plugin.min.js
+
+/var/www/html/wordpress_4.8.3/wp-includes/js/tinymce/plugins/wpemoji:
+total 16K
+drwxr-xr-x  2 root root 4.0K Oct 31 13:12 .
+drwxr-xr-x 23 root root 4.0K Oct 31 13:12 ..
+-rw-r--r--  1 root root 3.5K Mar 10  2016 plugin.js
+-rw-r--r--  1 root root 1.6K Apr 15  2016 plugin.min.js
+
+/var/www/html/wordpress_4.8.3/wp-includes/js/tinymce/plugins/wpgallery:
+total 16K
+drwxr-xr-x  2 root root 4.0K Oct 31 13:12 .
+drwxr-xr-x 23 root root 4.0K Oct 31 13:12 ..
+-rw-r--r--  1 root root 3.2K Nov  7  2015 plugin.js
+-rw-r--r--  1 root root 1.7K Nov  7  2015 plugin.min.js
+
+/var/www/html/wordpress_4.8.3/wp-includes/js/tinymce/plugins/wplink:
+total 40K
+drwxr-xr-x  2 root root 4.0K Oct 31 13:12 .
+drwxr-xr-x 23 root root 4.0K Oct 31 13:12 ..
+-rw-r--r--  1 root root  18K Sep 19  2017 plugin.js
+-rw-r--r--  1 root root 8.9K Sep 19  2017 plugin.min.js
+
+/var/www/html/wordpress_4.8.3/wp-includes/js/tinymce/plugins/wptextpattern:
+total 24K
+drwxr-xr-x  2 root root 4.0K Oct 31 13:12 .
+drwxr-xr-x 23 root root 4.0K Oct 31 13:12 ..
+-rw-r--r--  1 root root 8.6K Nov  6  2016 plugin.js
+-rw-r--r--  1 root root 3.1K Nov  6  2016 plugin.min.js
+
+/var/www/html/wordpress_4.8.3/wp-includes/js/tinymce/plugins/wpview:
+total 20K
+drwxr-xr-x  2 root root 4.0K Oct 31 13:12 .
+drwxr-xr-x 23 root root 4.0K Oct 31 13:12 ..
+-rw-r--r--  1 root root 5.3K May  8  2017 plugin.js
+-rw-r--r--  1 root root 2.6K May  8  2017 plugin.min.js
+
+/var/www/html/wordpress_4.8.3/wp-includes/js/tinymce/skins:
+total 16K
+drwxr-xr-x 4 root root 4.0K Oct 31 13:12 .
+drwxr-xr-x 7 root root 4.0K Oct 31 13:12 ..
+drwxr-xr-x 4 root root 4.0K Oct 31 13:12 lightgray
+drwxr-xr-x 3 root root 4.0K Oct 31 13:12 wordpress
+
+/var/www/html/wordpress_4.8.3/wp-includes/js/tinymce/skins/lightgray:
+total 64K
+drwxr-xr-x 4 root root 4.0K Oct 31 13:12 .
+drwxr-xr-x 4 root root 4.0K Oct 31 13:12 ..
+-rw-r--r-- 1 root root 3.1K May  8  2017 content.inline.min.css
+-rw-r--r-- 1 root root 3.5K May  8  2017 content.min.css
+drwxr-xr-x 2 root root 4.0K Oct 31 13:12 fonts
+drwxr-xr-x 2 root root 4.0K Oct 31 13:12 img
+-rw-r--r-- 1 root root  39K May  8  2017 skin.min.css
+
+/var/www/html/wordpress_4.8.3/wp-includes/js/tinymce/skins/lightgray/fonts:
+total 180K
+drwxr-xr-x 2 root root 4.0K Oct 31 13:12 .
+drwxr-xr-x 4 root root 4.0K Oct 31 13:12 ..
+-rw-r--r-- 1 root root 9.3K Jan 20  2016 tinymce-small.eot
+-rw-r--r-- 1 root root  25K Jun 29  2016 tinymce-small.svg
+-rw-r--r-- 1 root root 9.1K Jan 20  2016 tinymce-small.ttf
+-rw-r--r-- 1 root root 9.2K Jan 20  2016 tinymce-small.woff
+-rw-r--r-- 1 root root  18K Apr  9  2017 tinymce.eot
+-rw-r--r-- 1 root root  45K Apr  9  2017 tinymce.svg
+-rw-r--r-- 1 root root  17K Apr  9  2017 tinymce.ttf
+-rw-r--r-- 1 root root  18K Apr  9  2017 tinymce.woff
+
+/var/www/html/wordpress_4.8.3/wp-includes/js/tinymce/skins/lightgray/img:
+total 24K
+drwxr-xr-x 2 root root 4.0K Oct 31 13:12 .
+drwxr-xr-x 4 root root 4.0K Oct 31 13:12 ..
+-rw-r--r-- 1 root root   53 Dec 28  2013 anchor.gif
+-rw-r--r-- 1 root root 2.6K Dec 28  2013 loader.gif
+-rw-r--r-- 1 root root  152 Dec 28  2013 object.gif
+-rw-r--r-- 1 root root   43 Dec 28  2013 trans.gif
+
+/var/www/html/wordpress_4.8.3/wp-includes/js/tinymce/skins/wordpress:
+total 24K
+drwxr-xr-x 3 root root 4.0K Oct 31 13:12 .
+drwxr-xr-x 4 root root 4.0K Oct 31 13:12 ..
+drwxr-xr-x 2 root root 4.0K Oct 31 13:12 images
+-rw-r--r-- 1 root root 8.8K Jul 25  2017 wp-content.css
+
+/var/www/html/wordpress_4.8.3/wp-includes/js/tinymce/skins/wordpress/images:
+total 64K
+drwxr-xr-x 2 root root 4.0K Oct 31 13:12 .
+drwxr-xr-x 3 root root 4.0K Oct 31 13:12 ..
+-rw-r--r-- 1 root root  412 Feb 13  2014 audio.png
+-rw-r--r-- 1 root root  368 Dec  2  2014 dashicon-edit.png
+-rw-r--r-- 1 root root  339 Dec  2  2014 dashicon-no.png
+-rw-r--r-- 1 root root 8.0K Nov 25  2014 embedded.png
+-rw-r--r-- 1 root root  447 Feb 13  2014 gallery-2x.png
+-rw-r--r-- 1 root root  379 Feb 13  2014 gallery.png
+-rw-r--r-- 1 root root  603 Oct 28  2014 more-2x.png
+-rw-r--r-- 1 root root  414 Oct 28  2014 more.png
+-rw-r--r-- 1 root root  835 Apr  4  2014 pagebreak-2x.png
+-rw-r--r-- 1 root root 1.2K Oct 28  2014 pagebreak.png
+-rw-r--r-- 1 root root  440 Mar  5  2014 playlist-audio.png
+-rw-r--r-- 1 root root  290 Mar  5  2014 playlist-video.png
+-rw-r--r-- 1 root root  363 Feb 13  2014 video.png
+
+/var/www/html/wordpress_4.8.3/wp-includes/js/tinymce/themes:
+total 16K
+drwxr-xr-x 4 root root 4.0K Oct 31 13:12 .
+drwxr-xr-x 7 root root 4.0K Oct 31 13:12 ..
+drwxr-xr-x 2 root root 4.0K Oct 31 13:12 inlite
+drwxr-xr-x 2 root root 4.0K Oct 31 13:12 modern
+
+/var/www/html/wordpress_4.8.3/wp-includes/js/tinymce/themes/inlite:
+total 84K
+drwxr-xr-x 2 root root 4.0K Oct 31 13:12 .
+drwxr-xr-x 4 root root 4.0K Oct 31 13:12 ..
+-rw-r--r-- 1 root root  55K May  8  2017 theme.js
+-rw-r--r-- 1 root root  17K May  8  2017 theme.min.js
+
+/var/www/html/wordpress_4.8.3/wp-includes/js/tinymce/themes/modern:
+total 68K
+drwxr-xr-x 2 root root 4.0K Oct 31 13:12 .
+drwxr-xr-x 4 root root 4.0K Oct 31 13:12 ..
+-rw-r--r-- 1 root root  44K May 25  2017 theme.js
+-rw-r--r-- 1 root root  15K May 25  2017 theme.min.js
+
+/var/www/html/wordpress_4.8.3/wp-includes/js/tinymce/utils:
+total 36K
+drwxr-xr-x 2 root root 4.0K Oct 31 13:12 .
+drwxr-xr-x 7 root root 4.0K Oct 31 13:12 ..
+-rw-r--r-- 1 root root 2.1K May  8  2017 editable_selects.js
+-rw-r--r-- 1 root root 6.0K May  8  2017 form_utils.js
+-rw-r--r-- 1 root root 4.1K May  8  2017 mctabs.js
+-rw-r--r-- 1 root root 6.4K May  8  2017 validate.js
+
+/var/www/html/wordpress_4.8.3/wp-includes/pomo:
+total 68K
+drwxr-xr-x  2 root root 4.0K Oct 31 13:12 .
+drwxr-xr-x 18 root root  12K Oct 31 13:12 ..
+-rw-r--r--  1 root root 2.9K Nov 20  2015 entry.php
+-rw-r--r--  1 root root 8.3K Oct 26  2016 mo.php
+-rw-r--r--  1 root root  14K Dec 13  2016 po.php
+-rw-r--r--  1 root root 5.9K Nov 20  2015 streams.php
+-rw-r--r--  1 root root 8.6K Oct 31  2016 translations.php
+
+/var/www/html/wordpress_4.8.3/wp-includes/random_compat:
+total 76K
+drwxr-xr-x  2 root root 4.0K Oct 31 13:12 .
+drwxr-xr-x 18 root root  12K Oct 31 13:12 ..
+-rw-r--r--  1 root root 5.6K Mar  8  2016 byte_safe_strings.php
+-rw-r--r--  1 root root 2.5K Mar  8  2016 cast_to_int.php
+-rw-r--r--  1 root root 1.5K Oct 23  2015 error_polyfill.php
+-rw-r--r--  1 root root 7.6K Mar  8  2016 random.php
+-rw-r--r--  1 root root 2.5K Mar  8  2016 random_bytes_com_dotnet.php
+-rw-r--r--  1 root root 4.5K Mar  8  2016 random_bytes_dev_urandom.php
+-rw-r--r--  1 root root 2.6K Mar  8  2016 random_bytes_libsodium.php
+-rw-r--r--  1 root root 2.6K Mar  8  2016 random_bytes_libsodium_legacy.php
+-rw-r--r--  1 root root 2.3K Mar  8  2016 random_bytes_mcrypt.php
+-rw-r--r--  1 root root 2.6K Mar  8  2016 random_bytes_openssl.php
+-rw-r--r--  1 root root 5.6K Mar  8  2016 random_int.php
+
+/var/www/html/wordpress_4.8.3/wp-includes/rest-api:
+total 100K
+drwxr-xr-x  4 root root 4.0K Oct 31 13:12 .
+drwxr-xr-x 18 root root  12K Oct 31 13:12 ..
+-rw-r--r--  1 root root  25K May 22  2017 class-wp-rest-request.php
+-rw-r--r--  1 root root 7.5K Jun 10  2016 class-wp-rest-response.php
+-rw-r--r--  1 root root  38K Jul 19  2017 class-wp-rest-server.php
+drwxr-xr-x  2 root root 4.0K Oct 31 13:12 endpoints
+drwxr-xr-x  2 root root 4.0K Oct 31 13:12 fields
+
+/var/www/html/wordpress_4.8.3/wp-includes/rest-api/endpoints:
+total 324K
+drwxr-xr-x 2 root root 4.0K Oct 31 13:12 .
+drwxr-xr-x 4 root root 4.0K Oct 31 13:12 ..
+-rw-r--r-- 1 root root  24K Jan  4  2017 class-wp-rest-attachments-controller.php
+-rw-r--r-- 1 root root  53K May 10  2017 class-wp-rest-comments-controller.php
+-rw-r--r-- 1 root root  18K Nov  8  2016 class-wp-rest-controller.php
+-rw-r--r-- 1 root root 9.1K Jan 26  2017 class-wp-rest-post-statuses-controller.php
+-rw-r--r-- 1 root root 8.9K Jan 26  2017 class-wp-rest-post-types-controller.php
+-rw-r--r-- 1 root root  71K May 10  2017 class-wp-rest-posts-controller.php
+-rw-r--r-- 1 root root  17K May 10  2017 class-wp-rest-revisions-controller.php
+-rw-r--r-- 1 root root 9.2K Dec 27  2016 class-wp-rest-settings-controller.php
+-rw-r--r-- 1 root root 9.9K Jan 26  2017 class-wp-rest-taxonomies-controller.php
+-rw-r--r-- 1 root root  30K May 10  2017 class-wp-rest-terms-controller.php
+-rw-r--r-- 1 root root  43K Apr  5  2017 class-wp-rest-users-controller.php
+
+/var/www/html/wordpress_4.8.3/wp-includes/rest-api/fields:
+total 40K
+drwxr-xr-x 2 root root 4.0K Oct 31 13:12 .
+drwxr-xr-x 4 root root 4.0K Oct 31 13:12 ..
+-rw-r--r-- 1 root root  743 Oct 30  2016 class-wp-rest-comment-meta-fields.php
+-rw-r--r-- 1 root root  14K Dec  2  2016 class-wp-rest-meta-fields.php
+-rw-r--r-- 1 root root 1.1K Oct 30  2016 class-wp-rest-post-meta-fields.php
+-rw-r--r-- 1 root root 1.1K Oct 30  2016 class-wp-rest-term-meta-fields.php
+-rw-r--r-- 1 root root  716 Oct 30  2016 class-wp-rest-user-meta-fields.php
+
+/var/www/html/wordpress_4.8.3/wp-includes/theme-compat:
+total 52K
+drwxr-xr-x  2 root root 4.0K Oct 31 13:12 .
+drwxr-xr-x 18 root root  12K Oct 31 13:12 ..
+-rw-r--r--  1 root root 2.1K Jul  6  2016 comments.php
+-rw-r--r--  1 root root  970 Mar 28  2016 embed-404.php
+-rw-r--r--  1 root root 3.2K Jul  6  2016 embed-content.php
+-rw-r--r--  1 root root  479 Mar 28  2016 embed.php
+-rw-r--r--  1 root root  438 May 25  2016 footer-embed.php
+-rw-r--r--  1 root root 1.1K Jul  6  2016 footer.php
+-rw-r--r--  1 root root  704 May 25  2016 header-embed.php
+-rw-r--r--  1 root root 1.9K Jul  6  2016 header.php
+-rw-r--r--  1 root root 4.0K Jul  6  2016 sidebar.php
+
+/var/www/html/wordpress_4.8.3/wp-includes/widgets:
+total 160K
+drwxr-xr-x  2 root root 4.0K Oct 31 13:12 .
+drwxr-xr-x 18 root root  12K Oct 31 13:12 ..
+-rw-r--r--  1 root root 5.3K Aug 26  2016 class-wp-nav-menu-widget.php
+-rw-r--r--  1 root root 5.1K May 19  2017 class-wp-widget-archives.php
+-rw-r--r--  1 root root 2.9K Mar 21  2016 class-wp-widget-calendar.php
+-rw-r--r--  1 root root 5.6K May 19  2017 class-wp-widget-categories.php
+-rw-r--r--  1 root root 6.9K May 22  2016 class-wp-widget-links.php
+-rw-r--r--  1 root root 6.0K May 25  2017 class-wp-widget-media-audio.php
+-rw-r--r--  1 root root  11K May 25  2017 class-wp-widget-media-image.php
+-rw-r--r--  1 root root 7.9K Jul 14  2017 class-wp-widget-media-video.php
+-rw-r--r--  1 root root  14K Jul 14  2017 class-wp-widget-media.php
+-rw-r--r--  1 root root 3.5K May 19  2017 class-wp-widget-meta.php
+-rw-r--r--  1 root root 4.7K May 19  2017 class-wp-widget-pages.php
+-rw-r--r--  1 root root 5.7K May 19  2017 class-wp-widget-recent-comments.php
+-rw-r--r--  1 root root 4.8K May 19  2017 class-wp-widget-recent-posts.php
+-rw-r--r--  1 root root 3.7K Mar 21  2016 class-wp-widget-rss.php
+-rw-r--r--  1 root root 2.6K Mar 21  2016 class-wp-widget-search.php
+-rw-r--r--  1 root root 5.5K May 22  2017 class-wp-widget-tag-cloud.php
+-rw-r--r--  1 root root  17K Sep 19  2017 class-wp-widget-text.php
+
+
+### INTERESTING FILES ####################################
+Useful file locations:
+/bin/nc
+/bin/netcat
+/usr/bin/wget
+
+
+Can we read/write sensitive files:
+-rw-r--r-- 1 root root 1370 Nov  6 05:23 /etc/passwd
+-rw-r--r-- 1 root root 670 Nov  6 05:23 /etc/group
+-rw-r--r-- 1 root root 575 Oct 22  2015 /etc/profile
+-rw-r----- 1 root shadow 829 Nov  6 05:23 /etc/shadow
+
+
+Can't search *.conf files as no keyword was entered
+
+Can't search *.log files as no keyword was entered
+
+Can't search *.ini files as no keyword was entered
+
+All *.conf files in /etc (recursive 1 level):
+-rw-r--r-- 1 root root 552 Mar 16  2016 /etc/pam.conf
+-rw-r--r-- 1 root root 703 May  6  2015 /etc/logrotate.conf
+-rw-r--r-- 1 root root 3028 Oct 27 03:53 /etc/adduser.conf
+-rw-r--r-- 1 root root 92 Oct 22  2015 /etc/host.conf
+-rw-r--r-- 1 root root 2969 Nov 10  2015 /etc/debconf.conf
+-rw-r--r-- 1 root root 34 Jan 27  2016 /etc/ld.so.conf
+-rw-r--r-- 1 root root 497 May  4  2014 /etc/nsswitch.conf
+-rw-r--r-- 1 root root 771 Mar  6  2015 /etc/insserv.conf
+-rw-r--r-- 1 root root 967 Oct 30  2015 /etc/mke2fs.conf
+-rw-r--r-- 1 root root 1260 Mar 16  2016 /etc/ucf.conf
+-rw-r--r-- 1 root root 6488 Nov  6 01:04 /etc/ca-certificates.conf
+-rw-r--r-- 1 root root 191 Jan 18  2016 /etc/libaudit.conf
+-rw-r--r-- 1 root root 2584 Feb 18  2016 /etc/gai.conf
+-rw-r--r-- 1 root root 2084 Sep  6  2015 /etc/sysctl.conf
+-rw-r--r-- 1 root root 1371 Jan 27  2016 /etc/rsyslog.conf
+-rw-r--r-- 1 root root 604 Jul  2  2015 /etc/deluser.conf
+
+
+Any interesting mail in /var/mail:
+total 8
+drwxrwsr-x  2 root mail 4096 Oct 27 03:53 .
+drwxr-xr-x 12 root root 4096 Nov  6 00:39 ..
+
+
+### SCAN COMPLETE ####################################
