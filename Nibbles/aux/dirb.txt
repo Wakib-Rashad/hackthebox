@@ -1,0 +1,29 @@
+# dirb http://10.10.10.75/nibbleblog -r /usr/share/seclists/Discovery/Web_Content/raft-large-files.txt
+
+-----------------
+DIRB v2.22
+By The Dark Raver
+-----------------
+
+START_TIME: Sun Apr  1 20:18:29 2018
+URL_BASE: http://10.10.10.75/nibbleblog/
+WORDLIST_FILES: /usr/share/dirb/wordlists/common.txt
+OPTION: Not Recursive
+
+-----------------
+
+GENERATED WORDS: 4612
+
+---- Scanning URL: http://10.10.10.75/nibbleblog/ ----
+==> DIRECTORY: http://10.10.10.75/nibbleblog/admin/
++ http://10.10.10.75/nibbleblog/admin.php (CODE:200|SIZE:1401)
+==> DIRECTORY: http://10.10.10.75/nibbleblog/content/
++ http://10.10.10.75/nibbleblog/index.php (CODE:200|SIZE:3083)
+==> DIRECTORY: http://10.10.10.75/nibbleblog/languages/
+==> DIRECTORY: http://10.10.10.75/nibbleblog/plugins/
++ http://10.10.10.75/nibbleblog/README (CODE:200|SIZE:4628)
+==> DIRECTORY: http://10.10.10.75/nibbleblog/themes/
+
+-----------------
+END_TIME: Sun Apr  1 20:25:59 2018
+DOWNLOADED: 4612 - FOUND: 3
