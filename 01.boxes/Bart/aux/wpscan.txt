@@ -1,0 +1,89 @@
+# wpscan forum.bart.htb
+_______________________________________________________________
+        __          _______   _____
+        \ \        / /  __ \ / ____|
+         \ \  /\  / /| |__) | (___   ___  __ _ _ __ ®
+          \ \/  \/ / |  ___/ \___ \ / __|/ _` | '_ \
+           \  /\  /  | |     ____) | (__| (_| | | | |
+            \/  \/   |_|    |_____/ \___|\__,_|_| |_|
+
+        WordPress Security Scanner by the WPScan Team
+                       Version 2.9.3
+          Sponsored by Sucuri - https://sucuri.net
+   @_WPScan_, @ethicalhack3r, @erwan_lr, pvdl, @_FireFart_
+_______________________________________________________________
+
+[+] URL: http://forum.bart.htb/
+[+] Started: Wed Mar 28 02:47:55 2018
+
+[+] Interesting header: SERVER: Microsoft-IIS/10.0
+
+[+] WordPress version 4.8.2 (Released on 2017-09-19) identified from meta generator
+[!] 8 vulnerabilities identified from the version number
+
+[!] Title: WordPress 2.3-4.8.3 - Host Header Injection in Password Reset
+    Reference: https://wpvulndb.com/vulnerabilities/8807
+    Reference: https://exploitbox.io/vuln/WordPress-Exploit-4-7-Unauth-Password-Reset-0day-CVE-2017-8295.html
+    Reference: http://blog.dewhurstsecurity.com/2017/05/04/exploitbox-wordpress-security-advisories.html
+    Reference: https://core.trac.wordpress.org/ticket/25239
+    Reference: https://cve.mitre.org/cgi-bin/cvename.cgi?name=CVE-2017-8295
+
+[!] Title: WordPress <= 4.8.2 - $wpdb->prepare() Weakness
+    Reference: https://wpvulndb.com/vulnerabilities/8941
+    Reference: https://wordpress.org/news/2017/10/wordpress-4-8-3-security-release/
+    Reference: https://github.com/WordPress/WordPress/commit/a2693fd8602e3263b5925b9d799ddd577202167d
+    Reference: https://twitter.com/ircmaxell/status/923662170092638208
+    Reference: https://blog.ircmaxell.com/2017/10/disclosure-wordpress-wpdb-sql-injection-technical.html
+    Reference: https://cve.mitre.org/cgi-bin/cvename.cgi?name=CVE-2017-16510
+[i] Fixed in: 4.8.3
+
+[!] Title: WordPress 2.8.6-4.9 - Authenticated JavaScript File Upload
+    Reference: https://wpvulndb.com/vulnerabilities/8966
+    Reference: https://wordpress.org/news/2017/11/wordpress-4-9-1-security-and-maintenance-release/
+    Reference: https://github.com/WordPress/WordPress/commit/67d03a98c2cae5f41843c897f206adde299b0509
+    Reference: https://cve.mitre.org/cgi-bin/cvename.cgi?name=CVE-2017-17092
+[i] Fixed in: 4.8.4
+
+[!] Title: WordPress 1.5.0-4.9 - RSS and Atom Feed Escaping
+    Reference: https://wpvulndb.com/vulnerabilities/8967
+    Reference: https://wordpress.org/news/2017/11/wordpress-4-9-1-security-and-maintenance-release/
+    Reference: https://github.com/WordPress/WordPress/commit/f1de7e42df29395c3314bf85bff3d1f4f90541de
+    Reference: https://cve.mitre.org/cgi-bin/cvename.cgi?name=CVE-2017-17094
+[i] Fixed in: 4.8.4
+
+[!] Title: WordPress 4.3.0-4.9 - HTML Language Attribute Escaping
+    Reference: https://wpvulndb.com/vulnerabilities/8968
+    Reference: https://wordpress.org/news/2017/11/wordpress-4-9-1-security-and-maintenance-release/
+    Reference: https://github.com/WordPress/WordPress/commit/3713ac5ebc90fb2011e98dfd691420f43da6c09a
+    Reference: https://cve.mitre.org/cgi-bin/cvename.cgi?name=CVE-2017-17093
+[i] Fixed in: 4.8.4
+
+[!] Title: WordPress 3.7-4.9 - 'newbloguser' Key Weak Hashing
+    Reference: https://wpvulndb.com/vulnerabilities/8969
+    Reference: https://wordpress.org/news/2017/11/wordpress-4-9-1-security-and-maintenance-release/
+    Reference: https://github.com/WordPress/WordPress/commit/eaf1cfdc1fe0bdffabd8d879c591b864d833326c
+    Reference: https://cve.mitre.org/cgi-bin/cvename.cgi?name=CVE-2017-17091
+[i] Fixed in: 4.8.4
+
+[!] Title: WordPress 3.7-4.9.1 - MediaElement Cross-Site Scripting (XSS)
+    Reference: https://wpvulndb.com/vulnerabilities/9006
+    Reference: https://github.com/WordPress/WordPress/commit/3fe9cb61ee71fcfadb5e002399296fcc1198d850
+    Reference: https://wordpress.org/news/2018/01/wordpress-4-9-2-security-and-maintenance-release/
+    Reference: https://core.trac.wordpress.org/ticket/42720
+    Reference: https://cve.mitre.org/cgi-bin/cvename.cgi?name=CVE-2018-5776
+[i] Fixed in: 4.8.5
+
+[!] Title: WordPress <= 4.9.4 - Application Denial of Service (DoS) (unpatched)
+    Reference: https://wpvulndb.com/vulnerabilities/9021
+    Reference: https://baraktawily.blogspot.fr/2018/02/how-to-dos-29-of-world-wide-websites.html
+    Reference: https://github.com/quitten/doser.py
+    Reference: https://thehackernews.com/2018/02/wordpress-dos-exploit.html
+    Reference: https://cve.mitre.org/cgi-bin/cvename.cgi?name=CVE-2018-6389
+
+[+] Enumerating plugins from passive detection ...
+[+] No plugins found
+
+[+] Finished: Wed Mar 28 02:48:24 2018
+[+] Requests Done: 343
+[+] Memory used: 27.43 MB
+[+] Elapsed time: 00:00:29

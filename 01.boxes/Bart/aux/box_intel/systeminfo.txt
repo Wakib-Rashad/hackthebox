@@ -1,0 +1,43 @@
+C:\>systeminfo
+systeminfo
+
+Host Name:                 BART
+OS Name:                   Microsoft Windows 10 Pro
+OS Version:                10.0.15063 N/A Build 15063
+OS Manufacturer:           Microsoft Corporation
+OS Configuration:          Standalone Workstation
+OS Build Type:             Multiprocessor Free
+Registered Owner:          Windows User
+Registered Organization:
+Product ID:                00330-80110-20834-AA869
+Original Install Date:     24/09/2017, 19:35:51
+System Boot Time:          02/05/2018, 23:14:26
+System Manufacturer:       VMware, Inc.
+System Model:              VMware Virtual Platform
+System Type:               x64-based PC
+Processor(s):              2 Processor(s) Installed.
+                           [01]: Intel64 Family 6 Model 79 Stepping 1 GenuineIntel ~2100 Mhz
+                           [02]: Intel64 Family 6 Model 79 Stepping 1 GenuineIntel ~2100 Mhz
+BIOS Version:              Phoenix Technologies LTD 6.00, 05/04/2016
+Windows Directory:         C:\Windows
+System Directory:          C:\Windows\system32
+Boot Device:               \Device\HarddiskVolume1
+System Locale:             en-gb;English (United Kingdom)
+Input Locale:              en-gb;English (United Kingdom)
+Time Zone:                 (UTC+00:00) Dublin, Edinburgh, Lisbon, London
+Total Physical Memory:     2,047 MB
+Available Physical Memory: 783 MB
+Virtual Memory: Max Size:  3,519 MB
+Virtual Memory: Available: 1,630 MB
+Virtual Memory: In Use:    1,889 MB
+Page File Location(s):     C:\pagefile.sys
+Domain:                    WORKGROUP
+Logon Server:              N/A
+Hotfix(s):                 N/A
+Network Card(s):           1 NIC(s) Installed.
+                           [01]: Intel(R) 82574L Gigabit Network Connection
+                                 Connection Name: Ethernet0
+                                 DHCP Enabled:    No
+                                 IP address(es)
+                                 [01]: 10.10.10.81
+Hyper-V Requirements:      A hypervisor has been detected. Features required for Hyper-V will not be displayed.
