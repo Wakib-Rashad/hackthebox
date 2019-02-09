@@ -1,0 +1,80 @@
+# nmap -sT -sV -p- -Pn -n 10.10.10.107 -A -vv
+
+Starting Nmap 7.40 ( https://nmap.org ) at 2018-12-08 05:37 EST
+NSE: Loaded 143 scripts for scanning.
+NSE: Script Pre-scanning.
+NSE: Starting runlevel 1 (of 2) scan.
+Initiating NSE at 05:37
+Completed NSE at 05:37, 0.00s elapsed
+NSE: Starting runlevel 2 (of 2) scan.
+Initiating NSE at 05:37
+Completed NSE at 05:37, 0.00s elapsed
+Initiating Connect Scan at 05:37
+Scanning 10.10.10.107 [65535 ports]
+Discovered open port 445/tcp on 10.10.10.107
+Discovered open port 139/tcp on 10.10.10.107
+Discovered open port 22/tcp on 10.10.10.107
+Discovered open port 80/tcp on 10.10.10.107
+Discovered open port 389/tcp on 10.10.10.107
+Completed Connect Scan at 05:41, 221.05s elapsed (65535 total ports)
+Initiating Service scan at 05:41
+Scanning 5 services on 10.10.10.107
+Completed Service scan at 05:41, 13.74s elapsed (5 services on 1 host)
+NSE: Script scanning 10.10.10.107.
+NSE: Starting runlevel 1 (of 2) scan.
+Initiating NSE at 05:41
+Completed NSE at 05:41, 11.23s elapsed
+NSE: Starting runlevel 2 (of 2) scan.
+Initiating NSE at 05:41
+Completed NSE at 05:41, 0.01s elapsed
+Nmap scan report for 10.10.10.107
+Host is up, received user-set (0.078s latency).
+Scanned at 2018-12-08 05:37:23 EST for 246s
+Not shown: 65530 closed ports
+Reason: 65530 conn-refused
+PORT    STATE SERVICE     REASON  VERSION
+22/tcp  open  ssh         syn-ack OpenSSH 7.7 (protocol 2.0)
+| ssh-hostkey:
+|   2048 2e:19:e6:af:1b:a7:b0:e8:07:2a:2b:11:5d:7b:c6:04 (RSA)
+| ssh-rsa AAAAB3NzaC1yc2EAAAADAQABAAABAQDHywyAKYEXQgQXAMGwE+082NEp7gNATSW2pgC4ygGWqGe4lX+P95mVQ8hUjrXB72mJMwrbKcal/KuKEdBJKg2n6vVNq5FoKWJzNynbxpsyv7ew0HOB8CviIhnrPfIJVygeUN5tFMlKm1/QLRnobkRr1jHIaiCiOlmjiH4zq3PctusLu6Jqr+1HdurH6I0p1Bb+zIjRwQ9YdEv6Vg9LIUH+kAdlHSDYMOokhzFdopCaMbT4B0z4tB+Ja1uZCB0jkKwy4Bf2DPcnzpjgQ7SAgSjPIX+Y3D2w93qF5/06vPv4aUpSbkpR0nqAc7HrmzbZRnEn6bUzdj06TRHTcb/pJTDJ
+|   256 dd:0f:6a:2a:53:ee:19:50:d9:e5:e7:81:04:8d:91:b6 (ECDSA)
+|_ecdsa-sha2-nistp256 AAAAE2VjZHNhLXNoYTItbmlzdHAyNTYAAAAIbmlzdHAyNTYAAABBBFocRQOTyNqTGuIHbqHRnVrxpEIQbsw8jZtbCLdX5CIGDVbi3RkxMli9C2lYAES3gyqDLaqmWfHdaqZA4h07SlE=
+80/tcp  open  http        syn-ack OpenBSD httpd
+139/tcp open  netbios-ssn syn-ack Samba smbd 3.X - 4.X (workgroup: YPUFFY)
+389/tcp open  ldap        syn-ack (Anonymous bind OK)
+445/tcp open  netbios-ssn syn-ack Samba smbd 4.7.6 (workgroup: YPUFFY)
+Service Info: Host: YPUFFY
+
+Host script results:
+|_clock-skew: mean: -8m48s, deviation: 0s, median: -8m48s
+| p2p-conficker:
+|   Checking for Conficker.C or higher...
+|   Check 1 (port 29500/tcp): CLEAN (Couldn't connect)
+|   Check 2 (port 5576/tcp): CLEAN (Couldn't connect)
+|   Check 3 (port 56083/udp): CLEAN (Failed to receive data)
+|   Check 4 (port 33931/udp): CLEAN (Failed to receive data)
+|_  0/4 checks are positive: Host is CLEAN or ports are blocked
+| smb-os-discovery:
+|   OS: Windows 6.1 (Samba 4.7.6)
+|   Computer name: ypuffy
+|   NetBIOS computer name: YPUFFY\x00
+|   Domain name: hackthebox.htb
+|   FQDN: ypuffy.hackthebox.htb
+|_  System time: 2018-12-08T05:32:30-05:00
+| smb-security-mode:
+|   account_used: <blank>
+|   authentication_level: user
+|   challenge_response: supported
+|_  message_signing: disabled (dangerous, but default)
+|_smbv2-enabled: Server supports SMBv2 protocol
+
+NSE: Script Post-scanning.
+NSE: Starting runlevel 1 (of 2) scan.
+Initiating NSE at 05:41
+Completed NSE at 05:41, 0.00s elapsed
+NSE: Starting runlevel 2 (of 2) scan.
+Initiating NSE at 05:41
+Completed NSE at 05:41, 0.00s elapsed
+Read data files from: /usr/bin/../share/nmap
+Service detection performed. Please report any incorrect results at https://nmap.org/submit/ .
+Nmap done: 1 IP address (1 host up) scanned in 246.57 seconds
