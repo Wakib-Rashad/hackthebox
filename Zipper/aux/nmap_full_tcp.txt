@@ -1,0 +1,48 @@
+# sudo nmap -sV -Pn -n 10.10.10.108 -p- -v -sC -sT --open
+
+Starting Nmap 7.40 ( https://nmap.org ) at 2018-11-21 15:31 EST
+NSE: Loaded 143 scripts for scanning.
+NSE: Script Pre-scanning.
+Initiating NSE at 15:31
+Completed NSE at 15:31, 0.00s elapsed
+Initiating NSE at 15:31
+Completed NSE at 15:31, 0.00s elapsed
+Initiating Connect Scan at 15:31
+Scanning 10.10.10.108 [65535 ports]
+Discovered open port 80/tcp on 10.10.10.108
+Discovered open port 22/tcp on 10.10.10.108
+Discovered open port 10050/tcp on 10.10.10.108
+Completed Connect Scan at 15:31, 24.25s elapsed (65535 total ports)
+Initiating Service scan at 15:31
+Scanning 3 services on 10.10.10.108
+Completed Service scan at 15:31, 6.96s elapsed (3 services on 1 host)
+NSE: Script scanning 10.10.10.108.
+Initiating NSE at 15:31
+Completed NSE at 15:31, 5.17s elapsed
+Initiating NSE at 15:31
+Completed NSE at 15:31, 0.01s elapsed
+Nmap scan report for 10.10.10.108
+Host is up (0.071s latency).
+Not shown: 65531 closed ports, 1 filtered port
+Some closed ports may be reported as filtered due to --defeat-rst-ratelimit
+PORT      STATE SERVICE    VERSION
+22/tcp    open  ssh        OpenSSH 7.6p1 Ubuntu 4 (Ubuntu Linux; protocol 2.0)
+| ssh-hostkey:
+|   2048 59:20:a3:a0:98:f2:a7:14:1e:08:e0:9b:81:72:99:0e (RSA)
+|_  256 aa:fe:25:f8:21:24:7c:fc:b5:4b:5f:05:24:69:4c:76 (ECDSA)
+80/tcp    open  http       Apache httpd 2.4.29 ((Ubuntu))
+| http-methods:
+|_  Supported Methods: GET POST OPTIONS HEAD
+|_http-server-header: Apache/2.4.29 (Ubuntu)
+|_http-title: Apache2 Ubuntu Default Page: It works
+10050/tcp open  tcpwrapped
+Service Info: OS: Linux; CPE: cpe:/o:linux:linux_kernel
+
+NSE: Script Post-scanning.
+Initiating NSE at 15:31
+Completed NSE at 15:31, 0.00s elapsed
+Initiating NSE at 15:31
+Completed NSE at 15:31, 0.00s elapsed
+Read data files from: /usr/bin/../share/nmap
+Service detection performed. Please report any incorrect results at https://nmap.org/submit/ .
+Nmap done: 1 IP address (1 host up) scanned in 36.99 seconds

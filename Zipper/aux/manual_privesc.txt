@@ -1,0 +1,58 @@
+[zabbix_cmd]>>:  find / -perm -1000 -type d 2>/dev/null
+/sys/firmware
+/tmp
+/dev/shm
+/dev/mqueue
+/run/lock
+/proc/scsi
+/var/tmp
+/var/lib/php/sessions
+
+[zabbix_cmd]>>:  find / -perm -g=s -type f 2>/dev/null
+/sbin/unix_chkpwd
+/sbin/pam_extrausers_chkpwd
+/usr/bin/expiry
+/usr/bin/chage
+/usr/bin/wall
+
+[zabbix_cmd]>>:  find / -perm -u=s -type f 2>/dev/null
+/bin/umount
+/bin/su
+/bin/mount
+/bin/ping
+/usr/bin/passwd
+/usr/bin/chsh
+/usr/bin/chfn
+/usr/bin/newgrp
+/usr/bin/gpasswd
+
+[zabbix_cmd]>>:  find / -perm -g=s -o -perm -u=s -type f 2>/dev/null
+/bin/umount
+/bin/su
+/bin/mount
+/bin/ping
+/sbin/unix_chkpwd
+/sbin/pam_extrausers_chkpwd
+/var/local
+/var/mail
+/usr/bin/passwd
+/usr/bin/chsh
+/usr/bin/expiry
+/usr/bin/chfn
+/usr/bin/newgrp
+/usr/bin/gpasswd
+/usr/bin/chage
+/usr/bin/wall
+/usr/local/share/fonts
+
+[zabbix_cmd]>>:  find / -perm -g=s -o -perm -4000 ! -type l -maxdepth 3 -exec ls -ld {} \; 2>/dev/null
+-rwsr-xr-x 1 root root 26012 May 16  2018 /bin/umount
+-rwsr-xr-x 1 root root 43240 Jan 25  2018 /bin/su
+-rwsr-xr-x 1 root root 42400 May 16  2018 /bin/mount
+-rwsr-xr-x 1 root root 63988 Mar  9  2017 /bin/ping
+-rwsr-xr-x 1 root root 62024 Jan 25  2018 /usr/bin/passwd
+-rwsr-xr-x 1 root root 43684 Jan 25  2018 /usr/bin/chsh
+-rwsr-xr-x 1 root root 78788 Jan 25  2018 /usr/bin/chfn
+-rwsr-xr-x 1 root root 39016 Jan 25  2018 /usr/bin/newgrp
+-rwsr-xr-x 1 root root 78340 Jan 25  2018 /usr/bin/gpasswd
+

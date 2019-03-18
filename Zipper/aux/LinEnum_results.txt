@@ -1,0 +1,461 @@
+
+[00;31m#########################################################[00m
+[00;31m#[00m [00;33mLocal Linux Enumeration & Privilege Escalation Script[00m [00;31m#[00m
+[00;31m#########################################################[00m
+[00;33m# www.rebootuser.com[00m
+[00;33m# version 0.93[00m
+
+[-] Debug Info
+[00;33m[+] Thorough tests = Disabled (SUID/GUID checks will not be perfomed!)[00m
+
+
+[00;33mScan started at:
+Thu Nov 22 13:54:05 EST 2018
+[00m
+
+[00;33m### SYSTEM ##############################################[00m
+[00;31m[-] Kernel information:[00m
+Linux c34ab92d768e 4.15.0-33-generic #36-Ubuntu SMP Wed Aug 15 13:44:35 UTC 2018 i686 athlon i686 GNU/Linux
+
+
+[00;31m[-] Kernel information (continued):[00m
+Linux version 4.15.0-33-generic (buildd@lgw01-amd64-038) (gcc version 7.3.0 (Ubuntu 7.3.0-16ubuntu3)) #36-Ubuntu SMP Wed Aug 15 13:44:35 UTC 2018
+
+
+[00;31m[-] Specific release information:[00m
+DISTRIB_ID=Ubuntu
+DISTRIB_RELEASE=18.04
+DISTRIB_CODENAME=bionic
+DISTRIB_DESCRIPTION="Ubuntu 18.04.1 LTS"
+NAME="Ubuntu"
+VERSION="18.04.1 LTS (Bionic Beaver)"
+ID=ubuntu
+ID_LIKE=debian
+PRETTY_NAME="Ubuntu 18.04.1 LTS"
+VERSION_ID="18.04"
+HOME_URL="https://www.ubuntu.com/"
+SUPPORT_URL="https://help.ubuntu.com/"
+BUG_REPORT_URL="https://bugs.launchpad.net/ubuntu/"
+PRIVACY_POLICY_URL="https://www.ubuntu.com/legal/terms-and-policies/privacy-policy"
+VERSION_CODENAME=bionic
+UBUNTU_CODENAME=bionic
+
+
+[00;31m[-] Hostname:[00m
+c34ab92d768e
+
+
+[00;33m### USER/GROUP ##########################################[00m
+[00;31m[-] Current user/group info:[00m
+uid=103(zabbix) gid=104(zabbix) groups=104(zabbix)
+
+
+[00;31m[-] Users that have previously logged onto the system:[00m
+Username         Port     From             Latest
+
+
+[00;31m[-] Who else is logged on:[00m
+ 13:54:05 up 22:38,  0 users,  load average: 0.00, 0.00, 0.00
+USER     TTY      FROM             LOGIN@   IDLE   JCPU   PCPU WHAT
+
+
+[00;31m[-] Group memberships:[00m
+uid=0(root) gid=0(root) groups=0(root)
+uid=1(daemon) gid=1(daemon) groups=1(daemon)
+uid=2(bin) gid=2(bin) groups=2(bin)
+uid=3(sys) gid=3(sys) groups=3(sys)
+uid=4(sync) gid=65534(nogroup) groups=65534(nogroup)
+uid=5(games) gid=60(games) groups=60(games)
+uid=6(man) gid=12(man) groups=12(man)
+uid=7(lp) gid=7(lp) groups=7(lp)
+uid=8(mail) gid=8(mail) groups=8(mail)
+uid=9(news) gid=9(news) groups=9(news)
+uid=10(uucp) gid=10(uucp) groups=10(uucp)
+uid=13(proxy) gid=13(proxy) groups=13(proxy)
+uid=33(www-data) gid=33(www-data) groups=33(www-data)
+uid=34(backup) gid=34(backup) groups=34(backup)
+uid=38(list) gid=38(list) groups=38(list)
+uid=39(irc) gid=39(irc) groups=39(irc)
+uid=41(gnats) gid=41(gnats) groups=41(gnats)
+uid=65534(nobody) gid=65534(nogroup) groups=65534(nogroup)
+uid=100(_apt) gid=65534(nogroup) groups=65534(nogroup)
+uid=101(mysql) gid=101(mysql) groups=101(mysql)
+uid=102(Debian-snmp) gid=103(Debian-snmp) groups=103(Debian-snmp)
+uid=103(zabbix) gid=104(zabbix) groups=104(zabbix)
+
+
+[00;31m[-] Contents of /etc/passwd:[00m
+root:x:0:0:root:/root:/bin/bash
+daemon:x:1:1:daemon:/usr/sbin:/usr/sbin/nologin
+bin:x:2:2:bin:/bin:/usr/sbin/nologin
+sys:x:3:3:sys:/dev:/usr/sbin/nologin
+sync:x:4:65534:sync:/bin:/bin/sync
+games:x:5:60:games:/usr/games:/usr/sbin/nologin
+man:x:6:12:man:/var/cache/man:/usr/sbin/nologin
+lp:x:7:7:lp:/var/spool/lpd:/usr/sbin/nologin
+mail:x:8:8:mail:/var/mail:/usr/sbin/nologin
+news:x:9:9:news:/var/spool/news:/usr/sbin/nologin
+uucp:x:10:10:uucp:/var/spool/uucp:/usr/sbin/nologin
+proxy:x:13:13:proxy:/bin:/usr/sbin/nologin
+www-data:x:33:33:www-data:/var/www:/usr/sbin/nologin
+backup:x:34:34:backup:/var/backups:/usr/sbin/nologin
+list:x:38:38:Mailing List Manager:/var/list:/usr/sbin/nologin
+irc:x:39:39:ircd:/var/run/ircd:/usr/sbin/nologin
+gnats:x:41:41:Gnats Bug-Reporting System (admin):/var/lib/gnats:/usr/sbin/nologin
+nobody:x:65534:65534:nobody:/nonexistent:/usr/sbin/nologin
+_apt:x:100:65534::/nonexistent:/usr/sbin/nologin
+mysql:x:101:101:MySQL Server,,,:/nonexistent:/bin/false
+Debian-snmp:x:102:103::/var/lib/snmp:/bin/false
+zabbix:x:103:104::/var/lib/zabbix/:/usr/sbin/nologin
+
+
+[00;31m[-] Super user account(s):[00m
+root
+
+
+[00;31m[-] Are permissions on /home directories lax:[00m
+total 8.0K
+drwxr-xr-x 2 root root 4.0K Apr 24  2018 .
+drwxr-xr-x 1 root root 4.0K Nov 21 15:15 ..
+
+
+[00;33m### ENVIRONMENTAL #######################################[00m
+[00;31m[-] Environment information:[00m
+LC_ALL=
+LC_MEASUREMENT=
+LC_PAPER=
+LC_MONETARY=
+LANG=
+LC_NAME=
+LC_COLLATE=
+PWD=/
+LC_CTYPE=
+LC_ADDRESS=
+LC_NUMERIC=
+TERM=
+LC_MESSAGES=
+SHLVL=1
+LANGUAGE=
+LC_TELEPHONE=
+PATH=/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin:/usr/sbin:/sbin
+LC_IDENTIFICATION=
+LC_TIME=
+_=/usr/bin/env
+
+
+[00;31m[-] Path information:[00m
+/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin:/usr/sbin:/sbin
+
+
+[00;31m[-] Available shells:[00m
+# /etc/shells: valid login shells
+/bin/sh
+/bin/bash
+/bin/rbash
+/bin/dash
+
+
+[00;31m[-] Current umask value:[00m
+0002
+u=rwx,g=rwx,o=rx
+
+
+[00;31m[-] umask value as specified in /etc/login.defs:[00m
+UMASK		022
+
+
+[00;31m[-] Password and storage information:[00m
+PASS_MAX_DAYS	99999
+PASS_MIN_DAYS	0
+PASS_WARN_AGE	7
+ENCRYPT_METHOD SHA512
+
+
+[00;33m### JOBS/TASKS ##########################################[00m
+[00;31m[-] Cron jobs:[00m
+/etc/cron.d:
+total 12
+drwxr-xr-x 2 root root 4096 Sep  8 07:21 .
+drwxr-xr-x 1 root root 4096 Nov 21 15:15 ..
+-rw-r--r-- 1 root root  712 Jan 17  2018 php
+
+/etc/cron.daily:
+total 24
+drwxr-xr-x 1 root root 4096 Sep  8 07:22 .
+drwxr-xr-x 1 root root 4096 Nov 21 15:15 ..
+-rwxr-xr-x 1 root root  539 Jun 27 13:05 apache2
+-rwxr-xr-x 1 root root 1478 Apr 20  2018 apt-compat
+-rwxr-xr-x 1 root root 1176 Nov  2  2017 dpkg
+-rwxr-xr-x 1 root root  249 Jan 25  2018 passwd
+
+
+[00;33m### NETWORKING  ##########################################[00m
+[00;31m[-] Network and IP info:[00m
+eth0: flags=4163<UP,BROADCAST,RUNNING,MULTICAST>  mtu 1500
+        inet 172.17.0.2  netmask 255.255.0.0  broadcast 172.17.255.255
+        ether 02:42:ac:11:00:02  txqueuelen 0  (Ethernet)
+        RX packets 41376  bytes 5653608 (5.6 MB)
+        RX errors 0  dropped 0  overruns 0  frame 0
+        TX packets 33042  bytes 8631486 (8.6 MB)
+        TX errors 0  dropped 0 overruns 0  carrier 0  collisions 0
+
+lo: flags=73<UP,LOOPBACK,RUNNING>  mtu 65536
+        inet 127.0.0.1  netmask 255.0.0.0
+        loop  txqueuelen 1000  (Local Loopback)
+        RX packets 9518  bytes 594832 (594.8 KB)
+        RX errors 0  dropped 0  overruns 0  frame 0
+        TX packets 9518  bytes 594832 (594.8 KB)
+        TX errors 0  dropped 0 overruns 0  carrier 0  collisions 0
+
+
+[00;31m[-] ARP history:[00m
+? (172.17.0.1) at 02:42:99:74:e2:94 [ether] on eth0
+
+
+[00;31m[-] Nameserver(s):[00m
+nameserver 8.8.8.8
+nameserver 8.8.4.4
+
+
+[00;31m[-] Default route:[00m
+default         172.17.0.1      0.0.0.0         UG    0      0        0 eth0
+
+
+[00;31m[-] Listening TCP:[00m
+Active Internet connections (servers and established)
+Proto Recv-Q Send-Q Local Address           Foreign Address         State       PID/Program name    
+tcp        0      0 0.0.0.0:10051           0.0.0.0:*               LISTEN      -                   
+tcp        0      0 127.0.0.1:3306          0.0.0.0:*               LISTEN      -                   
+tcp        0      0 0.0.0.0:80              0.0.0.0:*               LISTEN      -                   
+tcp        0      0 127.0.0.1:10051         127.0.0.1:45132         ESTABLISHED 1169/sh             
+tcp        0      0 172.17.0.2:80           10.10.14.21:32870       ESTABLISHED -                   
+tcp        0      0 127.0.0.1:45132         127.0.0.1:10051         ESTABLISHED -                   
+tcp6       0      0 :::10051                :::*                    LISTEN      -                   
+
+
+[00;31m[-] Listening UDP:[00m
+Active Internet connections (servers and established)
+Proto Recv-Q Send-Q Local Address           Foreign Address         State       PID/Program name    
+
+
+[00;33m### SERVICES #############################################[00m
+[00;31m[-] Running processes:[00m
+USER       PID %CPU %MEM    VSZ   RSS TTY      STAT START   TIME COMMAND
+root         1  0.0  0.2   4052  2764 pts/0    Ss+  Nov21   0:00 /bin/bash
+mysql       45  0.0  0.1   2492  1540 ?        S    Nov21   0:00 /bin/sh /usr/bin/mysqld_safe
+mysql      399  0.1 22.9 647936 234948 ?       Sl   Nov21   1:51 /usr/sbin/mysqld --basedir=/usr --datadir=/var/lib/mysql --plugin-dir=/usr/lib/mysql/plugin --log-error=/var/log/mysql/error.log --pid-file=/var/run/mysqld/mysqld.pid --socket=/var/run/mysqld/mysqld.sock --port=3306 --log-syslog=1 --log-syslog-facility=daemon --log-syslog-tag=
+root       481  0.0  2.3 207328 23960 ?        Ss   Nov21   0:02 /usr/sbin/apache2 -k start
+www-data   486  0.0  2.7 209820 27644 ?        S    Nov21   0:03 /usr/sbin/apache2 -k start
+www-data   487  0.0  2.7 209864 28164 ?        S    Nov21   0:03 /usr/sbin/apache2 -k start
+www-data   488  0.0  2.7 209812 27896 ?        S    Nov21   0:03 /usr/sbin/apache2 -k start
+www-data   489  0.0  2.7 209824 27920 ?        S    Nov21   0:03 /usr/sbin/apache2 -k start
+www-data   490  0.0  2.7 209812 27840 ?        S    Nov21   0:03 /usr/sbin/apache2 -k start
+zabbix     503  0.0  0.8 102620  8772 ?        S    Nov21   0:00 /usr/sbin/zabbix_server
+www-data   504  0.0  2.7 209812 27972 ?        S    Nov21   0:03 /usr/sbin/apache2 -k start
+zabbix     506  0.0  0.3 102620  3876 ?        S    Nov21   0:03 /usr/sbin/zabbix_server: configuration syncer [synced configuration in 0.003819 sec, idle 60 sec]
+zabbix     507  0.0  0.3 102620  3880 ?        S    Nov21   0:02 /usr/sbin/zabbix_server: db watchdog [synced alerts config in 0.002326 sec, idle 60 sec]
+zabbix     508  0.0  0.8 105332  8788 ?        S    Nov21   0:03 /usr/sbin/zabbix_server: poller #1 [got 0 values in 0.000007 sec, idle 5 sec]
+zabbix     509  0.0  0.8 105332  8792 ?        S    Nov21   0:03 /usr/sbin/zabbix_server: poller #2 [got 0 values in 0.000008 sec, idle 5 sec]
+zabbix     510  0.0  0.8 105332  8788 ?        S    Nov21   0:03 /usr/sbin/zabbix_server: poller #3 [got 0 values in 0.000008 sec, idle 5 sec]
+zabbix     511  0.0  0.8 105332  8788 ?        S    Nov21   0:03 /usr/sbin/zabbix_server: poller #4 [got 0 values in 0.000007 sec, idle 5 sec]
+zabbix     512  0.0  0.8 105332  8792 ?        S    Nov21   0:03 /usr/sbin/zabbix_server: poller #5 [got 0 values in 0.000016 sec, idle 5 sec]
+zabbix     513  0.0  0.6 105324  6712 ?        S    Nov21   0:03 /usr/sbin/zabbix_server: unreachable poller #1 [got 0 values in 0.000008 sec, idle 5 sec]
+zabbix     514  0.0  0.7 102656  7844 ?        S    Nov21   0:00 /usr/sbin/zabbix_server: trapper #1 [processing data]
+zabbix     515  0.0  0.7 102656  7840 ?        S    Nov21   0:00 /usr/sbin/zabbix_server: trapper #2 [processed data in 0.000812 sec, waiting for connection]
+zabbix     516  0.0  0.7 102648  7672 ?        S    Nov21   0:00 /usr/sbin/zabbix_server: trapper #3 [processed data in 0.000007 sec, waiting for connection]
+zabbix     517  0.0  0.7 102648  7672 ?        S    Nov21   0:00 /usr/sbin/zabbix_server: trapper #4 [processed data in 0.000843 sec, waiting for connection]
+zabbix     518  0.0  0.7 102648  7616 ?        S    Nov21   0:00 /usr/sbin/zabbix_server: trapper #5 [processed data in 0.000008 sec, waiting for connection]
+zabbix     519  0.0  0.3 105176  3880 ?        S    Nov21   0:03 /usr/sbin/zabbix_server: icmp pinger #1 [got 0 values in 0.000005 sec, idle 5 sec]
+zabbix     520  0.0  0.3 102620  3868 ?        S    Nov21   0:02 /usr/sbin/zabbix_server: alerter [sent alerts: 0 success, 0 fail in 0.000812 sec, idle 30 sec]
+zabbix     523  0.0  0.4 102756  4816 ?        S    Nov21   0:02 /usr/sbin/zabbix_server: housekeeper [deleted 0 hist/trends, 0 items, 0 events, 0 sessions, 0 alarms, 0 audit items in 0.003161 sec, idle for 1 hour(s)]
+zabbix     524  0.0  0.5 102628  5564 ?        S    Nov21   0:03 /usr/sbin/zabbix_server: timer #1 [processed 1 triggers, 0 events in 0.000510 sec, 0 maintenances in 0.000000 sec, idle 30 sec]
+zabbix     525  0.0  0.3 102620  3928 ?        S    Nov21   0:05 /usr/sbin/zabbix_server: http poller #1 [got 0 values in 0.000728 sec, idle 5 sec]
+zabbix     526  0.0  0.6 102760  6768 ?        S    Nov21   0:02 /usr/sbin/zabbix_server: discoverer #1 [processed 0 rules in 0.001045 sec, idle 60 sec]
+zabbix     527  0.0  0.5 102628  5996 ?        S    Nov21   0:06 /usr/sbin/zabbix_server: history syncer #1 [synced 0 items in 0.000001 sec, idle 1 sec]
+zabbix     528  0.0  0.5 102628  5996 ?        S    Nov21   0:06 /usr/sbin/zabbix_server: history syncer #2 [synced 0 items in 0.000001 sec, idle 1 sec]
+zabbix     529  0.0  0.5 102628  5996 ?        S    Nov21   0:06 /usr/sbin/zabbix_server: history syncer #3 [synced 0 items in 0.000001 sec, idle 1 sec]
+zabbix     530  0.0  0.5 102628  5996 ?        S    Nov21   0:06 /usr/sbin/zabbix_server: history syncer #4 [synced 0 items in 0.000001 sec, idle 1 sec]
+zabbix     533  0.0  0.6 102620  6132 ?        S    Nov21   0:09 /usr/sbin/zabbix_server: escalator #1 [processed 0 escalations in 0.001223 sec, idle 3 sec]
+zabbix     534  0.0  0.6 102620  6132 ?        S    Nov21   0:02 /usr/sbin/zabbix_server: proxy poller #1 [exchanged data with 0 proxies in 0.000005 sec, idle 5 sec]
+zabbix     535  0.0  0.3 102620  3872 ?        S    Nov21   0:07 /usr/sbin/zabbix_server: self-monitoring [processed data in 0.000006 sec, idle 1 sec]
+www-data   563  0.0  2.7 209816 27676 ?        S    Nov21   0:03 /usr/sbin/apache2 -k start
+www-data   564  0.0  2.7 209860 27868 ?        S    Nov21   0:03 /usr/sbin/apache2 -k start
+www-data   565  0.0  2.1 207988 21836 ?        S    Nov21   0:02 /usr/sbin/apache2 -k start
+www-data   593  0.0  1.8 207820 19008 ?        S    Nov21   0:01 /usr/sbin/apache2 -k start
+zabbix    1169  0.0  0.0   2496   536 ?        S    13:54   0:00 sh -c bash /tmp/LinEnum.sh > /tmp/LinEnum_results.txt
+zabbix    1170  0.0  0.3   4576  3436 ?        S    13:54   0:00 bash /tmp/LinEnum.sh
+zabbix    1171  0.0  0.2   4576  2660 ?        S    13:54   0:00 bash /tmp/LinEnum.sh
+zabbix    1172  0.0  0.0   2404   612 ?        S    13:54   0:00 tee -a
+zabbix    1313  0.0  0.2   4576  2472 ?        S    13:54   0:00 bash /tmp/LinEnum.sh
+zabbix    1314  0.0  0.2   5460  2708 ?        R    13:54   0:00 ps aux
+
+
+[00;31m[-] Process binaries and associated permissions (from above list):[00m
+-rwxr-xr-x 1 root root  1235608 Apr  4  2018 /bin/bash
+lrwxrwxrwx 1 root root        4 Aug 21 17:13 /bin/sh -> dash
+-rwxr-xr-x 1 root root   659756 Jun 27 13:05 /usr/sbin/apache2
+-rwxr-xr-x 1 root root 24852868 Jul 27 10:28 /usr/sbin/mysqld
+-rwxr-xr-x 1 root root  1980636 Aug 27 04:20 /usr/sbin/zabbix_server
+
+
+[00;31m[-] /etc/init.d/ binary permissions:[00m
+total 44
+drwxr-xr-x 1 root root 4096 Sep  8 07:28 .
+drwxr-xr-x 1 root root 4096 Nov 21 15:15 ..
+-rwxr-xr-x 1 root root 2489 Jun 27 13:05 apache-htcacheclean
+-rwxr-xr-x 1 root root 8181 Jun 27 13:05 apache2
+-rwxr-xr-x 1 root root 3809 Feb 14  2018 hwclock.sh
+-rwxr-xr-x 1 root root 5607 Jan 12  2018 mysql
+-rwxr-xr-x 1 root root 1191 Jan 17  2018 procps
+-rwxr-xr-x 1 root root 2578 Feb 20  2018 snmpd
+-rwxr-xr-x 1 root root 1453 Oct  2  2017 zabbix-server
+
+
+[00;31m[-] /etc/init/ config file permissions:[00m
+total 12
+drwxr-xr-x 2 root root 4096 Sep  8 07:21 .
+drwxr-xr-x 1 root root 4096 Nov 21 15:15 ..
+-rw-r--r-- 1 root root 1757 Jan 12  2018 mysql.conf
+
+
+[00;31m[-] /lib/systemd/* config file permissions:[00m
+/lib/systemd/:
+total 4.0K
+drwxr-xr-x 1 root root 4.0K Sep  8 07:28 system
+
+/lib/systemd/system:
+total 72K
+drwxr-xr-x 2 root root 4.0K Sep  8 07:21 apache2.service.d
+-rw-r--r-- 1 root root  238 Jul  9 10:41 apt-daily-upgrade.service
+-rw-r--r-- 1 root root  184 Jul  9 10:41 apt-daily-upgrade.timer
+-rw-r--r-- 1 root root  326 Jul  9 10:41 apt-daily.service
+-rw-r--r-- 1 root root  156 Jul  9 10:41 apt-daily.timer
+-rw-r--r-- 1 root root  528 Jun 27 13:05 apache-htcacheclean.service
+-rw-r--r-- 1 root root  537 Jun 27 13:05 apache-htcacheclean@.service
+-rw-r--r-- 1 root root  346 Jun 27 13:05 apache2.service
+-rw-r--r-- 1 root root  418 Jun 27 13:05 apache2@.service
+-rw-r--r-- 1 root root   92 May 16  2018 fstrim.service
+-rw-r--r-- 1 root root  170 May 16  2018 fstrim.timer
+-rw-r--r-- 1 root root  173 Apr  9  2018 motd-news.service
+-rw-r--r-- 1 root root  175 Apr  9  2018 motd-news.timer
+-rw-r--r-- 1 root root  606 Feb 20  2018 snmpd.service
+-rw-r--r-- 1 root root  155 Jan 17  2018 phpsessionclean.service
+-rw-r--r-- 1 root root  144 Jan 17  2018 phpsessionclean.timer
+-rw-r--r-- 1 root root  462 Jan 15  2018 mysql.service
+-rw-r--r-- 1 root root  433 Oct  2  2017 zabbix-server.service
+
+/lib/systemd/system/apache2.service.d:
+total 4.0K
+-rw-r--r-- 1 root root 42 Jun 27 13:05 apache2-systemd.conf
+
+
+[00;33m### SOFTWARE #############################################[00m
+[00;31m[-] MYSQL version:[00m
+mysql  Ver 14.14 Distrib 5.7.23, for Linux (i686) using  EditLine wrapper
+
+
+[00;31m[-] Apache version:[00m
+Server version: Apache/2.4.29 (Ubuntu)
+Server built:   2018-06-27T17:05:04
+
+
+[00;31m[-] Apache user configuration:[00m
+APACHE_RUN_USER=www-data
+APACHE_RUN_GROUP=www-data
+
+
+[00;31m[-] Installed Apache modules:[00m
+Loaded Modules:
+ core_module (static)
+ so_module (static)
+ watchdog_module (static)
+ http_module (static)
+ log_config_module (static)
+ logio_module (static)
+ version_module (static)
+ unixd_module (static)
+ access_compat_module (shared)
+ alias_module (shared)
+ auth_basic_module (shared)
+ authn_core_module (shared)
+ authn_file_module (shared)
+ authz_core_module (shared)
+ authz_host_module (shared)
+ authz_user_module (shared)
+ autoindex_module (shared)
+ deflate_module (shared)
+ dir_module (shared)
+ env_module (shared)
+ filter_module (shared)
+ mime_module (shared)
+ mpm_prefork_module (shared)
+ negotiation_module (shared)
+ php7_module (shared)
+ reqtimeout_module (shared)
+ setenvif_module (shared)
+ status_module (shared)
+
+
+[00;33m### INTERESTING FILES ####################################[00m
+[00;31m[-] Useful file locations:[00m
+/bin/nc
+/bin/netcat
+/usr/bin/wget
+
+
+[00;31m[-] Can we read/write sensitive files:[00m
+-rw-r--r-- 1 root root 1083 Sep  8 07:28 /etc/passwd
+-rw-r--r-- 1 root root 508 Sep  8 07:28 /etc/group
+-rw-r--r-- 1 root root 581 Apr  9  2018 /etc/profile
+-rw-r----- 1 root shadow 589 Sep  8 07:28 /etc/shadow
+
+
+[-] Can't search *.conf files as no keyword was entered
+
+[-] Can't search *.php files as no keyword was entered
+
+[-] Can't search *.log files as no keyword was entered
+
+[-] Can't search *.ini files as no keyword was entered
+
+[00;31m[-] All *.conf files in /etc (recursive 1 level):[00m
+-rw-r--r-- 1 root root 2683 Jan 17  2018 /etc/sysctl.conf
+-rw-r--r-- 1 root root 92 Apr  9  2018 /etc/host.conf
+-rw-r--r-- 1 root root 2969 Feb 28  2018 /etc/debconf.conf
+-rw-r--r-- 1 root root 604 Aug 13  2017 /etc/deluser.conf
+-rw-r--r-- 1 root root 497 Oct  5  2016 /etc/nsswitch.conf
+-rw-r--r-- 1 root root 812 Mar 24  2018 /etc/mke2fs.conf
+-rw-r--r-- 1 root root 34 Jan 27  2016 /etc/ld.so.conf
+-rw-r--r-- 1 root root 3028 Aug 21 17:13 /etc/adduser.conf
+-rw-r--r-- 1 root root 191 Feb  7  2018 /etc/libaudit.conf
+-rw-r--r-- 1 root root 718 Nov 21 15:15 /etc/resolv.conf
+-rw-r--r-- 1 root root 2584 Feb  1  2018 /etc/gai.conf
+-rw-r--r-- 1 root root 552 Apr  4  2018 /etc/pam.conf
+-rw-r--r-- 1 root root 1260 Feb 25  2018 /etc/ucf.conf
+-rw-r--r-- 1 root root 5898 Sep  8 07:19 /etc/ca-certificates.conf
+-rw-r--r-- 1 root root 10368 Apr  5  2017 /etc/sensors3.conf
+
+
+[00;31m[-] Any interesting mail in /var/mail:[00m
+total 12
+drwxrwsr-x 2 root mail 4096 Aug 21 17:13 .
+drwxr-xr-x 1 root root 4096 Sep  8 07:21 ..
+
+
+[00;33m[+] Looks like we're in a Docker container:[00m
+12:cpuset:/docker/c34ab92d768ec56ea1b9f1d1e552db1ebb0bb765996fa5992741232e782b02e4
+11:freezer:/docker/c34ab92d768ec56ea1b9f1d1e552db1ebb0bb765996fa5992741232e782b02e4
+10:memory:/docker/c34ab92d768ec56ea1b9f1d1e552db1ebb0bb765996fa5992741232e782b02e4
+9:devices:/docker/c34ab92d768ec56ea1b9f1d1e552db1ebb0bb765996fa5992741232e782b02e4
+8:cpu,cpuacct:/docker/c34ab92d768ec56ea1b9f1d1e552db1ebb0bb765996fa5992741232e782b02e4
+7:blkio:/docker/c34ab92d768ec56ea1b9f1d1e552db1ebb0bb765996fa5992741232e782b02e4
+6:hugetlb:/docker/c34ab92d768ec56ea1b9f1d1e552db1ebb0bb765996fa5992741232e782b02e4
+5:perf_event:/docker/c34ab92d768ec56ea1b9f1d1e552db1ebb0bb765996fa5992741232e782b02e4
+4:pids:/docker/c34ab92d768ec56ea1b9f1d1e552db1ebb0bb765996fa5992741232e782b02e4
+2:net_cls,net_prio:/docker/c34ab92d768ec56ea1b9f1d1e552db1ebb0bb765996fa5992741232e782b02e4
+1:name=systemd:/docker/c34ab92d768ec56ea1b9f1d1e552db1ebb0bb765996fa5992741232e782b02e4
+0::/system.slice/docker.service
+-rwxr-xr-x 1 root root 0 Nov 21 15:15 /.dockerenv
+
+
+[00;33m### SCAN COMPLETE ####################################[00m
