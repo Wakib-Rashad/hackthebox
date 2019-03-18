@@ -1,0 +1,36 @@
+# gobuster -u http://10.10.10.105/ -w raft-large-files.txt -t 50 -a 'Mozilla/5.0'
+
+=====================================================
+Gobuster v2.0.1              OJ Reeves (@TheColonial)
+=====================================================
+[+] Mode         : dir
+[+] Url/Domain   : http://10.10.10.105/
+[+] Threads      : 50
+[+] Wordlist     : raft-large-files.txt
+[+] Status codes : 200,204,301,302,307,403
+[+] User Agent   : Mozilla/5.0
+[+] Timeout      : 10s
+=====================================================
+2018/12/03 15:18:19 Starting gobuster
+=====================================================
+/index.php (Status: 200)
+/.htaccess (Status: 403)
+/. (Status: 200)
+/.html (Status: 403)
+/.php (Status: 403)
+/dashboard.php (Status: 302)
+/.htpasswd (Status: 403)
+/.htm (Status: 403)
+/.htpasswds (Status: 403)
+/tickets.php (Status: 302)
+/.htgroup (Status: 403)
+/wp-forum.phps (Status: 403)
+/.htaccess.bak (Status: 403)
+/.htuser (Status: 403)
+/.htc (Status: 403)
+/.ht (Status: 403)
+/.htacess (Status: 403)
+/.htaccess.old (Status: 403)
+=====================================================
+2018/12/03 15:20:16 Finished
+=====================================================
