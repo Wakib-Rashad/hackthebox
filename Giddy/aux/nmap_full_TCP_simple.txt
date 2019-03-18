@@ -1,0 +1,28 @@
+# nmap -p- -sT -Pn -n 10.10.10.104 -T4 -v
+
+Starting Nmap 7.40 ( https://nmap.org ) at 2019-01-31 14:07 EST
+Initiating Connect Scan at 14:07
+Scanning 10.10.10.104 [65535 ports]
+Discovered open port 3389/tcp on 10.10.10.104
+Discovered open port 80/tcp on 10.10.10.104
+Discovered open port 443/tcp on 10.10.10.104
+Connect Scan Timing: About 5.37% done; ETC: 14:17 (0:09:07 remaining)
+Connect Scan Timing: About 20.79% done; ETC: 14:12 (0:03:52 remaining)
+Connect Scan Timing: About 31.36% done; ETC: 14:12 (0:03:19 remaining)
+Discovered open port 5985/tcp on 10.10.10.104
+Connect Scan Timing: About 49.69% done; ETC: 14:11 (0:02:03 remaining)
+Connect Scan Timing: About 70.28% done; ETC: 14:11 (0:01:04 remaining)
+Stats: 0:02:49 elapsed; 0 hosts completed (1 up), 1 undergoing Connect Scan
+Connect Scan Timing: About 77.74% done; ETC: 14:11 (0:00:48 remaining)
+Completed Connect Scan at 14:11, 220.09s elapsed (65535 total ports)
+Nmap scan report for 10.10.10.104
+Host is up (0.079s latency).
+Not shown: 65531 filtered ports
+PORT     STATE SERVICE
+80/tcp   open  http
+443/tcp  open  https
+3389/tcp open  ms-wbt-server
+5985/tcp open  wsman
+
+Read data files from: /usr/bin/../share/nmap
+Nmap done: 1 IP address (1 host up) scanned in 220.14 seconds

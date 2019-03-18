@@ -1,0 +1,27 @@
+# nmap -p3389 -sT -Pn -n 10.10.10.104 --script rdp-enum-encryption -v
+
+Starting Nmap 7.40 ( https://nmap.org ) at 2019-02-02 08:53 EST
+NSE: Loaded 1 scripts for scanning.
+NSE: Script Pre-scanning.
+Initiating NSE at 08:53
+Completed NSE at 08:53, 0.00s elapsed
+Initiating Connect Scan at 08:53
+Scanning 10.10.10.104 [1 port]
+Discovered open port 3389/tcp on 10.10.10.104
+Completed Connect Scan at 08:53, 0.08s elapsed (1 total ports)
+NSE: Script scanning 10.10.10.104.
+Initiating NSE at 08:53
+Completed NSE at 08:53, 0.68s elapsed
+Nmap scan report for 10.10.10.104
+Host is up (0.080s latency).
+PORT     STATE SERVICE
+3389/tcp open  ms-wbt-server
+| rdp-enum-encryption:
+|   Security layer
+|_    CredSSP: SUCCESS
+
+NSE: Script Post-scanning.
+Initiating NSE at 08:53
+Completed NSE at 08:53, 0.00s elapsed
+Read data files from: /usr/bin/../share/nmap
+Nmap done: 1 IP address (1 host up) scanned in 1.08 seconds

@@ -1,0 +1,79 @@
+# nmap -p80,443,3389,5985 -sT -A -Pn -n 10.10.10.104 -T4 -v
+
+Starting Nmap 7.40 ( https://nmap.org ) at 2019-01-31 14:20 EST
+NSE: Loaded 151 scripts for scanning.
+NSE: Script Pre-scanning.
+Initiating NSE at 14:20
+Completed NSE at 14:20, 0.00s elapsed
+Initiating NSE at 14:20
+Completed NSE at 14:20, 0.00s elapsed
+Initiating Connect Scan at 14:20
+Scanning 10.10.10.104 [4 ports]
+Discovered open port 3389/tcp on 10.10.10.104
+Discovered open port 5985/tcp on 10.10.10.104
+Discovered open port 80/tcp on 10.10.10.104
+Discovered open port 443/tcp on 10.10.10.104
+Completed Connect Scan at 14:20, 1.46s elapsed (4 total ports)
+Initiating Service scan at 14:20
+Scanning 4 services on 10.10.10.104
+Stats: 0:01:12 elapsed; 0 hosts completed (1 up), 1 undergoing Service Scan
+Service scan Timing: About 75.00% done; ETC: 14:22 (0:00:24 remaining)
+Completed Service scan at 14:21, 90.76s elapsed (4 services on 1 host)
+NSE: Script scanning 10.10.10.104.
+Initiating NSE at 14:21
+Completed NSE at 14:22, 12.40s elapsed
+Initiating NSE at 14:22
+Completed NSE at 14:22, 0.17s elapsed
+Nmap scan report for 10.10.10.104
+Host is up (0.076s latency).
+PORT     STATE SERVICE            VERSION
+80/tcp   open  http               Microsoft IIS httpd 10.0
+| http-methods:
+|   Supported Methods: OPTIONS TRACE GET HEAD POST
+|_  Potentially risky methods: TRACE
+|_http-server-header: Microsoft-IIS/10.0
+|_http-title: IIS Windows Server
+443/tcp  open  ssl/http           Microsoft IIS httpd 10.0
+| http-methods:
+|_  Supported Methods: GET HEAD OPTIONS
+|_http-server-header: Microsoft-IIS/10.0
+|_http-title: IIS Windows Server
+| ssl-cert: Subject: commonName=PowerShellWebAccessTestWebSite
+| Issuer: commonName=PowerShellWebAccessTestWebSite
+| Public Key type: rsa
+| Public Key bits: 1024
+| Signature Algorithm: sha1WithRSAEncryption
+| Not valid before: 2018-06-16T21:28:55
+| Not valid after:  2018-09-14T21:28:55
+| MD5:   78a7 4af5 3b09 c882 a149 f977 cf8f 1182
+|_SHA-1: 8adc 3379 878a f13f 0154 406a 3ead d345 6967 6a23
+|_ssl-date: 2019-01-31T19:11:06+00:00; -10m52s from scanner time.
+|_tls-alpn: ERROR: Script execution failed (use -d to debug)
+3389/tcp open  ssl/ms-wbt-server?
+| ssl-cert: Subject: commonName=Giddy
+| Issuer: commonName=Giddy
+| Public Key type: rsa
+| Public Key bits: 2048
+| Signature Algorithm: sha256WithRSAEncryption
+| Not valid before: 2019-01-30T18:06:14
+| Not valid after:  2019-08-01T18:06:14
+| MD5:   9fe3 7748 1434 64a4 e86b 83d9 c017 607d
+|_SHA-1: 3bdb 5c10 84ad f331 d611 2d93 d77e 16ce 4d0d b0c0
+|_ssl-date: 2019-01-31T19:11:06+00:00; -10m53s from scanner time.
+|_tls-alpn: ERROR: Script execution failed (use -d to debug)
+5985/tcp open  http               Microsoft HTTPAPI httpd 2.0 (SSDP/UPnP)
+|_http-server-header: Microsoft-HTTPAPI/2.0
+|_http-title: Not Found
+Service Info: OS: Windows; CPE: cpe:/o:microsoft:windows
+
+Host script results:
+|_clock-skew: mean: -10m52s, deviation: 0s, median: -10m53s
+
+NSE: Script Post-scanning.
+Initiating NSE at 14:22
+Completed NSE at 14:22, 0.00s elapsed
+Initiating NSE at 14:22
+Completed NSE at 14:22, 0.00s elapsed
+Read data files from: /usr/bin/../share/nmap
+Service detection performed. Please report any incorrect results at https://nmap.org/submit/ .
+Nmap done: 1 IP address (1 host up) scanned in 105.34 seconds
