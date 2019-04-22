@@ -1,0 +1,30 @@
+# proxychains nmap -Pn -n --top-ports 100 -sT 192.168.122.4 -v -T5 -sV --open 2>/dev/null
+ProxyChains-3.1 (http://proxychains.sf.net)
+
+Starting Nmap 7.40 ( https://nmap.org ) at 2019-01-28 16:12 EST
+NSE: Loaded 43 scripts for scanning.
+Initiating Connect Scan at 16:12
+Scanning 192.168.122.4 [100 ports]
+Discovered open port 80/tcp on 192.168.122.4
+Discovered open port 22/tcp on 192.168.122.4
+Completed Connect Scan at 16:12, 8.57s elapsed (100 total ports)
+Initiating Service scan at 16:12
+Scanning 2 services on 192.168.122.4
+Completed Service scan at 16:13, 6.28s elapsed (2 services on 1 host)
+NSE: Script scanning 192.168.122.4.
+Initiating NSE at 16:13
+Completed NSE at 16:13, 0.69s elapsed
+Initiating NSE at 16:13
+Completed NSE at 16:13, 0.00s elapsed
+Nmap scan report for 192.168.122.4
+Host is up (0.086s latency).
+Not shown: 98 closed ports
+Some closed ports may be reported as filtered due to --defeat-rst-ratelimit
+PORT   STATE SERVICE VERSION
+22/tcp open  ssh     OpenSSH 7.2p2 Ubuntu 4ubuntu2.4 (Ubuntu Linux; protocol 2.0)
+80/tcp open  http    Apache httpd 2.4.18 ((Ubuntu))
+Service Info: OS: Linux; CPE: cpe:/o:linux:linux_kernel
+
+Read data files from: /usr/bin/../share/nmap
+Service detection performed. Please report any incorrect results at https://nmap.org/submit/ .
+Nmap done: 1 IP address (1 host up) scanned in 15.95 seconds
