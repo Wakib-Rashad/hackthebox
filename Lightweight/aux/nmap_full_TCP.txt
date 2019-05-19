@@ -1,0 +1,74 @@
+# nmap -sS -A -p- -Pn -n 10.10.10.119 -v
+
+Starting Nmap 7.40 ( https://nmap.org ) at 2019-01-22 04:46 EST
+NSE: Loaded 143 scripts for scanning.
+NSE: Script Pre-scanning.
+Initiating NSE at 04:46
+Completed NSE at 04:46, 0.00s elapsed
+Initiating NSE at 04:46
+Completed NSE at 04:46, 0.00s elapsed
+Initiating SYN Stealth Scan at 04:46
+Scanning 10.10.10.119 [65535 ports]
+Discovered open port 80/tcp on 10.10.10.119
+Discovered open port 22/tcp on 10.10.10.119
+Discovered open port 389/tcp on 10.10.10.119
+Completed SYN Stealth Scan at 04:53, 377.64s elapsed (65535 total ports)
+Initiating Service scan at 04:53
+Scanning 3 services on 10.10.10.119
+Completed Service scan at 04:53, 11.25s elapsed (3 services on 1 host)
+Initiating OS detection (try #1) against 10.10.10.119
+Retrying OS detection (try #2) against 10.10.10.119
+adjust_timeouts2: packet supposedly had rtt of -136831 microseconds.  Ignoring time.
+adjust_timeouts2: packet supposedly had rtt of -136831 microseconds.  Ignoring time.
+Initiating Traceroute at 04:53
+Completed Traceroute at 04:53, 0.10s elapsed
+NSE: Script scanning 10.10.10.119.
+Initiating NSE at 04:53
+Completed NSE at 04:53, 1.96s elapsed
+Initiating NSE at 04:53
+Completed NSE at 04:53, 0.00s elapsed
+Nmap scan report for 10.10.10.119
+Host is up (0.068s latency).
+Not shown: 65532 filtered ports
+PORT    STATE SERVICE VERSION
+22/tcp  open  ssh     OpenSSH 7.4 (protocol 2.0)
+| ssh-hostkey:
+|   2048 19:97:59:9a:15:fd:d2:ac:bd:84:73:c4:29:e9:2b:73 (RSA)
+|_  256 88:58:a1:cf:38:cd:2e:15:1d:2c:7f:72:06:a3:57:67 (ECDSA)
+80/tcp  open  http    Apache httpd 2.4.6 ((CentOS) OpenSSL/1.0.2k-fips mod_fcgid/2.3.9 PHP/5.4.16)
+|_http-server-header: Apache/2.4.6 (CentOS) OpenSSL/1.0.2k-fips mod_fcgid/2.3.9 PHP/5.4.16
+|_http-title: Lightweight slider evaluation page - slendr
+389/tcp open  ldap    OpenLDAP 2.2.X - 2.3.X
+| ssl-cert: Subject: commonName=lightweight.htb
+| Subject Alternative Name: DNS:lightweight.htb, DNS:localhost, DNS:localhost.localdomain
+| Issuer: commonName=lightweight.htb
+| Public Key type: rsa
+| Public Key bits: 1024
+| Signature Algorithm: sha256WithRSAEncryption
+| Not valid before: 2018-06-09T13:32:51
+| Not valid after:  2019-06-09T13:32:51
+| MD5:   0e61 1374 e591 83bd fd4a ee1a f448 547c
+|_SHA-1: 8e10 be17 d435 e99d 3f93 9f40 c5d9 433c 47dd 532f
+|_ssl-date: TLS randomness does not represent time
+Warning: OSScan results may be unreliable because we could not find at least 1 open and 1 closed port
+Aggressive OS guesses: Linux 3.10 - 4.2 (91%), Linux 3.2 - 4.6 (91%), Crestron XPanel control system (89%), Linux 3.18 (88%), Linux 3.16 (88%), HP P2000 G3 NAS device (86%), ASUS RT-N56U WAP (Linux 3.4) (86%), Linux 3.1 (86%), Linux 3.2 (86%), AXIS 210A or 211 Network Camera (Linux 2.6.17) (86%)
+No exact OS matches for host (test conditions non-ideal).
+Uptime guess: 1.222 days (since Sun Jan 20 23:33:14 2019)
+Network Distance: 2 hops
+TCP Sequence Prediction: Difficulty=262 (Good luck!)
+IP ID Sequence Generation: All zeros
+
+TRACEROUTE (using port 80/tcp)
+HOP RTT      ADDRESS
+1   65.78 ms 10.10.14.1
+2   67.24 ms 10.10.10.119
+
+NSE: Script Post-scanning.
+Initiating NSE at 04:53
+Completed NSE at 04:53, 0.00s elapsed
+Initiating NSE at 04:53
+Completed NSE at 04:53, 0.00s elapsed
+Read data files from: /usr/bin/../share/nmap
+OS and Service detection performed. Please report any incorrect results at https://nmap.org/submit/ .
+Nmap done: 1 IP address (1 host up) scanned in 397.17 seconds
+           Raw packets sent: 196606 (8.655MB) | Rcvd: 443 (32.958KB)
