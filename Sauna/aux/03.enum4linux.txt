@@ -1,0 +1,58 @@
+# ./enum4linux.pl -U -o 10.10.10.175
+WARNING: polenum.py is not in your path.  Check that package is installed and your PATH is sane.
+Starting enum4linux v0.8.9 ( http://labs.portcullis.co.uk/application/enum4linux/ ) on Fri Feb 21 08:14:11 2020
+
+ ==========================
+|    Target Information    |
+ ==========================
+Target ........... 10.10.10.175
+RID Range ........ 500-550,1000-1050
+Username ......... ''
+Password ......... ''
+Known Usernames .. administrator, guest, krbtgt, domain admins, root, bin, none
+
+
+ ====================================================
+|    Enumerating Workgroup/Domain on 10.10.10.175    |
+ ====================================================
+[E] Can't find workgroup/domain
+
+
+ =====================================
+|    Session Check on 10.10.10.175    |
+ =====================================
+Use of uninitialized value $global_workgroup in concatenation (.) or string at ./enum4linux.pl line 437.
+[+] Server 10.10.10.175 allows sessions using username '', password ''
+Use of uninitialized value $global_workgroup in concatenation (.) or string at ./enum4linux.pl line 451.
+[+] Got domain/workgroup name:
+
+ ===========================================
+|    Getting domain SID for 10.10.10.175    |
+ ===========================================
+Use of uninitialized value $global_workgroup in concatenation (.) or string at ./enum4linux.pl line 359.
+Unable to initialize messaging context
+Domain Name: EGOTISTICALBANK
+Domain Sid: S-1-5-21-2966785786-3096785034-1186376766
+[+] Host is part of a domain (not a workgroup)
+
+ ======================================
+|    OS information on 10.10.10.175    |
+ ======================================
+Use of uninitialized value $global_workgroup in concatenation (.) or string at ./enum4linux.pl line 458.
+Use of uninitialized value $os_info in concatenation (.) or string at ./enum4linux.pl line 464.
+[+] Got OS info for 10.10.10.175 from smbclient:
+Use of uninitialized value $global_workgroup in concatenation (.) or string at ./enum4linux.pl line 467.
+[+] Got OS info for 10.10.10.175 from srvinfo:
+Unable to initialize messaging context
+Could not initialise srvsvc. Error was NT_STATUS_ACCESS_DENIED
+
+ =============================
+|    Users on 10.10.10.175    |
+ =============================
+Use of uninitialized value $global_workgroup in concatenation (.) or string at ./enum4linux.pl line 866.
+[E] Couldn't find users using querydispinfo: NT_STATUS_ACCESS_DENIED
+
+Use of uninitialized value $global_workgroup in concatenation (.) or string at ./enum4linux.pl line 883.
+[E] Couldn't find users using enumdomusers: NT_STATUS_ACCESS_DENIED
+enum4linux complete on Fri Feb 21 08:14:27 2020
+
