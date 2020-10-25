@@ -1,0 +1,140 @@
+# nmap -Pn -n -p- 10.10.10.182 -A -vv
+Starting Nmap 7.80 ( https://nmap.org ) at 2020-06-08 11:13 UTC
+NSE: Loaded 154 scripts for scanning.
+NSE: Script Pre-scanning.
+NSE: Starting runlevel 1 (of 3) scan.
+Initiating NSE at 11:13
+Completed NSE at 11:13, 0.00s elapsed
+NSE: Starting runlevel 2 (of 3) scan.
+Initiating NSE at 11:13
+Completed NSE at 11:13, 0.00s elapsed
+NSE: Starting runlevel 3 (of 3) scan.
+Initiating NSE at 11:13
+Completed NSE at 11:13, 0.00s elapsed
+Initiating SYN Stealth Scan at 11:13
+Scanning 10.10.10.182 [65535 ports]
+Discovered open port 445/tcp on 10.10.10.182
+Discovered open port 53/tcp on 10.10.10.182
+Discovered open port 139/tcp on 10.10.10.182
+Discovered open port 135/tcp on 10.10.10.182
+Discovered open port 49155/tcp on 10.10.10.182
+SYN Stealth Scan Timing: About 19.21% done; ETC: 11:16 (0:02:10 remaining)
+Discovered open port 49157/tcp on 10.10.10.182
+Discovered open port 49170/tcp on 10.10.10.182
+Stats: 0:00:46 elapsed; 0 hosts completed (1 up), 1 undergoing SYN Stealth Scan
+SYN Stealth Scan Timing: About 31.40% done; ETC: 11:15 (0:01:38 remaining)
+Discovered open port 636/tcp on 10.10.10.182
+Discovered open port 389/tcp on 10.10.10.182
+Discovered open port 5985/tcp on 10.10.10.182
+Discovered open port 49158/tcp on 10.10.10.182
+SYN Stealth Scan Timing: About 61.53% done; ETC: 11:15 (0:00:47 remaining)
+Discovered open port 3269/tcp on 10.10.10.182
+Discovered open port 3268/tcp on 10.10.10.182
+Discovered open port 88/tcp on 10.10.10.182
+Discovered open port 49154/tcp on 10.10.10.182
+Completed SYN Stealth Scan at 11:15, 107.23s elapsed (65535 total ports)
+Initiating Service scan at 11:15
+Scanning 15 services on 10.10.10.182
+Completed Service scan at 11:16, 54.58s elapsed (15 services on 1 host)
+Initiating OS detection (try #1) against 10.10.10.182
+Retrying OS detection (try #2) against 10.10.10.182
+Initiating Traceroute at 11:16
+Completed Traceroute at 11:16, 0.08s elapsed
+NSE: Script scanning 10.10.10.182.
+NSE: Starting runlevel 1 (of 3) scan.
+Initiating NSE at 11:16
+NSE Timing: About 99.95% done; ETC: 11:16 (0:00:00 remaining)
+Completed NSE at 11:16, 40.50s elapsed
+NSE: Starting runlevel 2 (of 3) scan.
+Initiating NSE at 11:16
+NSE Timing: About 95.83% done; ETC: 11:17 (0:00:01 remaining)
+NSE Timing: About 96.67% done; ETC: 11:17 (0:00:02 remaining)
+NSE Timing: About 97.50% done; ETC: 11:18 (0:00:02 remaining)
+Completed NSE at 11:18, 120.30s elapsed
+NSE: Starting runlevel 3 (of 3) scan.
+Initiating NSE at 11:18
+Completed NSE at 11:18, 0.00s elapsed
+Nmap scan report for 10.10.10.182
+Host is up, received user-set (0.061s latency).
+Scanned at 2020-06-08 11:13:28 UTC for 327s
+Not shown: 65520 filtered ports
+Reason: 65520 no-responses
+PORT      STATE SERVICE       REASON          VERSION
+53/tcp    open  domain        syn-ack ttl 126 Microsoft DNS 6.1.7601 (1DB15D39) (Windows Server 2008 R2 SP1)
+| dns-nsid:
+|_  bind.version: Microsoft DNS 6.1.7601 (1DB15D39)
+88/tcp    open  kerberos-sec  syn-ack ttl 126 Microsoft Windows Kerberos (server time: 2020-06-08 11:15:35Z)
+135/tcp   open  msrpc         syn-ack ttl 126 Microsoft Windows RPC
+139/tcp   open  netbios-ssn   syn-ack ttl 126 Microsoft Windows netbios-ssn
+389/tcp   open  ldap          syn-ack ttl 126 Microsoft Windows Active Directory LDAP (Domain: cascade.local, Site: Default-First-Site-Name)
+445/tcp   open  microsoft-ds? syn-ack ttl 126
+636/tcp   open  tcpwrapped    syn-ack ttl 126
+3268/tcp  open  ldap          syn-ack ttl 126 Microsoft Windows Active Directory LDAP (Domain: cascade.local, Site: Default-First-Site-Name)
+3269/tcp  open  tcpwrapped    syn-ack ttl 126
+5985/tcp  open  http          syn-ack ttl 126 Microsoft HTTPAPI httpd 2.0 (SSDP/UPnP)
+|_http-server-header: Microsoft-HTTPAPI/2.0
+|_http-title: Not Found
+49154/tcp open  msrpc         syn-ack ttl 126 Microsoft Windows RPC
+49155/tcp open  msrpc         syn-ack ttl 126 Microsoft Windows RPC
+49157/tcp open  ncacn_http    syn-ack ttl 126 Microsoft Windows RPC over HTTP 1.0
+49158/tcp open  msrpc         syn-ack ttl 126 Microsoft Windows RPC
+49170/tcp open  msrpc         syn-ack ttl 126 Microsoft Windows RPC
+Warning: OSScan results may be unreliable because we could not find at least 1 open and 1 closed port
+OS fingerprint not ideal because: Missing a closed TCP port so results incomplete
+Aggressive OS guesses: Microsoft Windows Server 2008 (90%), Microsoft Windows Server 2008 R2 (90%), Microsoft Windows Server 2008 R2 or Windows 8 (90%), Microsoft Windows Server 2008 R2 SP1 (90%), Microsoft Windows 7 SP1 (90%), Microsoft Windows 8.1 Update 1 (90%), Microsoft Windows 8.1 R1 (90%), Microsoft Windows Phone 7.5 or 8.0 (90%), Microsoft Windows 7 or Windows Server 2008 R2 (89%), Microsoft Windows Server 2008 or 2008 Beta 3 (89%)
+No exact OS matches for host (test conditions non-ideal).
+TCP/IP fingerprint:
+SCAN(V=7.80%E=4%D=6/8%OT=53%CT=%CU=%PV=Y%DS=3%DC=T%G=N%TM=5EDE1E9F%P=x86_64-alpine-linux-musl)
+SEQ(SP=102%GCD=1%ISR=10C%TI=I%TS=7)
+OPS(O1=M54DNW8ST11%O2=M54DNW8ST11%O3=M54DNW8NNT11%O4=M54DNW8ST11%O5=M54DNW8ST11%O6=M54DST11)
+WIN(W1=2000%W2=2000%W3=2000%W4=2000%W5=2000%W6=2000)
+ECN(R=Y%DF=Y%TG=80%W=2000%O=M54DNW8NNS%CC=N%Q=)
+T1(R=Y%DF=Y%TG=80%S=O%A=S+%F=AS%RD=0%Q=)
+T2(R=N)
+T3(R=N)
+T4(R=N)
+U1(R=N)
+IE(R=N)
+
+Uptime guess: 0.176 days (since Mon Jun  8 07:04:56 2020)
+Network Distance: 3 hops
+TCP Sequence Prediction: Difficulty=258 (Good luck!)
+IP ID Sequence Generation: Incremental
+Service Info: Host: CASC-DC1; OS: Windows; CPE: cpe:/o:microsoft:windows_server_2008:r2:sp1, cpe:/o:microsoft:windows
+
+Host script results:
+|_clock-skew: 12s
+| p2p-conficker:
+|   Checking for Conficker.C or higher...
+|   Check 1 (port 56996/tcp): CLEAN (Timeout)
+|   Check 2 (port 51409/tcp): CLEAN (Timeout)
+|   Check 3 (port 10882/udp): CLEAN (Timeout)
+|   Check 4 (port 64768/udp): CLEAN (Timeout)
+|_  0/4 checks are positive: Host is CLEAN or ports are blocked
+| smb2-security-mode:
+|   2.02:
+|_    Message signing enabled and required
+| smb2-time:
+|   date: 2020-06-08T11:16:30
+|_  start_date: 2020-06-08T07:05:46
+
+TRACEROUTE (using port 445/tcp)
+HOP RTT      ADDRESS
+1   2.02 ms  172.17.0.1
+2   60.89 ms 10.10.14.1
+3   66.18 ms 10.10.10.182
+
+NSE: Script Post-scanning.
+NSE: Starting runlevel 1 (of 3) scan.
+Initiating NSE at 11:18
+Completed NSE at 11:18, 0.00s elapsed
+NSE: Starting runlevel 2 (of 3) scan.
+Initiating NSE at 11:18
+Completed NSE at 11:18, 0.00s elapsed
+NSE: Starting runlevel 3 (of 3) scan.
+Initiating NSE at 11:18
+Completed NSE at 11:18, 0.00s elapsed
+Read data files from: /usr/bin/../share/nmap
+OS and Service detection performed. Please report any incorrect results at https://nmap.org/submit/ .
+Nmap done: 1 IP address (1 host up) scanned in 328.74 seconds
+           Raw packets sent: 131222 (5.778MB) | Rcvd: 122 (5.924KB)

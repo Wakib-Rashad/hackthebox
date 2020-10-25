@@ -1,0 +1,100 @@
+# nullinux 10.10.10.182
+
+    Starting nullinux v5.4.1 | 06-08-2020 14:22
+
+
+
+[*] Enumerating Shares for: 10.10.10.182
+        Shares                     Comments
+   -------------------------------------------
+
+[-] No Shares Detected
+
+[*] Enumerating Domain Information for: 10.10.10.182
+[+] Domain Name: CASCADE
+[+] Domain SID: S-1-5-21-3332504370-1206983947-1165150453
+
+[*] Enumerating querydispinfo for: 10.10.10.182
+    a.turnbull
+    arksvc
+    b.hanson
+    BackupSvc
+    CascGuest
+    d.burman
+    e.crowe
+    i.croft
+    j.allen
+    j.goodhand
+    j.wakefield
+    r.thompson
+    s.hickson
+    s.smith
+    util
+
+[*] Enumerating enumdomusers for: 10.10.10.182
+    CascGuest
+    arksvc
+    s.smith
+    r.thompson
+    util
+    j.wakefield
+    s.hickson
+    j.goodhand
+    a.turnbull
+    e.crowe
+    b.hanson
+    d.burman
+    BackupSvc
+    j.allen
+    i.croft
+
+[*] Enumerating LSA for: 10.10.10.182
+
+[*] Performing RID Cycling for: 10.10.10.182
+    CascGuest
+    krbtgt
+    administrator
+    Domain Admins                       (Network/LocalGroup)
+    Domain Users                        (Network/LocalGroup)
+    Domain Guests                       (Network/LocalGroup)
+    Domain Computers                    (Network/LocalGroup)
+    Domain Controllers                  (Network/LocalGroup)
+    Schema Admins                       (Network/LocalGroup)
+    Enterprise Admins                   (Network/LocalGroup)
+    Cert Publishers                     (Network/LocalGroup)
+    Group Policy Creator Owners         (Network/LocalGroup)
+    Read-only Domain Controllers        (Network/LocalGroup)
+
+[*] Testing 10.10.10.182 for Known Users
+    Administrator
+    Guest
+    krbtgt
+
+[*] Enumerating Group Memberships for: 10.10.10.182
+[+] Group: Enterprise Read-only Domain Controllers
+[+] Group: Domain Users
+    administrator
+    krbtgt
+    arksvc
+    s.smith
+    r.thompson
+    util
+    j.wakefield
+    s.hickson
+    j.goodhand
+    a.turnbull
+    e.crowe
+    b.hanson
+    d.burman
+    BackupSvc
+    j.allen
+    i.croft
+[+] Group: Domain Guests
+    CascGuest
+[+] Group: Domain Computers
+[+] Group: Group Policy Creator Owners
+    administrator
+[+] Group: DnsUpdateProxy
+
+[*] 17 unique user(s) identified
+[+] Writing users to file: ./nullinux_users.txt
